@@ -9,12 +9,14 @@ base_dir=$(cd $(dirname $0); pwd)
 HIDDEN_SPACE_FLG='true'
 NERDFONTS_FLG='false'
 DEBUG_FLG='false'
-while getopts dhn OPT
+PROGRESS_FLG='flase'
+while getopts dsnp OPT
 do
   case $OPT in
     'd' ) DEBUG_FLG='true';;
     's' ) HIDDEN_SPACE_FLG='false';;
     'n' ) NERDFONTS_FLG='true';;
+    'p' ) PROGRESS_FLG='true';;
   esac
 done
 
@@ -1222,7 +1224,7 @@ i = 0
 end_plexmono = $end_plexmono
 plexmono_exist_glyph_array = Array(end_plexmono)
 while (i < end_plexmono)
-  if (i % 5000 == 0)
+  if (i % 5000 == 0 && "$PROGRESS_FLG" == 'true')
     Print("Processing progress: " + i)
   endif
   if (WorthOutputting(i))
@@ -1244,7 +1246,7 @@ width1000_array = Array(10000)
 Print("Half width check loop start")
 Open(input_list[0])
 while (i < end_plexkr)
-      if ( i % 10000 == 0 )
+      if ( i % 10000 == 0 && "$PROGRESS_FLG" == 'true' )
         Print("Processing progress: " + i)
       endif
       if (WorthOutputting(i) && (i > end_plexmono || plexmono_exist_glyph_array[i] == 0))
@@ -1292,7 +1294,7 @@ while (i < SizeOf(input_list))
   Print("Remove IBMPlexMono Glyphs start")
   ii = 0
   while ( ii < end_plexmono )
-      if ( ii % 5000 == 0 )
+      if ( ii % 5000 == 0  && "$PROGRESS_FLG" == 'true' )
         Print("Processing progress: " + ii)
       endif
       if (WorthOutputting(ii) && plexmono_exist_glyph_array[ii] == 1)
@@ -1612,7 +1614,7 @@ i = 0
 end_plexmono = $end_plexmono
 plexmono_exist_glyph_array = Array(end_plexmono)
 while (i < end_plexmono)
-  if (i % 5000 == 0)
+  if (i % 5000 == 0 && "$PROGRESS_FLG" == 'true')
     Print("Processing progress: " + i)
   endif
   if (WorthOutputting(i))
@@ -1634,7 +1636,7 @@ width1000_array = Array(10000)
 Print("Half width check loop start")
 Open(input_list[0])
 while (i < end_plexkr)
-      if ( i % 10000 == 0 )
+      if ( i % 10000 == 0 && "$PROGRESS_FLG" == 'true' )
         Print("Processing progress: " + i)
       endif
       if (WorthOutputting(i) && (i > end_plexmono || plexmono_exist_glyph_array[i] == 0))
@@ -1682,7 +1684,7 @@ while (i < SizeOf(input_list))
   Print("Remove IBMPlexMono Glyphs start")
   ii = 0
   while ( ii < end_plexmono )
-      if ( ii % 5000 == 0 )
+      if ( ii % 5000 == 0  && "$PROGRESS_FLG" == 'true')
         Print("Processing progress: " + ii)
       endif
       if (WorthOutputting(ii) && plexmono_exist_glyph_array[ii] == 1)
@@ -1941,7 +1943,7 @@ i = 0
 end_plexmono = $end_plexmono
 plexmono_exist_glyph_array = Array(end_plexmono)
 while (i < end_plexmono)
-  if (i % 5000 == 0)
+  if (i % 5000 == 0 && "$PROGRESS_FLG" == 'true')
     Print("Processing progress: " + i)
   endif
   if (WorthOutputting(i))
@@ -1965,7 +1967,7 @@ while (i < SizeOf(input_list))
   Print("Begin delete the glyphs contained in IBMPlexMono")
   SelectNone()
   while ( ii < end_plexkr )
-      if ( ii % 5000 == 0 )
+      if ( ii % 5000 == 0 && "$PROGRESS_FLG" == 'true' )
         Print("Processing progress: " + ii)
       endif
       if (WorthOutputting(ii) && plexmono_exist_glyph_array[ii] == 1)
@@ -2063,7 +2065,7 @@ i = 0
 end_plexmono = $end_plexmono
 plexmono_exist_glyph_array = Array(end_plexmono)
 while (i < end_plexmono)
-  if (i % 5000 == 0)
+  if (i % 5000 == 0 && "$PROGRESS_FLG" == 'true')
     Print("Processing progress: " + i)
   endif
   if (WorthOutputting(i))
@@ -2087,7 +2089,7 @@ while (i < SizeOf(input_list))
   Print("Begin delete the glyphs contained in IBMPlexMono")
   SelectNone()
   while ( ii < end_plexkr )
-      if ( ii % 5000 == 0 )
+      if ( ii % 5000 == 0 && "$PROGRESS_FLG" == 'true' )
         Print("Processing progress: " + ii)
       endif
       if (WorthOutputting(ii) && plexmono_exist_glyph_array[ii] == 1)
