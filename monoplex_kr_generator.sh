@@ -1495,7 +1495,7 @@ Quit()
 _EOT_
 
 ########################################
-# Generate script for modified IBMPlexSansKR for Plemolkr_wide
+# Generate script for modified IBMPlexSansKR for Monoplex KR Wide
 ########################################
 
 cat > ${tmpdir}/${modified_plexkr_wide_generator} << _EOT_
@@ -2013,7 +2013,7 @@ Quit()
 _EOT_
 
 ########################################
-# Generate script for modified IBMPlexSansKR Console for Plemolkr_wide
+# Generate script for modified IBMPlexSansKR Console for Monoplex KR Wide
 ########################################
 
 cat > ${tmpdir}/${modified_plexkr_wide_console_generator} << _EOT_
@@ -2581,7 +2581,7 @@ Quit()
 _EOT_
 
 ########################################
-# Generate script for Plemolkr_wide
+# Generate script for Monoplex KR Wide
 ########################################
 
 cat > ${tmpdir}/${monoplex_kr_wide_generator} << _EOT_
@@ -2805,7 +2805,7 @@ Quit()
 _EOT_
 
 ########################################
-# Generate script for Plemolkr_wide Console
+# Generate script for Monoplex KR Wide Console
 ########################################
 
 cat > ${tmpdir}/${monoplex_kr_wide_console_generator} << _EOT_
@@ -3100,7 +3100,7 @@ do
   do
     ttfautohint -l 6 -r 45 -a nnn -D latn -W -X "15-" -I "$f" "hinted_${f}"
   done
-  # Plemolkr_wide
+  # Monoplex KR Wide
   for f in "$monoplex_kr_wide_filename" "$monoplex_kr_wide_console_filename"
   do
     m_opt=''
@@ -3216,7 +3216,7 @@ do
     pyftmerge merged.ttf "$marge_plexkr_console_regular"
     mv merged.ttf "${monoplex_kr_console_filename}"
 
-    # Plemolkr_wide Console NF
+    # Monoplex KR Wide Console NF
     echo "pyftmerge: ${monoplex_kr_wide_console_filename}"
     pyftmerge "hinted_${monoplex_kr_wide_console_filename}" "$nerdfonts35"
     pyftmerge merged.ttf "$marge_plexkr_wide_console_regular"
@@ -3235,12 +3235,12 @@ do
   pyftmerge "hinted_${monoplex_kr_console_filename}" "$marge_plexkr_console_regular"
   mv merged.ttf "${monoplex_kr_console_filename}"
 
-  # Plemolkr_wide
+  # Monoplex KR Wide
   echo "pyftmerge: ${monoplex_kr_wide_filename}"
   pyftmerge "hinted_${monoplex_kr_wide_filename}" "$marge_plexkr_wide_regular"
   mv merged.ttf "${monoplex_kr_wide_filename}"
 
-  # Plemolkr_wide Console
+  # Monoplex KR Wide Console
   echo "pyftmerge: ${monoplex_kr_wide_console_filename}"
   pyftmerge "hinted_${monoplex_kr_wide_console_filename}" "$marge_plexkr_wide_console_regular"
   mv merged.ttf "${monoplex_kr_wide_console_filename}"

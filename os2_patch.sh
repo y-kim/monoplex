@@ -4,10 +4,10 @@ BASE_DIR=$(cd $(dirname $0); pwd)
 PREFIX="$1"
 
 xAvgCharWidth_SETVAL=528
-FIRGE_PATTERN=${PREFIX}'PlemolKR[^3]*.ttf'
+FIRGE_PATTERN=${PREFIX}'MonoplexKR[^3]*.ttf'
 
 xAvgCharWidth35_SETVAL=1000
-FIRGE35_PATTERN=${PREFIX}'PlemolKR35*.ttf'
+FIRGE35_PATTERN=${PREFIX}'MonoplexKRWide*.ttf'
 
 for P in ${BASE_DIR}/${FIRGE_PATTERN}; do
   ttx -t OS/2 -t post "$P"
