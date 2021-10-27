@@ -469,21 +469,11 @@ set_half_left_fewer="
   SelectFewer(65380)
   SelectFewer(65438)
   SelectFewer(65439)
-  SelectFewer(1114333)
-  SelectFewer(1114335)
-  SelectFewer(1114337)
-  SelectFewer(1114339)
-  SelectFewer(1114341)
 "
 
 # IBM Plex Sans KR 等幅化対策 (半角右寄せ対象をセンタリングから除外する)
 set_half_right_fewer="
   SelectFewer(65378)
-  SelectFewer(1114332)
-  SelectFewer(1114334)
-  SelectFewer(1114336)
-  SelectFewer(1114338)
-  SelectFewer(1114340)
 "
 
 # IBM Plex Sans KR 等幅化対策 (全角化しつつ右寄せをセンタリングから除外する)
@@ -1356,7 +1346,7 @@ while (i < SizeOf(input_list))
   SetWidth($monoplex_kr_full_width)
   CenterInWidth()
   # IBM Plex Sans KR 等幅化対策 (半角左寄せ)
-  half_left_list = [65377, 65379, 65380, 65438, 65439, 1114333, 1114335, 1114337, 1114339, 1114341]
+  half_left_list = [65377, 65379, 65380, 65438, 65439]
   ii = 0
   while (ii < SizeOf(half_left_list))
     Select(half_left_list[ii])
@@ -1378,7 +1368,7 @@ while (i < SizeOf(input_list))
     ii = ii + 1
   endloop
   # IBM Plex Sans KR 等幅化対策 (半角右寄せ)
-  full_right_list = [65378, 1114332, 1114334, 1114336, 1114338, 1114340]
+  full_right_list = [65378]
   ii = 0
   while (ii < SizeOf(full_right_list))
     Select(full_right_list[ii])
@@ -1744,7 +1734,7 @@ while (i < SizeOf(input_list))
   SetWidth($monoplex_kr_wide_full_width)
   CenterInWidth()
   # IBM Plex Sans KR 等幅化対策 (半角左寄せ)
-  half_left_list = [65377, 65379, 65380, 65438, 65439, 1114333, 1114335, 1114337, 1114339, 1114341]
+  half_left_list = [65377, 65379, 65380, 65438, 65439]
   ii = 0
   while (ii < SizeOf(half_left_list))
     Select(half_left_list[ii])
@@ -1766,7 +1756,7 @@ while (i < SizeOf(input_list))
     ii = ii + 1
   endloop
   # IBM Plex Sans KR 等幅化対策 (半角右寄せ)
-  full_right_list = [65378, 1114332, 1114334, 1114336, 1114338, 1114340]
+  full_right_list = [65378]
   ii = 0
   while (ii < SizeOf(full_right_list))
     Select(full_right_list[ii])
