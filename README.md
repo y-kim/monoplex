@@ -6,21 +6,16 @@ Monoplex KR은 IBM Plex Mono에 IBM Plex Sans KR의 글자체를 더해서 만�
 
 `Monoplex KR`은 넓은폭문자와 좁은폭문자의 너비 비율이 2:1인 고정폭 글꼴입니다. 유니코드 기본 라틴판의 글자는 IBM Plex Mono의 글꼴을 사용하며, 한글을 비롯한 그 외의 글자는 IBM Plex Sans KR을 사용합니다.
 
-더불어 Monoplex KR은 아래의 일곱 가족과 친족을 이룹니다.
+더불어 Monoplex KR은 아래의 세 가족과 친족을 이룹니다.
 
 - `Monoplex KR Console`
-- `Monoplex KR Wide`
-- `Monoplex KR Wide Console`
-- `Monoplex KR NF`
 - `Monoplex KR Console NF`
-- `Monoplex KR Wide NF`
-- `Monoplex KR Wide Console NF`
 
 가족들 사이의 차이점은, 글꼴 이름에 더해진 키워드를 통해 확인할 수 있습니다.
 
-- `Wide`: 좁은폭문자의 너비가 조금 더 넓어 너비 비율이 5:3이 되는 글꼴입니다.
 - `Console`: IBM Plex Mono에 속한 글자를 우선하며, 이 글꼴에 없는 글자만 IBM Plex Sans KR에서 가져온 글꼴입니다.
 - `NF`: Powerline 기호, 매테리얼 디자인 등이 포함된 Nerd Font가 일체화된 글꼴입니다.
+- `Wide`: 좁은폭문자의 너비가 조금 더 넓어 너비 비율이 5:3이 되는 글꼴입니다. 현재 이 가족은 디버깅 중입니다.
 
 참고로 원형인 PlemolJP와는 달리 전각공백을 가시화하지 않습니다. 이는 한국어 환경에서 전각공백을 사용하는 일이 거의 없기 때문입니다.
 
