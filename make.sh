@@ -3,33 +3,22 @@
 BASE_DIR=$(cd $(dirname $0); pwd)
 
 function mvBuild() {
-  mkdir -p "${BASE_DIR}/build/PlemolJP"
-  mkdir -p "${BASE_DIR}/build/PlemolJPConsole"
-  mkdir -p "${BASE_DIR}/build/PlemolJP35"
-  mkdir -p "${BASE_DIR}/build/PlemolJP35Console"
-  mv -f "${BASE_DIR}/"PlemolJP35Console*.ttf "${BASE_DIR}/build/PlemolJP35Console/"
-  mv -f "${BASE_DIR}/"PlemolJP35*.ttf "${BASE_DIR}/build/PlemolJP35/"
-  mv -f "${BASE_DIR}/"PlemolJPConsole*.ttf "${BASE_DIR}/build/PlemolJPConsole/"
-  mv -f "${BASE_DIR}/"PlemolJP*.ttf "${BASE_DIR}/build/PlemolJP/"
-}
-
-function mvBuildHS() {
-  mkdir -p "${BASE_DIR}/build/PlemolJP_HS"
-  mkdir -p "${BASE_DIR}/build/PlemolJPConsole_HS"
-  mkdir -p "${BASE_DIR}/build/PlemolJP35_HS"
-  mkdir -p "${BASE_DIR}/build/PlemolJP35Console_HS"
-  mv -f "${BASE_DIR}/"PlemolJP35Console*.ttf "${BASE_DIR}/build/PlemolJP35Console_HS/"
-  mv -f "${BASE_DIR}/"PlemolJP35*.ttf "${BASE_DIR}/build/PlemolJP35_HS/"
-  mv -f "${BASE_DIR}/"PlemolJPConsole*.ttf "${BASE_DIR}/build/PlemolJPConsole_HS/"
-  mv -f "${BASE_DIR}/"PlemolJP*.ttf "${BASE_DIR}/build/PlemolJP_HS/"
+  mkdir -p "${BASE_DIR}/build/MonoplexKR"
+  mkdir -p "${BASE_DIR}/build/MonoplexKRConsole"
+  mkdir -p "${BASE_DIR}/build/MonoplexKRWide"
+  mkdir -p "${BASE_DIR}/build/MonoplexKRWideConsole"
+  mv -f "${BASE_DIR}/"MonoplexKRWideConsole*.ttf "${BASE_DIR}/build/MonoplexKRWideConsole/"
+  mv -f "${BASE_DIR}/"MonoplexKRWide*.ttf "${BASE_DIR}/build/MonoplexKRWide/"
+  mv -f "${BASE_DIR}/"MonoplexKRConsole*.ttf "${BASE_DIR}/build/MonoplexKRConsole/"
+  mv -f "${BASE_DIR}/"MonoplexKR*.ttf "${BASE_DIR}/build/MonoplexKR/"
 }
 
 function mvBuildNF() {
-  mkdir -p "${BASE_DIR}/build/PlemolJPConsole_NF"
-  mkdir -p "${BASE_DIR}/build/PlemolJP35Console_NF"
-  mv -f "${BASE_DIR}/"PlemolJP35Console*.ttf "${BASE_DIR}/build/PlemolJP35Console_NF/"
-  mv -f "${BASE_DIR}/"PlemolJPConsole*.ttf "${BASE_DIR}/build/PlemolJPConsole_NF/"
-  rm -f "${BASE_DIR}/"PlemolJP*.ttf
+  mkdir -p "${BASE_DIR}/build/MonoplexKRConsole_NF"
+  mkdir -p "${BASE_DIR}/build/MonoplexKRWideConsole_NF"
+  mv -f "${BASE_DIR}/"MonoplexKRWideConsole*.ttf "${BASE_DIR}/build/MonoplexKRWideConsole_NF/"
+  mv -f "${BASE_DIR}/"MonoplexKRConsole*.ttf "${BASE_DIR}/build/MonoplexKRConsole_NF/"
+  rm -f "${BASE_DIR}/"MonoplexKR*.ttf
 }
 
 DEBUG_FLG='false'
@@ -41,20 +30,16 @@ do
 done
 
 if [ "$DEBUG_FLG" = 'true' ]; then
-  ("${BASE_DIR}/plemoljp_generator.sh" -d \
+  ("${BASE_DIR}/monoplex_kr_generator.sh" -d \
   && "${BASE_DIR}/os2_patch.sh" \
   && mvBuild)
   exit
 fi
 
-("${BASE_DIR}/plemoljp_generator.sh" \
-&& "${BASE_DIR}/os2_patch.sh" \
-&& mvBuild)
-
-("${BASE_DIR}/plemoljp_generator.sh" -h \
-&& "${BASE_DIR}/os2_patch.sh" \
-&& mvBuildHS)
-
-("${BASE_DIR}/plemoljp_generator.sh" -n \
+("${BASE_DIR}/monoplex_kr_generator.sh" -n \
 && "${BASE_DIR}/os2_patch.sh" \
 && mvBuildNF)
+
+("${BASE_DIR}/monoplex_kr_generator.sh" \
+&& "${BASE_DIR}/os2_patch.sh" \
+&& mvBuild)
