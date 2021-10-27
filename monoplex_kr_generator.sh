@@ -1302,7 +1302,9 @@ while (i < SizeOf(input_list))
   SelectNone()
   ii=0
   while (ii < i_width1000)
-      SelectMore(width1000_array[ii])
+      if (InFont(width1000_array[ii]))
+          SelectMore(width1000_array[ii])
+      endif
       ii = ii + 1
   endloop
   Move(move_pt, 0)
@@ -1311,12 +1313,16 @@ while (i < SizeOf(input_list))
   SelectWorthOutputting()
   ii=0
   while (ii < i_halfwidth)
-      SelectFewer(halfwidth_array[ii])
+      if (InFont(halfwidth_array[ii]))
+          SelectFewer(halfwidth_array[ii])
+      endif
       ii = ii + 1
   endloop
   ii=0
   while (ii < i_width1000)
-      SelectFewer(width1000_array[ii])
+      if (InFont(width1000_array[ii]))
+          SelectFewer(width1000_array[ii])
+      endif
       ii = ii + 1
   endloop
   $set_full_left_fewer
@@ -1331,7 +1337,9 @@ while (i < SizeOf(input_list))
   width_pt = ${monoplex_kr_half_width} # 358
   ii=0
   while (ii < i_halfwidth)
-      SelectMore(halfwidth_array[ii])
+      if (InFont(halfwidth_array[ii]))
+          SelectMore(halfwidth_array[ii])
+      endif
       ii = ii + 1
   endloop
   $set_half_left_fewer
@@ -1692,7 +1700,9 @@ while (i < SizeOf(input_list))
   SelectNone()
   ii=0
   while (ii < i_width1000)
-      SelectMore(width1000_array[ii])
+      if (InFont(width1000_array[ii]))
+          SelectMore(width1000_array[ii])
+      endif
       ii = ii + 1
   endloop
   Move(move_pt, 0)
@@ -1701,12 +1711,16 @@ while (i < SizeOf(input_list))
   SelectWorthOutputting()
   ii=0
   while (ii < i_halfwidth)
-      SelectFewer(halfwidth_array[ii])
+      if (InFont(halfwidth_array[ii]))
+          SelectFewer(halfwidth_array[ii])
+      endif
       ii = ii + 1
   endloop
   ii=0
   while (ii < i_width1000)
-      SelectFewer(width1000_array[ii])
+      if (InFont(width1000_array[ii]))
+          SelectFewer(width1000_array[ii])
+      endif
       ii = ii + 1
   endloop
   $set_full_left_fewer
@@ -1719,7 +1733,9 @@ while (i < SizeOf(input_list))
   width_pt = ${monoplex_kr_wide_half_width} # 618
   ii=0
   while (ii < i_halfwidth)
-      SelectMore(halfwidth_array[ii])
+      if (InFont(halfwidth_array[ii]))
+          SelectMore(halfwidth_array[ii])
+      endif
       ii = ii + 1
   endloop
   $set_half_left_fewer
