@@ -6,6 +6,8 @@ Monoplex KR은 IBM Plex Mono에 IBM Plex Sans KR의 글자체를 더해서 만�
 
 `Monoplex KR`은 넓은폭문자와 좁은폭문자의 너비 비율이 2:1인 고정폭 글꼴입니다. 유니코드 기본 라틴판의 글자는 IBM Plex Mono의 글꼴을 사용하며, 한글을 비롯한 그 외의 글자는 IBM Plex Sans KR을 사용합니다.
 
+**주의** 다음 버전에서는 ``Monoplex KR Console``이 ``Monoplex KR``을 대체하고, 현재의 ``Monoplex KR``은 삭제됩니다. 일본어 환경에서는 전각 문자를 많이 사용하기에 이 둘을 구분할 필요가 있으나, 한국어 환경에서는 일반 문자와 전각 문자가 혼재하는 경우 일반 문자를 선호하므로 이를 구분하는 글꼴이 필요치 않다고 생각합니다.
+
 더불어 Monoplex KR은 아래의 세 가족과 친족을 이룹니다.
 
 - `Monoplex KR Console`
