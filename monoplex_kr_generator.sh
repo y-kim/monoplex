@@ -343,34 +343,10 @@ input_box_drawing=`find $fonts_directories -follow -iname "Box_Drawing_half.sfd"
 
 # IBM Plex Sans KR 等幅化対策 (全角左寄せの除外)
 set_full_left_fewer="
-  SelectFewer(8217)
-  SelectFewer(8218)
-  SelectFewer(8221)
-  SelectFewer(8222)
-"
-
-# IBM Plex Sans KR 等幅化対策 (Widthを全角にしてからセンタリング)
-set_width_full_and_center="
-  SelectNone()
-  SelectMore(204)
-  SelectMore(205)
-  SelectMore(206)
-  SelectMore(207)
-  SelectMore(231)
-  SelectMore(236)
-  SelectMore(237)
-  SelectMore(238)
-  SelectMore(239)
-  SelectMore(253)
-  SelectMore(255)
-  SelectMore(305)
-  SelectMore(322)
-  SelectMore(353)
-  SelectMore(382)
-  SelectMore(402)
-  SelectMore(773)
-  SelectMore(8209)
-  SelectMore(8254)
+  SelectFewer(8217) # ’ (Right Single Quotation Mark)
+  SelectFewer(8218) # ‚ (Single Low-9 Quotation Mark)
+  SelectFewer(8221) # ” (Right Double Quotation Mark)
+  SelectFewer(8222) # „ (Double Low-9 Quotation Mark)
 "
 
 # IBM Plex Sans KR 等幅化対策 (半角左寄せ対象をセンタリングから除外する)
