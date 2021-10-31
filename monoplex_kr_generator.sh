@@ -351,23 +351,23 @@ set_full_left_fewer="
 
 # IBM Plex Sans KR 等幅化対策 (半角左寄せ対象をセンタリングから除外する)
 set_half_left_fewer="
-  SelectFewer(0u2500, 0u257F)
-  SelectFewer(65377)
-  SelectFewer(65379)
-  SelectFewer(65380)
-  SelectFewer(65438)
-  SelectFewer(65439)
+  SelectFewer(0u2500, 0u257F) # ─ ~ ╿
+  SelectFewer(65377) # ｡ (Halfwidth Ideographic Full Stop)
+  SelectFewer(65379) # ｣ (Halfwidth Right Corner Bracket)
+  SelectFewer(65380) # ､ (Halfwidth Ideographic Comma)
+  SelectFewer(65438) # ﾞ (Halfwidth Katakana Voiced Sound Mark)
+  SelectFewer(65439) # ﾟ (Halfwidth Katakana Semi-Voiced Sound Mark)
 "
 
 # IBM Plex Sans KR 等幅化対策 (半角右寄せ対象をセンタリングから除外する)
 set_half_right_fewer="
-  SelectFewer(65378)
+  SelectFewer(65378) # ｢｢(Halfwidth Left Corner Bracket)
 "
 
 # IBM Plex Sans KR 等幅化対策 (全角化しつつ右寄せをセンタリングから除外する)
 set_half_to_full_right_fewer="
-  SelectFewer(8216)
-  SelectFewer(8220)
+  SelectFewer(8216) # ‘ (Left Single Quotation Mark)
+  SelectFewer(8220) # “ (Left Double Quotation Mark)
 "
 
 ########################################
@@ -1217,70 +1217,70 @@ while (i < SizeOf(input_list))
 
   Print("Half SetWidth end")
 
-  $set_width_full_and_center
-  SetWidth($monoplex_kr_full_width)
-  CenterInWidth()
-  # IBM Plex Sans KR 等幅化対策 (半角左寄せ)
-  half_left_list = [65377, 65379, 65380, 65438, 65439]
-  ii = 0
-  while (ii < SizeOf(half_left_list))
-    Select(half_left_list[ii])
-    SetWidth(${plexkr_width} / 2)
-    move_pt = (${monoplex_kr_half_width} - GlyphInfo('Width')) / 2
-    Move(move_pt, 0)
-    SetWidth(${monoplex_kr_half_width})
-    ii = ii + 1
-  endloop
-  # IBM Plex Sans KR 等幅化対策 (全角左寄せ)
-  full_left_list = [8217 ,8218 ,8221 ,8222]
-  ii = 0
-  while (ii < SizeOf(full_left_list))
-    Select(full_left_list[ii])
-    SetWidth(${plexkr_width})
-    move_pt = (${monoplex_kr_full_width} - GlyphInfo('Width')) / 2
-    Move(move_pt, 0)
-    SetWidth(${monoplex_kr_full_width})
-    ii = ii + 1
-  endloop
-  # IBM Plex Sans KR 等幅化対策 (半角右寄せ)
-  full_right_list = [65378]
-  ii = 0
-  while (ii < SizeOf(full_right_list))
-    Select(full_right_list[ii])
-    move_pt = (${plexkr_width} / 2) - GlyphInfo('Width')
-    Move(move_pt, 0)
-    SetWidth(${plexkr_width} / 2)
-    move_pt = (${monoplex_kr_half_width} - GlyphInfo('Width')) / 2
-    Move(move_pt, 0)
-    SetWidth(${monoplex_kr_half_width})
-    ii = ii + 1
-  endloop
-  # IBM Plex Sans KR 等幅化対策 (全角化して右寄せ)
-  half_to_full_right_list = [8216, 8220]
-  ii = 0
-  while (ii < SizeOf(half_to_full_right_list))
-    Select(half_to_full_right_list[ii])
-    move_pt = ${plexkr_width} - GlyphInfo('Width')
-    Move(move_pt, 0)
-    SetWidth(${plexkr_width})
-    move_pt = (${monoplex_kr_full_width} - GlyphInfo('Width')) / 2
-    Move(move_pt, 0)
-    SetWidth(${monoplex_kr_full_width})
-    ii = ii + 1
-  endloop
-
-  # broken bar は IBMPlexMono ベースにする
-  Select(0u00a6); Clear()
-
-  # Edit zenkaku brackets
-  Print("Edit zenkaku brackets")
-  bracket_move = $((${monoplex_kr_half_width} / 2 + ${monoplex_kr_half_width} / 30))
-  Select(0uff08); Move(-bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # (
-  Select(0uff09); Move( bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # )
-  Select(0uff3b); Move(-bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # [
-  Select(0uff3d); Move( bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # ]
-  Select(0uff5b); Move(-bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # {
-  Select(0uff5d); Move( bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # }
+#  # IBM Plex Sans KR 等幅化対策 (半角左寄せ)
+#  half_left_list = [65377, 65379, 65380, 65438, 65439]
+#  65377 ~ 65390 Not in KR
+#  65438, 65439 Vertical Comma, Stop - No need to modification?
+#  ii = 0
+#  while (ii < SizeOf(half_left_list))
+#    Select(half_left_list[ii])
+#    SetWidth(${plexkr_width} / 2)
+#    move_pt = (${monoplex_kr_half_width} - GlyphInfo('Width')) / 2
+#    Move(move_pt, 0)
+#    SetWidth(${monoplex_kr_half_width})
+#    ii = ii + 1
+#  endloop
+#  # IBM Plex Sans KR 等幅化対策 (全角左寄せ)
+#  # Plex Sans have Asian style. Mono has western style... use Eastern one
+#  full_left_list = [8217 ,8218 ,8221 ,8222]
+#  ii = 0
+#  while (ii < SizeOf(full_left_list))
+#    Select(full_left_list[ii])
+#    SetWidth(${plexkr_width})
+#    move_pt = (${monoplex_kr_full_width} - GlyphInfo('Width')) / 2
+#    Move(move_pt, 0)
+#    SetWidth(${monoplex_kr_full_width})
+#    ii = ii + 1
+#  endloop
+#  # IBM Plex Sans KR 等幅化対策 (半角右寄せ)
+#  full_right_list = [65378]
+#  ii = 0
+#  while (ii < SizeOf(full_right_list))
+#    Select(full_right_list[ii])
+#    move_pt = (${plexkr_width} / 2) - GlyphInfo('Width')
+#    Move(move_pt, 0)
+#    SetWidth(${plexkr_width} / 2)
+#    move_pt = (${monoplex_kr_half_width} - GlyphInfo('Width')) / 2
+#    Move(move_pt, 0)
+#    SetWidth(${monoplex_kr_half_width})
+#    ii = ii + 1
+#  endloop
+#  # IBM Plex Sans KR 等幅化対策 (全角化して右寄せ)
+#  half_to_full_right_list = [8216, 8220]
+#  ii = 0
+#  while (ii < SizeOf(half_to_full_right_list))
+#    Select(half_to_full_right_list[ii])
+#    move_pt = ${plexkr_width} - GlyphInfo('Width')
+#    Move(move_pt, 0)
+#    SetWidth(${plexkr_width})
+#    move_pt = (${monoplex_kr_full_width} - GlyphInfo('Width')) / 2
+#    Move(move_pt, 0)
+#    SetWidth(${monoplex_kr_full_width})
+#    ii = ii + 1
+#  endloop
+#
+#  # broken bar は IBMPlexMono ベースにする
+#  Select(0u00a6); Clear()
+#
+#  # Edit zenkaku brackets
+#  Print("Edit zenkaku brackets")
+#  bracket_move = $((${monoplex_kr_half_width} / 2 + ${monoplex_kr_half_width} / 30))
+#  Select(0uff08); Move(-bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # (
+#  Select(0uff09); Move( bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # )
+#  Select(0uff3b); Move(-bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # [
+#  Select(0uff3d); Move( bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # ]
+#  Select(0uff5b); Move(-bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # {
+#  Select(0uff5d); Move( bracket_move, 0); SetWidth(${monoplex_kr_full_width}) # }
 
   # 全角 ，．‘’“” の調整
   Select(0uff0e);Scale(145) ; SetWidth(${monoplex_kr_full_width}) # ．
@@ -1289,7 +1289,6 @@ while (i < SizeOf(input_list))
   Select(0u2019);Scale(125) ; SetWidth(${monoplex_kr_full_width}) # ’
   Select(0u201c);Scale(125) ; SetWidth(${monoplex_kr_full_width}) # “
   Select(0u201d);Scale(125) ; SetWidth(${monoplex_kr_full_width}) # ”
-
 
   # 罫線を半角化
   Select(0u2500, 0u259F)
@@ -1623,70 +1622,67 @@ while (i < SizeOf(input_list))
 
   Print("Half SetWidth end")
 
-  $set_width_full_and_center
-  SetWidth($monoplex_kr_wide_full_width)
-  CenterInWidth()
-  # IBM Plex Sans KR 等幅化対策 (半角左寄せ)
-  half_left_list = [65377, 65379, 65380, 65438, 65439]
-  ii = 0
-  while (ii < SizeOf(half_left_list))
-    Select(half_left_list[ii])
-    SetWidth(${plexkr_width} / 2)
-    move_pt = (${monoplex_kr_wide_half_width} - GlyphInfo('Width')) / 2
-    Move(move_pt, 0)
-    SetWidth(${monoplex_kr_wide_half_width})
-    ii = ii + 1
-  endloop
-  # IBM Plex Sans KR 等幅化対策 (全角左寄せ)
-  full_left_list = [8217 ,8218 ,8221 ,8222]
-  ii = 0
-  while (ii < SizeOf(full_left_list))
-    Select(full_left_list[ii])
-    SetWidth(${plexkr_width})
-    move_pt = (${monoplex_kr_wide_full_width} - GlyphInfo('Width')) / 2
-    Move(move_pt, 0)
-    SetWidth(${monoplex_kr_wide_full_width})
-    ii = ii + 1
-  endloop
-  # IBM Plex Sans KR 等幅化対策 (半角右寄せ)
-  full_right_list = [65378]
-  ii = 0
-  while (ii < SizeOf(full_right_list))
-    Select(full_right_list[ii])
-    move_pt = (${plexkr_width} / 2) - GlyphInfo('Width')
-    Move(move_pt, 0)
-    SetWidth(${plexkr_width} / 2)
-    move_pt = (${monoplex_kr_wide_half_width} - GlyphInfo('Width')) / 2
-    Move(move_pt, 0)
-    SetWidth(${monoplex_kr_wide_half_width})
-    ii = ii + 1
-  endloop
-  # IBM Plex Sans KR 等幅化対策 (全角化して右寄せ)
-  half_to_full_right_list = [8216, 8220]
-  ii = 0
-  while (ii < SizeOf(half_to_full_right_list))
-    Select(half_to_full_right_list[ii])
-    move_pt = ${plexkr_width} - GlyphInfo('Width')
-    Move(move_pt, 0)
-    SetWidth(${plexkr_width})
-    move_pt = (${monoplex_kr_wide_full_width} - GlyphInfo('Width')) / 2
-    Move(move_pt, 0)
-    SetWidth(${monoplex_kr_wide_full_width})
-    ii = ii + 1
-  endloop
-
-  # broken bar は IBMPlexMono ベースにする
-  Select(0u00a6); Clear()
-
-  # Edit zenkaku brackets
-  Print("Edit zenkaku brackets")
-  bracket_move = $((${monoplex_kr_wide_half_width} / 2 + ${monoplex_kr_wide_half_width} / 30))
-  Select(0uff08); Move(-bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # (
-  Select(0uff09); Move( bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # )
-  Select(0uff3b); Move(-bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # [
-  Select(0uff3d); Move( bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # ]
-  Select(0uff5b); Move(-bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # {
-  Select(0uff5d); Move( bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # }
+#  # IBM Plex Sans KR 等幅化対策 (半角左寄せ)
+#  half_left_list = [65377, 65379, 65380, 65438, 65439]
+#  ii = 0
+#  while (ii < SizeOf(half_left_list))
+#    Select(half_left_list[ii])
+#    SetWidth(${plexkr_width} / 2)
+#    move_pt = (${monoplex_kr_wide_half_width} - GlyphInfo('Width')) / 2
+#    Move(move_pt, 0)
+#    SetWidth(${monoplex_kr_wide_half_width})
+#    ii = ii + 1
+#  endloop
+#  # IBM Plex Sans KR 等幅化対策 (全角左寄せ)
+#  full_left_list = [8217 ,8218 ,8221 ,8222]
+#  ii = 0
+#  while (ii < SizeOf(full_left_list))
+#    Select(full_left_list[ii])
+#    SetWidth(${plexkr_width})
+#    move_pt = (${monoplex_kr_wide_full_width} - GlyphInfo('Width')) / 2
+#    Move(move_pt, 0)
+#    SetWidth(${monoplex_kr_wide_full_width})
+#    ii = ii + 1
+#  endloop
+#  # IBM Plex Sans KR 等幅化対策 (半角右寄せ)
+#  full_right_list = [65378]
+#  ii = 0
+#  while (ii < SizeOf(full_right_list))
+#    Select(full_right_list[ii])
+#    move_pt = (${plexkr_width} / 2) - GlyphInfo('Width')
+#    Move(move_pt, 0)
+#    SetWidth(${plexkr_width} / 2)
+#    move_pt = (${monoplex_kr_wide_half_width} - GlyphInfo('Width')) / 2
+#    Move(move_pt, 0)
+#    SetWidth(${monoplex_kr_wide_half_width})
+#    ii = ii + 1
+#  endloop
+#  # IBM Plex Sans KR 等幅化対策 (全角化して右寄せ)
+#  half_to_full_right_list = [8216, 8220]
+#  ii = 0
+#  while (ii < SizeOf(half_to_full_right_list))
+#    Select(half_to_full_right_list[ii])
+#    move_pt = ${plexkr_width} - GlyphInfo('Width')
+#    Move(move_pt, 0)
+#    SetWidth(${plexkr_width})
+#    move_pt = (${monoplex_kr_wide_full_width} - GlyphInfo('Width')) / 2
+#    Move(move_pt, 0)
+#    SetWidth(${monoplex_kr_wide_full_width})
+#    ii = ii + 1
+#  endloop
+#
+#  # broken bar は IBMPlexMono ベースにする
+#  Select(0u00a6); Clear()
+#
+#  # Edit zenkaku brackets
+#  Print("Edit zenkaku brackets")
+#  bracket_move = $((${monoplex_kr_wide_half_width} / 2 + ${monoplex_kr_wide_half_width} / 30))
+#  Select(0uff08); Move(-bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # (
+#  Select(0uff09); Move( bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # )
+#  Select(0uff3b); Move(-bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # [
+#  Select(0uff3d); Move( bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # ]
+#  Select(0uff5b); Move(-bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # {
+#  Select(0uff5d); Move( bracket_move, 0); SetWidth(${monoplex_kr_wide_full_width}) # }
 
   # 全角 ，．‘’“” の調整
   Select(0uff0e);Scale(145) ; SetWidth(${monoplex_kr_wide_full_width}) # ．
@@ -1695,7 +1691,6 @@ while (i < SizeOf(input_list))
   Select(0u2019);Scale(125) ; SetWidth(${monoplex_kr_wide_full_width}) # ’
   Select(0u201c);Scale(125) ; SetWidth(${monoplex_kr_wide_full_width}) # “
   Select(0u201d);Scale(125) ; SetWidth(${monoplex_kr_wide_full_width}) # ”
-
 
   # 罫線を半角化
   Select(0u2500, 0u259F)
