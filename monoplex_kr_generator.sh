@@ -639,12 +639,6 @@ while (i < SizeOf(input_list))
   Select(0u2500, 0u259f)
   Clear()
 
-#  # Eclipse Pleiades 半角スペース記号 (U+1d1c) 対策
-#  No one will use Eclipse Pleiades ...
-#  Select(0u054d); Copy()
-#  Select(0u1d1c); Paste()
-#  Scale(85, 60); SetWidth(glyphWidth)
-
 #  # Cent Sign, Pound Sign, Yen Sign は IBM Plex Sans KR を使用
 #  Select(0u00A2)
 #  SelectMore(0u00A3)
