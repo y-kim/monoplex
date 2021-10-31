@@ -1290,13 +1290,6 @@ while (i < SizeOf(input_list))
   Select(0u201c);Scale(125) ; SetWidth(${monoplex_kr_full_width}) # “
   Select(0u201d);Scale(125) ; SetWidth(${monoplex_kr_full_width}) # ”
 
-  # Cent Sign, Pound Sign, Yen Sign は IBM Plex Sans KR を使用
-  Select(0u00A2)
-  SelectMore(0u00A3)
-  SelectMore(0u00A5)
-  Scale(83, 100);
-  SetWidth(${monoplex_kr_half_width})
-  CenterInWidth();
 
   # 罫線を半角化
   Select(0u2500, 0u259F)
@@ -1703,13 +1696,6 @@ while (i < SizeOf(input_list))
   Select(0u201c);Scale(125) ; SetWidth(${monoplex_kr_wide_full_width}) # “
   Select(0u201d);Scale(125) ; SetWidth(${monoplex_kr_wide_full_width}) # ”
 
-  # Cent Sign, Pound Sign, Yen Sign は IBM Plex Sans KR を使用
-  Select(0u00A2)
-  SelectMore(0u00A3)
-  SelectMore(0u00A5)
-  Scale(94, 100)
-  SetWidth(${monoplex_kr_wide_half_width})
-  CenterInWidth()
 
   # 罫線を半角化
   Select(0u2500, 0u259F)
