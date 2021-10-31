@@ -4,20 +4,16 @@ BASE_DIR=$(cd $(dirname $0); pwd)
 
 function mvBuild() {
   mkdir -p "${BASE_DIR}/build/MonoplexKR"
-  mkdir -p "${BASE_DIR}/build/MonoplexKRConsole"
   mkdir -p "${BASE_DIR}/build/MonoplexKRWide"
-  mkdir -p "${BASE_DIR}/build/MonoplexKRWideConsole"
-  mv -f "${BASE_DIR}/"MonoplexKRWideConsole*.ttf "${BASE_DIR}/build/MonoplexKRWideConsole/"
   mv -f "${BASE_DIR}/"MonoplexKRWide*.ttf "${BASE_DIR}/build/MonoplexKRWide/"
-  mv -f "${BASE_DIR}/"MonoplexKRConsole*.ttf "${BASE_DIR}/build/MonoplexKRConsole/"
   mv -f "${BASE_DIR}/"MonoplexKR*.ttf "${BASE_DIR}/build/MonoplexKR/"
 }
 
-function mvBuildNF() {
-  mkdir -p "${BASE_DIR}/build/MonoplexKRConsole_NF"
-  mkdir -p "${BASE_DIR}/build/MonoplexKRWideConsole_NF"
-  mv -f "${BASE_DIR}/"MonoplexKRWideConsole*.ttf "${BASE_DIR}/build/MonoplexKRWideConsole_NF/"
-  mv -f "${BASE_DIR}/"MonoplexKRConsole*.ttf "${BASE_DIR}/build/MonoplexKRConsole_NF/"
+function mvBuildNerd() {
+  mkdir -p "${BASE_DIR}/build/MonoplexKR_Nerd"
+  mkdir -p "${BASE_DIR}/build/MonoplexKRWide_Nerd"
+  mv -f "${BASE_DIR}/"MonoplexKRWide*.ttf "${BASE_DIR}/build/MonoplexKRWide_Nerd/"
+  mv -f "${BASE_DIR}/"MonoplexKR*.ttf "${BASE_DIR}/build/MonoplexKR_Nerd/"
   rm -f "${BASE_DIR}/"MonoplexKR*.ttf
 }
 
@@ -38,7 +34,7 @@ fi
 
 ("${BASE_DIR}/monoplex_kr_generator.sh" -n \
 && "${BASE_DIR}/os2_patch.sh" \
-&& mvBuildNF)
+&& mvBuildNerd)
 
 ("${BASE_DIR}/monoplex_kr_generator.sh" \
 && "${BASE_DIR}/os2_patch.sh" \

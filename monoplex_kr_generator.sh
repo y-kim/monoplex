@@ -37,13 +37,12 @@ hs_suffix=''
 if [ "$HIDDEN_SPACE_FLG" = 'false' ]; then
   hs_suffix='SS'
 elif [ "$NERDFONTS_FLG" = 'true' ]; then
-  hs_suffix='NF'
+  hs_suffix='Nerd'
 fi
 monoplex_kr_familyname="Monoplex KR"
 monoplex_kr_familyname_suffix="${hs_suffix}"
 monoplex_kr_wide_familyname="${monoplex_kr_familyname} Wide"
 monoplex_kr_wide_familyname_suffix="${hs_suffix}"
-monoplex_kr_console_suffix="Console"
 
 # Set ascent and descent (line width parameters)
 monoplex_kr_ascent=950
@@ -247,47 +246,8 @@ modified_plexkr_wide_medium_italic="Modified-IBMPlexSanskr_wide-medium_italic.sf
 modified_plexkr_wide_semibold_italic="Modified-IBMPlexSanskr_wide-semibold_italic.sfd"
 modified_plexkr_wide_bold_italic="Modified-IBMPlexSanskr_wide-Monospace-bold_italic.sfd"
 
-modified_plexkr_console_generator="modified_plexkr_console_generator.pe"
-modified_plexkr_console_thin="Modified-IBMPlexSansKR-thin_console.sfd"
-modified_plexkr_console_extralight="Modified-IBMPlexSansKR-extralight_console.sfd"
-modified_plexkr_console_light="Modified-IBMPlexSansKR-light_console.sfd"
-modified_plexkr_console_regular="Modified-IBMPlexSansKR-regular_console.sfd"
-modified_plexkr_console_text="Modified-IBMPlexSansKR-text_console.sfd"
-modified_plexkr_console_medium="Modified-IBMPlexSansKR-medium_console.sfd"
-modified_plexkr_console_semibold="Modified-IBMPlexSansKR-semibold_console.sfd"
-modified_plexkr_console_bold="Modified-IBMPlexSansKR-bold_console.sfd"
-modified_plexkr_console_thin_italic="Modified-IBMPlexSansKR-thin_console_italic.sfd"
-modified_plexkr_console_extralight_italic="Modified-IBMPlexSansKR-extralight_console_italic.sfd"
-modified_plexkr_console_light_italic="Modified-IBMPlexSansKR-light_console_italic.sfd"
-modified_plexkr_console_regular_italic="Modified-IBMPlexSansKR-regular_console_italic.sfd"
-modified_plexkr_console_text_italic="Modified-IBMPlexSansKR-text_console_italic.sfd"
-modified_plexkr_console_medium_italic="Modified-IBMPlexSansKR-medium_console_italic.sfd"
-modified_plexkr_console_semibold_italic="Modified-IBMPlexSansKR-semibold_console_italic.sfd"
-modified_plexkr_console_bold_italic="Modified-IBMPlexSansKR-bold_console_italic.sfd"
-
-modified_plexkr_wide_console_generator="modified_plexkr_wide_console_generator.pe"
-modified_plexkr_wide_console_thin="Modified-IBMPlexSanskr_wide-thin_console.sfd"
-modified_plexkr_wide_console_extralight="Modified-IBMPlexSanskr_wide-extralight_console.sfd"
-modified_plexkr_wide_console_light="Modified-IBMPlexSanskr_wide-light_console.sfd"
-modified_plexkr_wide_console_regular="Modified-IBMPlexSanskr_wide-Monospace-regular_console.sfd"
-modified_plexkr_wide_console_text="Modified-IBMPlexSanskr_wide-Monospace-text_console.sfd"
-modified_plexkr_wide_console_medium="Modified-IBMPlexSanskr_wide-medium_console.sfd"
-modified_plexkr_wide_console_semibold="Modified-IBMPlexSanskr_wide-semibold_console.sfd"
-modified_plexkr_wide_console_bold="Modified-IBMPlexSanskr_wide-Monospace-bold_console.sfd"
-modified_plexkr_wide_console_thin_italic="Modified-IBMPlexSanskr_wide-thin_console_italic.sfd"
-modified_plexkr_wide_console_extralight_italic="Modified-IBMPlexSanskr_wide-extralight_console_italic.sfd"
-modified_plexkr_wide_console_light_italic="Modified-IBMPlexSanskr_wide-light_console_italic.sfd"
-modified_plexkr_wide_console_regular_italic="Modified-IBMPlexSanskr_wide-Monospace-regular_console_italic.sfd"
-modified_plexkr_wide_console_text_italic="Modified-IBMPlexSanskr_wide-Monospace-text_console_italic.sfd"
-modified_plexkr_wide_console_medium_italic="Modified-IBMPlexSanskr_wide-medium_console_italic.sfd"
-modified_plexkr_wide_console_semibold_italic="Modified-IBMPlexSanskr_wide-semibold_console_italic.sfd"
-modified_plexkr_wide_console_bold_italic="Modified-IBMPlexSanskr_wide-Monospace-bold_console_italic.sfd"
-
 monoplex_kr_generator="monoplex_kr_generator.pe"
-monoplex_kr_console_generator="monoplex_kr_console_generator.pe"
-
 monoplex_kr_wide_generator="monoplex_kr_wide_generator.pe"
-monoplex_kr_wide_console_generator="monoplex_kr_wide_console_generator.pe"
 
 # Get input fonts
 tmp=""
@@ -380,54 +340,6 @@ fi
 
 input_ideographic_space=`find $fonts_directories -follow -iname "Ideographic_Space.sfd" | head -n 1`
 input_box_drawing=`find $fonts_directories -follow -iname "Box_Drawing_half.sfd" | head -n 1`
-
-# console 版と通常版の IBMPlexMono から合成するグリフ差分
-select_glyph_is_not_console="
-
-  # 記号
-  SelectMore(0u00a1, 0u00a5)
-  SelectMore(0u00a7, 0u00ff)
-  SelectMore(0u0131)
-  SelectMore(0u0141, 0u0142)
-  SelectMore(0u0152, 0u0153)
-  SelectMore(0u0160, 0u0161)
-  SelectMore(0u0178)
-  SelectMore(0u017d, 0u017e)
-  SelectMore(0u0192)
-  SelectMore(0u02bb, 0u02bc)
-  SelectMore(0u02c6)
-  SelectMore(0u02da, 0u02dc)
-  SelectMore(0u0300, 0u030c); SelectFewer(0u0309)
-  SelectMore(0u0327, 0u0328)
-  SelectMore(0u0401)
-  SelectMore(0u0410, 0u044f)
-  SelectMore(0u0451)
-  SelectMore(0u2010, 0u2044)
-  SelectMore(0u2113, 0u2122)
-  SelectMore(0u2202)
-  SelectMore(0u2211, 0u222b)
-
-  # 矢印
-  SelectMore(0u2190, 0u2193)
-  SelectMore(0u21c4, 0u21c6)
-
-  # 数学記号
-  SelectMore(0u2260)
-
-  # 一部 IBMPlexMono ベースにする
-  ## 各エディタの可視化文字対策
-  SelectFewer(0u2022)
-  SelectFewer(0u00b7)
-  SelectFewer(0u2024)
-  SelectFewer(0u2219)
-  SelectFewer(0u25d8)
-  SelectFewer(0u25e6)
-  ## 結合文音記号は IBM Plex Mono を適用
-  SelectFewer(0u0300, 0u0328)
-  ## IBM Plex Sans KR 等幅化対策 (IBM Plex Mono を適用して半角化)
-  SelectFewer(171)
-  SelectFewer(187)
-"
 
 # IBM Plex Sans KR 等幅化対策 (全角左寄せの除外)
 set_full_left_fewer="
@@ -727,16 +639,17 @@ while (i < SizeOf(input_list))
   Select(0u2500, 0u259f)
   Clear()
 
-  # Eclipse Pleiades 半角スペース記号 (U+1d1c) 対策
-  Select(0u054d); Copy()
-  Select(0u1d1c); Paste()
-  Scale(85, 60); SetWidth(glyphWidth)
+#  # Eclipse Pleiades 半角スペース記号 (U+1d1c) 対策
+#  No one will use Eclipse Pleiades ...
+#  Select(0u054d); Copy()
+#  Select(0u1d1c); Paste()
+#  Scale(85, 60); SetWidth(glyphWidth)
 
-  # Cent Sign, Pound Sign, Yen Sign は IBM Plex Sans KR を使用
-  Select(0u00A2)
-  SelectMore(0u00A3)
-  SelectMore(0u00A5)
-  Clear()
+#  # Cent Sign, Pound Sign, Yen Sign は IBM Plex Sans KR を使用
+#  Select(0u00A2)
+#  SelectMore(0u00A3)
+#  SelectMore(0u00A5)
+#  Clear()
 
   # パスの小数点以下を切り捨て
   SelectWorthOutputting()
@@ -1008,11 +921,6 @@ while (i < SizeOf(input_list))
   Print("Open " + input_list[i])
   Open(input_list[i])
 
-  # Remove ambiguous glyphs
-  SelectNone()
-  ${select_glyph_is_not_console}
-  Clear()
-
   # Save modified IBMPlexMono
   Print("Save " + output_list[i])
   Save("${tmpdir}/" + output_list[i])
@@ -1081,11 +989,6 @@ while (i < SizeOf(input_list))
   # Open IBMPlexMono
   Print("Open " + input_list[i])
   Open(input_list[i])
-
-  # Remove ambiguous glyphs
-  SelectNone()
-  ${select_glyph_is_not_console}
-  Clear()
 
   # Save modified IBMPlexMono
   Print("Save " + output_list[i])
@@ -1891,244 +1794,6 @@ Quit()
 _EOT_
 
 ########################################
-# Generate script for modified IBMPlexSansKR Console
-########################################
-
-cat > ${tmpdir}/${modified_plexkr_console_generator} << _EOT_
-#!$fontforge_command -script
-
-Print("Generate modified IBMPlexSansKR Console")
-
-# Set parameters
-plexmono = "${tmpdir}/${modified_plexmono_material_regular}"
-input_list  = [ \\
-                "${tmpdir}/${modified_plexkr_thin}.ttf", \\
-                "${tmpdir}/${modified_plexkr_extralight}.ttf", \\
-                "${tmpdir}/${modified_plexkr_light}.ttf", \\
-                "${tmpdir}/${modified_plexkr_regular}.ttf", \\
-                "${tmpdir}/${modified_plexkr_text}.ttf", \\
-                "${tmpdir}/${modified_plexkr_medium}.ttf", \\
-                "${tmpdir}/${modified_plexkr_semibold}.ttf", \\
-                "${tmpdir}/${modified_plexkr_bold}.ttf", \\
-                "${tmpdir}/${modified_plexkr_thin_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_extralight_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_light_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_regular_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_text_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_medium_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_semibold_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_bold_italic}.ttf" \\
-              ]
-output_list = [ \\
-                "${modified_plexkr_console_thin}", \\
-                "${modified_plexkr_console_extralight}", \\
-                "${modified_plexkr_console_light}", \\
-                "${modified_plexkr_console_regular}", \\
-                "${modified_plexkr_console_text}", \\
-                "${modified_plexkr_console_medium}", \\
-                "${modified_plexkr_console_semibold}", \\
-                "${modified_plexkr_console_bold}", \\
-                "${modified_plexkr_console_thin_italic}", \\
-                "${modified_plexkr_console_extralight_italic}", \\
-                "${modified_plexkr_console_light_italic}", \\
-                "${modified_plexkr_console_regular_italic}", \\
-                "${modified_plexkr_console_text_italic}", \\
-                "${modified_plexkr_console_medium_italic}", \\
-                "${modified_plexkr_console_semibold_italic}", \\
-                "${modified_plexkr_console_bold_italic}" \\
-              ]
-
-if ("$DEBUG_FLG" == 'true')
-  input_list = [input_list[3]]
-  output_list = [output_list[3]]
-endif
-
-Print("Get trim target glyph from IBMPlexMono")
-Open(plexmono)
-i = 0
-end_plexmono = $end_plexmono
-plexmono_exist_glyph_array = Array(end_plexmono)
-while (i < end_plexmono)
-  if (i % 5000 == 0 && "$PROGRESS_FLG" == 'true')
-    Print("Processing progress: " + i)
-  endif
-  if (WorthOutputting(i))
-    plexmono_exist_glyph_array[i] = 1
-  else
-    plexmono_exist_glyph_array[i] = 0
-  endif
-  i++
-endloop
-Close()
-
-# Begin loop of regular and bold
-i = 0
-while (i < SizeOf(input_list))
-  # Open IBMPlexSansKR
-  Print("Open " + input_list[i])
-  Open(input_list[i])
-
-  ii = 0
-  end_plexkr = end_plexmono
-  Print("Begin delete the glyphs contained in IBMPlexMono")
-  SelectNone()
-  while ( ii < end_plexkr )
-      if ( ii % 5000 == 0 && "$PROGRESS_FLG" == 'true' )
-        Print("Processing progress: " + ii)
-      endif
-      if (WorthOutputting(ii) && plexmono_exist_glyph_array[ii] == 1)
-        SelectMore(ii)
-      endif
-      ii = ii + 1
-  endloop
-  Clear()
-  Print("End delete the glyphs contained in IBMPlexMono")
-
-  # 罫線を半角化
-  Select(0u2500, 0u259F)
-  Clear()
-  MergeFonts("$input_box_drawing")
-  Select(0u2500, 0u259F)
-  Move(0, 100)
-  Scale(${plexmono_shrink_x}, ${plexmono_shrink_y}, 0, 0)
-  foreach
-    if (WorthOutputting())
-      SetWidth(${monoplex_kr_half_width})
-    endif
-  endloop
-
-  # 結合分音記号は IBM Plex Mono を使用する
-  Select(0u0300, 0u0328)
-  Clear()
-
-  # Save modified IBMPlexSansKR
-  Print("Generate " + output_list[i])
-  Generate("${tmpdir}/" + output_list[i] + ".ttf", "")
-  Close()
-
-  i += 1
-endloop
-
-Quit()
-_EOT_
-
-########################################
-# Generate script for modified IBMPlexSansKR Console for Monoplex KR Wide
-########################################
-
-cat > ${tmpdir}/${modified_plexkr_wide_console_generator} << _EOT_
-#!$fontforge_command -script
-
-Print("Generate modified IBMPlexSansKR Console - 35")
-
-# Set parameters
-plexmono = "${tmpdir}/${modified_plexmono_material_regular}"
-input_list  = [ \\
-                "${tmpdir}/${modified_plexkr_wide_thin}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_extralight}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_light}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_regular}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_text}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_medium}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_semibold}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_bold}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_thin_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_extralight_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_light_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_regular_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_text_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_medium_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_semibold_italic}.ttf", \\
-                "${tmpdir}/${modified_plexkr_wide_bold_italic}.ttf" \\
-              ]
-output_list = [ \\
-                "${modified_plexkr_wide_console_thin}", \\
-                "${modified_plexkr_wide_console_extralight}", \\
-                "${modified_plexkr_wide_console_light}", \\
-                "${modified_plexkr_wide_console_regular}", \\
-                "${modified_plexkr_wide_console_text}", \\
-                "${modified_plexkr_wide_console_medium}", \\
-                "${modified_plexkr_wide_console_semibold}", \\
-                "${modified_plexkr_wide_console_bold}", \\
-                "${modified_plexkr_wide_console_thin_italic}", \\
-                "${modified_plexkr_wide_console_extralight_italic}", \\
-                "${modified_plexkr_wide_console_light_italic}", \\
-                "${modified_plexkr_wide_console_regular_italic}", \\
-                "${modified_plexkr_wide_console_text_italic}", \\
-                "${modified_plexkr_wide_console_medium_italic}", \\
-                "${modified_plexkr_wide_console_semibold_italic}", \\
-                "${modified_plexkr_wide_console_bold_italic}" \\
-              ]
-
-if ("$DEBUG_FLG" == 'true')
-  input_list = [input_list[3]]
-  output_list = [output_list[3]]
-endif
-
-Print("Get trim target glyph from IBMPlexMono")
-Open(plexmono)
-i = 0
-end_plexmono = $end_plexmono
-plexmono_exist_glyph_array = Array(end_plexmono)
-while (i < end_plexmono)
-  if (i % 5000 == 0 && "$PROGRESS_FLG" == 'true')
-    Print("Processing progress: " + i)
-  endif
-  if (WorthOutputting(i))
-    plexmono_exist_glyph_array[i] = 1
-  else
-    plexmono_exist_glyph_array[i] = 0
-  endif
-  i++
-endloop
-Close()
-
-# Begin loop of regular and bold
-i = 0
-while (i < SizeOf(input_list))
-  # Open IBMPlexSansKR
-  Print("Open " + input_list[i])
-  Open(input_list[i])
-
-  ii = 0
-  end_plexkr = end_plexmono
-  Print("Begin delete the glyphs contained in IBMPlexMono")
-  SelectNone()
-  while ( ii < end_plexkr )
-      if ( ii % 5000 == 0 && "$PROGRESS_FLG" == 'true' )
-        Print("Processing progress: " + ii)
-      endif
-      if (WorthOutputting(ii) && plexmono_exist_glyph_array[ii] == 1)
-        SelectMore(ii)
-      endif
-      ii = ii + 1
-  endloop
-  Clear()
-  Print("End delete the glyphs contained in IBMPlexMono")
-
-  # 罫線を半角化
-  Select(0u2500, 0u259F)
-  Clear()
-  MergeFonts("$input_box_drawing")
-  Select(0u2500, 0u259F)
-  Move(0, 100)
-
-  # 結合分音記号は IBM Plex Mono を使用する
-  Select(0u0300, 0u0328)
-  Clear()
-
-  # Save modified IBMPlexSansKR
-  Print("Generate " + output_list[i])
-  Generate("${tmpdir}/" + output_list[i] + ".ttf", "")
-  Close()
-
-  i += 1
-endloop
-
-Quit()
-_EOT_
-
-########################################
 # Generate script for Monoplex KR
 ########################################
 
@@ -2340,234 +2005,6 @@ while (i < SizeOf(fontstyle_list))
   if (fontfamilysuffix != "")
         Print("Save " + fontfamily_sht + fontfamilysuffix + "-" + fontname_style + ".ttf")
         Generate("${base_dir}/" + fontfamily_sht + fontfamilysuffix + "-" + fontname_style + ".ttf", "")
-  else
-        Print("Save " + fontfamily_sht + "-" + fontname_style + ".ttf")
-        Generate("${base_dir}/" + fontfamily_sht + "-" + fontname_style + ".ttf", "")
-  endif
-  Close()
-
-  i += 1
-endloop
-
-Quit()
-_EOT_
-
-########################################
-# Generate script for Monoplex KR Console
-########################################
-
-cat > ${tmpdir}/${monoplex_kr_console_generator} << _EOT_
-#!$fontforge_command -script
-
-# Print message
-Print("Generate Monoplex KR Console")
-
-# Set parameters
-plexmono_list  = [ \\
-                    "${tmpdir}/${modified_plexmono_console_thin}", \\
-                    "${tmpdir}/${modified_plexmono_console_extralight}", \\
-                    "${tmpdir}/${modified_plexmono_console_light}", \\
-                    "${tmpdir}/${modified_plexmono_console_regular}", \\
-                    "${tmpdir}/${modified_plexmono_console_text}", \\
-                    "${tmpdir}/${modified_plexmono_console_medium}", \\
-                    "${tmpdir}/${modified_plexmono_console_semibold}", \\
-                    "${tmpdir}/${modified_plexmono_console_bold}", \\
-                    "${tmpdir}/${modified_plexmono_console_thin_italic}", \\
-                    "${tmpdir}/${modified_plexmono_console_extralight_italic}", \\
-                    "${tmpdir}/${modified_plexmono_console_light_italic}", \\
-                    "${tmpdir}/${modified_plexmono_console_regular_italic}", \\
-                    "${tmpdir}/${modified_plexmono_console_text_italic}", \\
-                    "${tmpdir}/${modified_plexmono_console_medium_italic}", \\
-                    "${tmpdir}/${modified_plexmono_console_semibold_italic}", \\
-                    "${tmpdir}/${modified_plexmono_console_bold_italic}" \\
-                  ]
-fontfamily        = "${monoplex_kr_familyname}"
-fontfamily_sht    = "$(echo ${monoplex_kr_familyname} | tr -d '[:space:]')"
-fontfamilysuffix_nonspace = "${monoplex_kr_console_suffix}${hs_suffix}"
-fontfamilysuffix_inspace  = "${monoplex_kr_console_suffix} ${hs_suffix}"
-if ("${hs_suffix}" == "")
-  fontfamilysuffix_inspace  = "${monoplex_kr_console_suffix}"
-endif
-
-fontstyle_list    = [ \\
-                      "Thin", \\
-                      "ExtraLight", \\
-                      "Light", \\
-                      "Regular", \\
-                      "Text", \\
-                      "Medium", \\
-                      "SemiBold", \\
-                      "Bold", \\
-                      "Thin Italic", \\
-                      "ExtraLight Italic", \\
-                      "Light Italic", \\
-                      "Regular Italic", \\
-                      "Text Italic", \\
-                      "Medium Italic", \\
-                      "SemiBold Italic", \\
-                      "Bold Italic" \\
-                    ]
-
-fontweight_list   = [ \\
-                      100, \\
-                      200, \\
-                      300, \\
-                      400, \\
-                      450, \\
-                      500, \\
-                      600, \\
-                      700, \\
-                      100, \\
-                      200, \\
-                      300, \\
-                      400, \\
-                      450, \\
-                      500, \\
-                      600, \\
-                      700 \\
-                    ]
-panoseweight_list = [ \\
-                      3, \\
-                      3, \\
-                      4, \\
-                      5, \\
-                      5, \\
-                      6, \\
-                      7, \\
-                      8, \\
-                      3, \\
-                      3, \\
-                      4, \\
-                      5, \\
-                      5, \\
-                      6, \\
-                      7, \\
-                      8 \\
-                    ]
-
-if ("$DEBUG_FLG" == 'true')
-  plexmono_list = [plexmono_list[3]]
-  fontstyle_list = [fontstyle_list[3]]
-  fontweight_list = [fontweight_list[3]]
-  panoseweight_list = [panoseweight_list[3]]
-endif
-
-copyright         = "Copyright (c) 2021, Kim Yangsu"
-version           = "${monoplex_kr_version}"
-
-# Begin loop of regular and bold
-i = 0
-while (i < SizeOf(fontstyle_list))
-  # Open new file
-  New()
-
-  # Set encoding to Unicode-bmp
-  Reencode("unicode")
-
-  fontname_style = fontstyle_list[i]
-  base_style = fontstyle_list[i]
-
-  # 斜体の生成
-  if (Strstr(fontstyle_list[i], 'Italic') >= 0)
-    SetItalicAngle(${italic_angle})
-    style_split = StrSplit(fontstyle_list[i], ' ')
-    if (style_split[0] == 'Regular')
-      fontname_style = 'Italic'
-    else
-      fontname_style = style_split[0] + style_split[1]
-    endif
-    base_style = style_split[0]
-  endif
-
-  # Set configuration
-  if (Strstr(fontstyle_list[i], 'Regular') == -1 && Strstr(fontstyle_list[i], 'Bold') == -1)
-    if (fontfamilysuffix_nonspace != "")
-      SetFontNames(fontfamily_sht + fontfamilysuffix_nonspace + "-" + fontname_style, \\
-                    fontfamily + " " + fontfamilysuffix_inspace + " " + base_style, \\
-                    fontfamily + " " + fontfamilysuffix_inspace + " " + fontstyle_list[i], \\
-                    base_style, \\
-                    copyright, version)
-    else
-      SetFontNames(fontfamily_sht + "-" + fontname_style, \\
-                    fontfamily + " " + base_style, \\
-                    fontfamily + " " + fontstyle_list[i], \\
-                    base_style, \\
-                    copyright, version)
-    endif
-
-    if (Strstr(fontstyle_list[i], 'Italic') >= 0)
-      SetTTFName(0x409, 2, "Italic")
-    else
-      SetTTFName(0x409, 2, "Regular")
-    endif
-  else
-    display_style = fontstyle_list[i]
-    if (fontstyle_list[i] == 'Regular Italic')
-      SetTTFName(0x409, 2, 'Italic')
-      display_style = 'Italic'
-    else
-      SetTTFName(0x409, 2, fontstyle_list[i])
-    endif
-
-    if (fontfamilysuffix_nonspace != "")
-      SetFontNames(fontfamily_sht + fontfamilysuffix_nonspace + "-" + fontname_style, \\
-                    fontfamily + " " + fontfamilysuffix_inspace, \\
-                    fontfamily + " " + fontfamilysuffix_inspace + " " + display_style, \\
-                    base_style, \\
-                    copyright, version)
-    else
-      SetFontNames(fontfamily_sht + "-" + fontname_style, \\
-                    fontfamily, \\
-                    fontfamily + " " + display_style, \\
-                    base_style, \\
-                    copyright, version)
-    endif
-  endif
-
-  if (fontfamilysuffix_nonspace != "")
-    SetTTFName(0x409, 16, fontfamily + " " + fontfamilysuffix_inspace)
-  else
-    SetTTFName(0x409, 16, fontfamily)
-  endif
-  if (fontstyle_list[i] == 'Regular Italic')
-    SetTTFName(0x409, 17, 'Italic')
-  else
-    SetTTFName(0x409, 17, fontstyle_list[i])
-  endif
-
-
-  SetTTFName(0x409, 3, "FontForge 2.0 : " + \$fullname + " : " + Strftime("%d-%m-%Y", 0))
-
-  ScaleToEm(${em_ascent}, ${em_descent})
-  SetOS2Value("Weight", fontweight_list[i]) # Book or Bold
-  SetOS2Value("Width",                   5) # Medium
-  SetOS2Value("FSType",                  0)
-  SetOS2Value("VendorID",           "PfEd")
-  SetOS2Value("IBMFamily",            2057) # SS Typewriter Gothic
-  SetOS2Value("WinAscentIsOffset",       0)
-  SetOS2Value("WinDescentIsOffset",      0)
-  SetOS2Value("TypoAscentIsOffset",      0)
-  SetOS2Value("TypoDescentIsOffset",     0)
-  SetOS2Value("HHeadAscentIsOffset",     0)
-  SetOS2Value("HHeadDescentIsOffset",    0)
-  SetOS2Value("WinAscent",             ${monoplex_kr_ascent})
-  SetOS2Value("WinDescent",            ${monoplex_kr_descent})
-  SetOS2Value("TypoAscent",            ${em_ascent})
-  SetOS2Value("TypoDescent",          -${em_descent})
-  SetOS2Value("TypoLineGap",           ${typo_line_gap})
-  SetOS2Value("HHeadAscent",           ${monoplex_kr_ascent})
-  SetOS2Value("HHeadDescent",         -${monoplex_kr_descent})
-  SetOS2Value("HHeadLineGap",            0)
-  SetPanose([2, 11, panoseweight_list[i], 9, 2, 2, 3, 2, 2, 7])
-
-  # Merge IBMPlexMono font
-  Print("Merge " + plexmono_list[i]:t)
-  MergeFonts(plexmono_list[i])
-
-  # Save Monoplex KR
-  if (fontfamilysuffix_nonspace != "")
-        Print("Save " + fontfamily_sht + fontfamilysuffix_nonspace + "-" + fontname_style + ".ttf")
-        Generate("${base_dir}/" + fontfamily_sht + fontfamilysuffix_nonspace + "-" + fontname_style + ".ttf", "")
   else
         Print("Save " + fontfamily_sht + "-" + fontname_style + ".ttf")
         Generate("${base_dir}/" + fontfamily_sht + "-" + fontname_style + ".ttf", "")
@@ -2805,233 +2242,6 @@ Quit()
 _EOT_
 
 ########################################
-# Generate script for Monoplex KR Wide Console
-########################################
-
-cat > ${tmpdir}/${monoplex_kr_wide_console_generator} << _EOT_
-#!$fontforge_command -script
-
-# Print message
-Print("Generate Monoplex KR Console")
-
-# Set parameters
-plexmono_list  = [ \\
-                    "${tmpdir}/${modified_plexmono35_console_thin}", \\
-                    "${tmpdir}/${modified_plexmono35_console_extralight}", \\
-                    "${tmpdir}/${modified_plexmono35_console_light}", \\
-                    "${tmpdir}/${modified_plexmono35_console_regular}", \\
-                    "${tmpdir}/${modified_plexmono35_console_text}", \\
-                    "${tmpdir}/${modified_plexmono35_console_medium}", \\
-                    "${tmpdir}/${modified_plexmono35_console_semibold}", \\
-                    "${tmpdir}/${modified_plexmono35_console_bold}", \\
-                    "${tmpdir}/${modified_plexmono35_console_thin_italic}", \\
-                    "${tmpdir}/${modified_plexmono35_console_extralight_italic}", \\
-                    "${tmpdir}/${modified_plexmono35_console_light_italic}", \\
-                    "${tmpdir}/${modified_plexmono35_console_regular_italic}", \\
-                    "${tmpdir}/${modified_plexmono35_console_text_italic}", \\
-                    "${tmpdir}/${modified_plexmono35_console_medium_italic}", \\
-                    "${tmpdir}/${modified_plexmono35_console_semibold_italic}", \\
-                    "${tmpdir}/${modified_plexmono35_console_bold_italic}" \\
-                  ]
-fontfamily        = "${monoplex_kr_wide_familyname}"
-fontfamily_sht    = "$(echo ${monoplex_kr_wide_familyname} | tr -d '[:space:]')"
-fontfamilysuffix_nonspace = "${monoplex_kr_console_suffix}${hs_suffix}"
-fontfamilysuffix_inspace  = "${monoplex_kr_console_suffix} ${hs_suffix}"
-if ("${hs_suffix}" == "")
-  fontfamilysuffix_inspace  = "${monoplex_kr_console_suffix}"
-endif
-
-fontstyle_list    = [ \\
-                      "Thin", \\
-                      "ExtraLight", \\
-                      "Light", \\
-                      "Regular", \\
-                      "Text", \\
-                      "Medium", \\
-                      "SemiBold", \\
-                      "Bold", \\
-                      "Thin Italic", \\
-                      "ExtraLight Italic", \\
-                      "Light Italic", \\
-                      "Regular Italic", \\
-                      "Text Italic", \\
-                      "Medium Italic", \\
-                      "SemiBold Italic", \\
-                      "Bold Italic" \\
-                    ]
-
-fontweight_list   = [ \\
-                      100, \\
-                      200, \\
-                      300, \\
-                      400, \\
-                      450, \\
-                      500, \\
-                      600, \\
-                      700, \\
-                      100, \\
-                      200, \\
-                      300, \\
-                      400, \\
-                      450, \\
-                      500, \\
-                      600, \\
-                      700 \\
-                    ]
-panoseweight_list = [ \\
-                      3, \\
-                      3, \\
-                      4, \\
-                      5, \\
-                      5, \\
-                      6, \\
-                      7, \\
-                      8, \\
-                      3, \\
-                      3, \\
-                      4, \\
-                      5, \\
-                      5, \\
-                      6, \\
-                      7, \\
-                      8 \\
-                    ]
-
-if ("$DEBUG_FLG" == 'true')
-  plexmono_list = [plexmono_list[3]]
-  fontstyle_list = [fontstyle_list[3]]
-  fontweight_list = [fontweight_list[3]]
-  panoseweight_list = [panoseweight_list[3]]
-endif
-
-copyright         = "Copyright (c) 2021, Kim Yangsu"
-version           = "${monoplex_kr_version}"
-
-# Begin loop of regular and bold
-i = 0
-while (i < SizeOf(fontstyle_list))
-  # Open new file
-  New()
-
-  # Set encoding to Unicode-bmp
-  Reencode("unicode")
-
-  fontname_style = fontstyle_list[i]
-  base_style = fontstyle_list[i]
-
-  # 斜体の生成
-  if (Strstr(fontstyle_list[i], 'Italic') >= 0)
-    SetItalicAngle(${italic_angle})
-    style_split = StrSplit(fontstyle_list[i], ' ')
-    if (style_split[0] == 'Regular')
-      fontname_style = 'Italic'
-    else
-      fontname_style = style_split[0] + style_split[1]
-    endif
-    base_style = style_split[0]
-  endif
-
-  # Set configuration
-  if (Strstr(fontstyle_list[i], 'Regular') == -1 && Strstr(fontstyle_list[i], 'Bold') == -1)
-    if (fontfamilysuffix_nonspace != "")
-      SetFontNames(fontfamily_sht + fontfamilysuffix_nonspace + "-" + fontname_style, \\
-                    fontfamily + " " + fontfamilysuffix_inspace + " " + base_style, \\
-                    fontfamily + " " + fontfamilysuffix_inspace + " " + fontstyle_list[i], \\
-                    base_style, \\
-                    copyright, version)
-    else
-      SetFontNames(fontfamily_sht + "-" + fontname_style, \\
-                    fontfamily + " " + base_style, \\
-                    fontfamily + " " + fontstyle_list[i], \\
-                    base_style, \\
-                    copyright, version)
-    endif
-
-    if (Strstr(fontstyle_list[i], 'Italic') >= 0)
-      SetTTFName(0x409, 2, "Italic")
-    else
-      SetTTFName(0x409, 2, "Regular")
-    endif
-  else
-    display_style = fontstyle_list[i]
-    if (fontstyle_list[i] == 'Regular Italic')
-      SetTTFName(0x409, 2, 'Italic')
-      display_style = 'Italic'
-    else
-      SetTTFName(0x409, 2, fontstyle_list[i])
-    endif
-
-    if (fontfamilysuffix_nonspace != "")
-      SetFontNames(fontfamily_sht + fontfamilysuffix_nonspace + "-" + fontname_style, \\
-                    fontfamily + " " + fontfamilysuffix_inspace, \\
-                    fontfamily + " " + fontfamilysuffix_inspace + " " + display_style, \\
-                    base_style, \\
-                    copyright, version)
-    else
-      SetFontNames(fontfamily_sht + "-" + fontname_style, \\
-                    fontfamily, \\
-                    fontfamily + " " + display_style, \\
-                    base_style, \\
-                    copyright, version)
-    endif
-  endif
-
-  if (fontfamilysuffix_nonspace != "")
-    SetTTFName(0x409, 16, fontfamily + " " + fontfamilysuffix_inspace)
-  else
-    SetTTFName(0x409, 16, fontfamily)
-  endif
-  if (fontstyle_list[i] == 'Regular Italic')
-    SetTTFName(0x409, 17, 'Italic')
-  else
-    SetTTFName(0x409, 17, fontstyle_list[i])
-  endif
-
-  SetTTFName(0x409, 3, "FontForge 2.0 : " + \$fullname + " : " + Strftime("%d-%m-%Y", 0))
-
-  ScaleToEm(${em_ascent}, ${em_descent})
-  SetOS2Value("Weight", fontweight_list[i]) # Book or Bold
-  SetOS2Value("Width",                   5) # Medium
-  SetOS2Value("FSType",                  0)
-  SetOS2Value("VendorID",           "PfEd")
-  SetOS2Value("IBMFamily",            2057) # SS Typewriter Gothic
-  SetOS2Value("WinAscentIsOffset",       0)
-  SetOS2Value("WinDescentIsOffset",      0)
-  SetOS2Value("TypoAscentIsOffset",      0)
-  SetOS2Value("TypoDescentIsOffset",     0)
-  SetOS2Value("HHeadAscentIsOffset",     0)
-  SetOS2Value("HHeadDescentIsOffset",    0)
-  SetOS2Value("WinAscent",             ${monoplex_kr_wide_ascent})
-  SetOS2Value("WinDescent",            ${monoplex_kr_wide_descent})
-  SetOS2Value("TypoAscent",            ${em_ascent})
-  SetOS2Value("TypoDescent",          -${em_descent})
-  SetOS2Value("TypoLineGap",           ${typo_line_gap})
-  SetOS2Value("HHeadAscent",           ${monoplex_kr_wide_ascent})
-  SetOS2Value("HHeadDescent",         -${monoplex_kr_wide_descent})
-  SetOS2Value("HHeadLineGap",            0)
-  SetPanose([2, 11, panoseweight_list[i], 3, 2, 2, 3, 2, 2, 7])
-
-  # Merge IBMPlexMono font
-  Print("Merge " + plexmono_list[i]:t)
-  MergeFonts(plexmono_list[i])
-
-  # Save Monoplex KR
-  if (fontfamilysuffix_nonspace != "")
-        Print("Save " + fontfamily_sht + fontfamilysuffix_nonspace + "-" + fontname_style + ".ttf")
-        Generate("${base_dir}/" + fontfamily_sht + fontfamilysuffix_nonspace + "-" + fontname_style + ".ttf", "")
-  else
-        Print("Save " + fontfamily_sht + "-" + fontname_style + ".ttf")
-        Generate("${base_dir}/" + fontfamily_sht + "-" + fontname_style + ".ttf", "")
-  endif
-  Close()
-
-  i += 1
-endloop
-
-Quit()
-_EOT_
-
-########################################
 # Generate Monoplex KR
 ########################################
 
@@ -3052,14 +2262,8 @@ $fontforge_command -script ${tmpdir}/${modified_plexmono_generator} 2> $redirect
 # Generate Modified IBMPlexSansKR
 $fontforge_command -script ${tmpdir}/${modified_plexkr_generator} 2> $redirection_stderr || exit 4
 
-# Generate Modified IBMPlexSansKR Console
-$fontforge_command -script ${tmpdir}/${modified_plexkr_console_generator} 2> $redirection_stderr || exit 4
-
 # Generate Monoplex KR
 $fontforge_command -script ${tmpdir}/${monoplex_kr_generator} 2> $redirection_stderr || exit 4
-
-# Generate Monoplex KR Console
-$fontforge_command -script ${tmpdir}/${monoplex_kr_console_generator} 2> $redirection_stderr || exit 4
 
 # Generate Console - 35
 $fontforge_command -script ${tmpdir}/${modified_plexmono35_console_generator} 2> $redirection_stderr || exit 4
@@ -3070,14 +2274,8 @@ $fontforge_command -script ${tmpdir}/${modified_plexmono35_generator} 2> $redire
 # Generate Modified IBMPlexSansKR - 35
 $fontforge_command -script ${tmpdir}/${modified_plexkr_wide_generator} 2> $redirection_stderr || exit 4
 
-# Generate Modified IBMPlexSansKR Console - 35
-$fontforge_command -script ${tmpdir}/${modified_plexkr_wide_console_generator} 2> $redirection_stderr || exit 4
-
 # Generate Monoplex KR - 35
 $fontforge_command -script ${tmpdir}/${monoplex_kr_wide_generator} 2> $redirection_stderr || exit 4
-
-# Generate Monoplex KR Console - 35
-$fontforge_command -script ${tmpdir}/${monoplex_kr_wide_console_generator} 2> $redirection_stderr || exit 4
 
 style_list='Thin ExtraLight Light Regular Text Medium SemiBold Bold ThinItalic ExtraLightItalic LightItalic Italic TextItalic MediumItalic SemiBoldItalic BoldItalic'
 
@@ -3088,20 +2286,18 @@ fi
 for style in $style_list
 do
   monoplex_kr_filename="$(echo "${monoplex_kr_familyname}${monoplex_kr_familyname_suffix}-${style}.ttf" | tr -d '[:space:]')"
-  monoplex_kr_console_filename="$(echo "${monoplex_kr_familyname}${monoplex_kr_console_suffix}${hs_suffix}-${style}.ttf" | tr -d '[:space:]')"
   monoplex_kr_wide_filename="$(echo "${monoplex_kr_wide_familyname}${monoplex_kr_familyname_suffix}-${style}.ttf" | tr -d '[:space:]')"
-  monoplex_kr_wide_console_filename="$(echo "${monoplex_kr_wide_familyname}${monoplex_kr_console_suffix}${hs_suffix}-${style}.ttf" | tr -d '[:space:]')"
   nerdfonts="${tmpdir}/${modified_nerdfonts}"
   nerdfonts35="${tmpdir}/${modified_nerdfonts35}"
 
   # Add hinting
   # Monoplex KR
-  for f in "$monoplex_kr_filename" "$monoplex_kr_console_filename"
+  for f in "$monoplex_kr_filename"
   do
     ttfautohint -l 6 -r 45 -a nnn -D latn -W -X "15-" -I "$f" "hinted_${f}"
   done
   # Monoplex KR Wide
-  for f in "$monoplex_kr_wide_filename" "$monoplex_kr_wide_console_filename"
+  for f in "$monoplex_kr_wide_filename"
   do
     m_opt=''
     post_process_file="${base_dir}/hinting_post_process/35-${style}-ctrl.txt"
@@ -3113,114 +2309,82 @@ do
 
   if [ "${style}" = 'Thin' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_thin}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_thin}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_thin}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_thin}.ttf"
   fi
   if [ "${style}" = 'ExtraLight' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_extralight}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_extralight}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_extralight}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_extralight}.ttf"
   fi
   if [ "${style}" = 'Light' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_light}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_light}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_light}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_light}.ttf"
   fi
   if [ "${style}" = 'Regular' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_regular}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_regular}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_regular}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_regular}.ttf"
   fi
   if [ "${style}" = 'Text' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_text}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_text}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_text}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_text}.ttf"
   fi
   if [ "${style}" = 'Medium' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_medium}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_medium}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_medium}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_medium}.ttf"
   fi
   if [ "${style}" = 'SemiBold' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_semibold}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_semibold}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_semibold}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_semibold}.ttf"
   fi
   if [ "${style}" = 'Bold' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_bold}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_bold}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_bold}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_bold}.ttf"
   fi
   if [ "${style}" = 'ThinItalic' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_thin_italic}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_thin_italic}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_thin_italic}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_thin_italic}.ttf"
   fi
   if [ "${style}" = 'ExtraLightItalic' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_extralight_italic}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_extralight_italic}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_extralight_italic}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_extralight_italic}.ttf"
   fi
   if [ "${style}" = 'LightItalic' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_light_italic}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_light_italic}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_light_italic}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_light_italic}.ttf"
   fi
   if [ "${style}" = 'Italic' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_regular_italic}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_regular_italic}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_regular_italic}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_regular_italic}.ttf"
   fi
   if [ "${style}" = 'TextItalic' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_text_italic}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_text_italic}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_text_italic}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_text_italic}.ttf"
   fi
   if [ "${style}" = 'MediumItalic' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_medium_italic}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_medium_italic}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_medium_italic}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_medium_italic}.ttf"
   fi
   if [ "${style}" = 'SemiBoldItalic' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_semibold_italic}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_semibold_italic}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_semibold_italic}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_semibold_italic}.ttf"
   fi
   if [ "${style}" = 'BoldItalic' ]; then
     marge_plexkr_regular="${tmpdir}/${modified_plexkr_bold_italic}.ttf"
-    marge_plexkr_console_regular="${tmpdir}/${modified_plexkr_console_bold_italic}.ttf"
     marge_plexkr_wide_regular="${tmpdir}/${modified_plexkr_wide_bold_italic}.ttf"
-    marge_plexkr_wide_console_regular="${tmpdir}/${modified_plexkr_wide_console_bold_italic}.ttf"
   fi
 
   # Generate Nerd Fonts version
   if [ "$NERDFONTS_FLG" = 'true' ]; then
-    # Monoplex KR Console NF
-    echo "pyftmerge: ${monoplex_kr_console_filename}"
-    pyftmerge "hinted_${monoplex_kr_console_filename}" "$nerdfonts"
-    pyftmerge merged.ttf "$marge_plexkr_console_regular"
-    mv merged.ttf "${monoplex_kr_console_filename}"
+    # Monoplex KR Nerd
+    echo "pyftmerge: ${monoplex_kr_filename}"
+    pyftmerge "hinted_${monoplex_kr_filename}" "$nerdfonts"
+    pyftmerge merged.ttf "$marge_plexkr_regular"
+    mv merged.ttf "${monoplex_kr_filename}"
 
-    # Monoplex KR Wide Console NF
-    echo "pyftmerge: ${monoplex_kr_wide_console_filename}"
-    pyftmerge "hinted_${monoplex_kr_wide_console_filename}" "$nerdfonts35"
-    pyftmerge merged.ttf "$marge_plexkr_wide_console_regular"
-    mv merged.ttf "${monoplex_kr_wide_console_filename}"
+    # Monoplex KR Wide Nerd
+    echo "pyftmerge: ${monoplex_kr_wide_filename}"
+    pyftmerge "hinted_${monoplex_kr_wide_filename}" "$nerdfonts35"
+    pyftmerge merged.ttf "$marge_plexkr_wide_regular"
+    mv merged.ttf "${monoplex_kr_wide_filename}"
 
     continue
   fi
@@ -3230,20 +2394,10 @@ do
   pyftmerge "hinted_${monoplex_kr_filename}" "$marge_plexkr_regular"
   mv merged.ttf "${monoplex_kr_filename}"
 
-  # Monoplex KR Console
-  echo "pyftmerge: ${monoplex_kr_console_filename}"
-  pyftmerge "hinted_${monoplex_kr_console_filename}" "$marge_plexkr_console_regular"
-  mv merged.ttf "${monoplex_kr_console_filename}"
-
   # Monoplex KR Wide
   echo "pyftmerge: ${monoplex_kr_wide_filename}"
   pyftmerge "hinted_${monoplex_kr_wide_filename}" "$marge_plexkr_wide_regular"
   mv merged.ttf "${monoplex_kr_wide_filename}"
-
-  # Monoplex KR Wide Console
-  echo "pyftmerge: ${monoplex_kr_wide_console_filename}"
-  pyftmerge "hinted_${monoplex_kr_wide_console_filename}" "$marge_plexkr_wide_console_regular"
-  mv merged.ttf "${monoplex_kr_wide_console_filename}"
 
 done
 
