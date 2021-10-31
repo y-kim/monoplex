@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Monoplex KR Generator
-monoplex_kr_version="0.0.1"
+monoplex_kr_version="0.0.2"
 
 base_dir=$(cd $(dirname $0); pwd)
 
