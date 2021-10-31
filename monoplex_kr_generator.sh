@@ -639,12 +639,6 @@ while (i < SizeOf(input_list))
   Select(0u2500, 0u259f)
   Clear()
 
-#  # Cent Sign, Pound Sign, Yen Sign は IBM Plex Sans KR を使用
-#  Select(0u00A2)
-#  SelectMore(0u00A3)
-#  SelectMore(0u00A5)
-#  Clear()
-
   # パスの小数点以下を切り捨て
   SelectWorthOutputting()
   RoundToInt()
@@ -1328,6 +1322,23 @@ while (i < SizeOf(input_list))
   SetWidth(${monoplex_kr_half_width})
   CenterInWidth();
 
+  # 罫線を半角化
+  Select(0u2500, 0u259F)
+  Clear()
+  MergeFonts("$input_box_drawing")
+  Select(0u2500, 0u259F)
+  Move(0, 100)
+  Scale(${plexmono_shrink_x}, ${plexmono_shrink_y}, 0, 0)
+  foreach
+    if (WorthOutputting())
+      SetWidth(${monoplex_kr_half_width})
+    endif
+  endloop
+
+  # 結合分音記号は IBM Plex Mono を使用する
+  Select(0u0300, 0u0328)
+  Clear()
+
   # カーニング情報を削除
   lookups = GetLookups("GPOS"); numlookups = SizeOf(lookups); ii = 0;
   while (ii < numlookups)
@@ -1723,6 +1734,18 @@ while (i < SizeOf(input_list))
   Scale(94, 100)
   SetWidth(${monoplex_kr_wide_half_width})
   CenterInWidth()
+
+  # 罫線を半角化
+  Select(0u2500, 0u259F)
+  Clear()
+  MergeFonts("$input_box_drawing")
+  Select(0u2500, 0u259F)
+  Move(0, 100)
+
+  # 結合分音記号は IBM Plex Mono を使用する
+  Select(0u0300, 0u0328)
+  Clear()
+
 
   # カーニング情報を削除
   lookups = GetLookups("GPOS"); numlookups = SizeOf(lookups); ii = 0;
