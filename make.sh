@@ -10,10 +10,10 @@ function mvBuild() {
 }
 
 function mvBuildNerd() {
-  mkdir -p "${BASE_DIR}/build/MonoplexKR_Nerd"
-  mkdir -p "${BASE_DIR}/build/MonoplexKRWide_Nerd"
-  mv -f "${BASE_DIR}/"MonoplexKRWide*.ttf "${BASE_DIR}/build/MonoplexKRWide_Nerd/"
-  mv -f "${BASE_DIR}/"MonoplexKR*.ttf "${BASE_DIR}/build/MonoplexKR_Nerd/"
+  mkdir -p "${BASE_DIR}/build/MonoplexKRNerd"
+  mkdir -p "${BASE_DIR}/build/MonoplexKRWideNerd"
+  mv -f "${BASE_DIR}/"MonoplexKRWideNerd*.ttf "${BASE_DIR}/build/MonoplexKRWideNerd/"
+  mv -f "${BASE_DIR}/"MonoplexKRNerd*.ttf "${BASE_DIR}/build/MonoplexKRNerd/"
   rm -f "${BASE_DIR}/"MonoplexKR*.ttf
 }
 
