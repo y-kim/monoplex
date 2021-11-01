@@ -13,8 +13,6 @@ Monoplex KR은 아래의 네 가족이 친족을 이룹니다.
 - `Monoplex KR Wide`: 넓은폭문자와 좁은폭문자의 너비 비율이 5:3인 고정폭 글꼴입니다.
 - `Monoplex KR Wide Nerd`: Monoplex KR Wide에 Powerline 기호, 매테리얼 디자인 등이 포함된 Nerd Fonts가 더해진 글꼴입니다.
 
-다만 현재 Wide 가족은 디버깅 중에 있으며, 릴리즈 파일에는 포함되지 있지 않습니다.
-
 # 갤러리
 
 TBD
