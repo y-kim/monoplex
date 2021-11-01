@@ -57,7 +57,7 @@ em=$(($em_ascent + $em_descent))
 typo_line_gap=80
 
 plexmono_width=600
-plexkr_width=1000
+plexkr_width=892
 
 monoplex_kr_half_width=528
 monoplex_kr_full_width=$((${monoplex_kr_half_width} * 2))
@@ -341,6 +341,10 @@ fi
 input_ideographic_space=`find $fonts_directories -follow -iname "Ideographic_Space.sfd" | head -n 1`
 input_box_drawing=`find $fonts_directories -follow -iname "Box_Drawing_half.sfd" | head -n 1`
 
+# IBM Plex Sans KR 넓은폭으로 변경
+set_full_char="
+  Function(0u2160) # Ⅰ (Roman Numeral One). Ⅱ 이후가 넓은폭이기 때문...
+"
 # IBM Plex Sans KR 等幅化対策 (全角左寄せの除外)
 set_full_left_fewer="
   SelectFewer(8217) # ’ (Right Single Quotation Mark)
@@ -1098,8 +1102,10 @@ i = 0
 end_plexkr = $end_plexkr
 i_halfwidth = 0
 i_width1000 = 0
+i_others = 0
 halfwidth_array = Array(10000)
-width1000_array = Array(10000)
+width1000_array = Array(20000)
+others_array = Array(10000)
 Print("Half width check loop start")
 Open(input_list[0])
 while (i < end_plexkr)
@@ -1113,9 +1119,12 @@ while (i < end_plexkr)
           if (glyphWidth < ${monoplex_kr_half_width})
             halfwidth_array[i_halfwidth] = i
             i_halfwidth = i_halfwidth + 1
-          elseif (glyphWidth == 1000)
+          elseif (glyphWidth == 892)
             width1000_array[i_width1000] = i
             i_width1000 = i_width1000 + 1
+	  else
+            others_array[i_others] = i
+            i_others = i_others + 1
           endif
         endif
       endif
@@ -1163,8 +1172,8 @@ while (i < SizeOf(input_list))
   Print("Remove IBMPlexMono Glyphs end")
 
   Print("Full SetWidth start")
-  move_pt = $(((${monoplex_kr_full_width} - ${plexkr_width}) / 2)) # 26
-  width_pt = ${monoplex_kr_full_width} # 1076
+  move_pt = $(((${monoplex_kr_full_width} - ${plexkr_width}) / 2))
+  width_pt = ${monoplex_kr_full_width}
 
   SelectNone()
   ii=0
@@ -1176,6 +1185,20 @@ while (i < SizeOf(input_list))
   endloop
   Move(move_pt, 0)
   SetWidth(width_pt)
+
+  Print("Scaling of too wide characters start")
+  SelectNone()
+  ii=0
+  while (ii < i_others)
+      if (InFont(others_array[ii]))
+          Select(others_array[ii])
+	  width = GlyphInfo("Width")
+          if (width > ${plexkr_width})
+	      Scale(${plexkr_width}*100/width, 100)
+          endif
+      endif
+      ii = ii + 1
+  endloop
 
   SelectWorthOutputting()
   ii=0
@@ -1192,14 +1215,14 @@ while (i < SizeOf(input_list))
       endif
       ii = ii + 1
   endloop
+  $(echo $set_full_char | sed "s/Function/SelectMore/")
   $set_full_left_fewer
   SetWidth(width_pt)
   CenterInWidth()
   Print("Full SetWidth end")
 
-  SelectNone()
-
   Print("Half SetWidth start")
+  SelectNone()
   move_pt = $(((${monoplex_kr_half_width} - ${plexkr_width} / 2) / 2)) # 13
   width_pt = ${monoplex_kr_half_width} # 358
   ii=0
@@ -1209,6 +1232,7 @@ while (i < SizeOf(input_list))
       endif
       ii = ii + 1
   endloop
+  $(echo $set_full_char | sed "s/Function/SelectFewer/")
   $set_half_left_fewer
   $set_half_right_fewer
   $set_half_to_full_right_fewer
@@ -1505,8 +1529,10 @@ i = 0
 end_plexkr = $end_plexkr
 i_halfwidth = 0
 i_width1000 = 0
+i_others = 0
 halfwidth_array = Array(10000)
-width1000_array = Array(10000)
+width1000_array = Array(20000)
+others_array = Array(10000)
 Print("Half width check loop start")
 Open(input_list[0])
 while (i < end_plexkr)
@@ -1520,9 +1546,12 @@ while (i < end_plexkr)
           if (glyphWidth < ${monoplex_kr_half_width})
             halfwidth_array[i_halfwidth] = i
             i_halfwidth = i_halfwidth + 1
-          elseif (glyphWidth == 1000)
+          elseif (glyphWidth == 892)
             width1000_array[i_width1000] = i
             i_width1000 = i_width1000 + 1
+          else
+            others_array[i_others] = i
+            i_others = i_others + 1
           endif
         endif
       endif
@@ -1570,8 +1599,8 @@ while (i < SizeOf(input_list))
   Print("Remove IBMPlexMono Glyphs end")
 
   Print("Full SetWidth start")
-  move_pt = $(((${monoplex_kr_wide_full_width} - ${plexkr_width}) / 2)) # 3
-  width_pt = ${monoplex_kr_wide_full_width} # 1030
+  move_pt = $(((${monoplex_kr_wide_full_width} - ${plexkr_width}) / 2))
+  width_pt = ${monoplex_kr_wide_full_width}
 
   SelectNone()
   ii=0
@@ -1583,6 +1612,20 @@ while (i < SizeOf(input_list))
   endloop
   Move(move_pt, 0)
   SetWidth(width_pt)
+
+  Print("Scaling of too wide characters start")
+  SelectNone()
+  ii=0
+  while (ii < i_others)
+      if (InFont(others_array[ii]))
+          Select(others_array[ii])
+	  width = GlyphInfo("Width")
+          if (width > ${plexkr_width})
+	      Scale(${plexkr_width}*100/width, 100)
+          endif
+      endif
+      ii = ii + 1
+  endloop
 
   SelectWorthOutputting()
   ii=0
@@ -1599,12 +1642,14 @@ while (i < SizeOf(input_list))
       endif
       ii = ii + 1
   endloop
+  $(echo $set_full_char | sed "s/Function/SelectMore/")
   $set_full_left_fewer
   SetWidth(width_pt)
   CenterInWidth()
   Print("Full SetWidth end")
 
   Print("Half SetWidth start")
+  SelectNone()
   move_pt = $(((${monoplex_kr_wide_half_width} - ${plexkr_width} / 2) / 2)) # 35
   width_pt = ${monoplex_kr_wide_half_width} # 618
   ii=0
@@ -1614,6 +1659,7 @@ while (i < SizeOf(input_list))
       endif
       ii = ii + 1
   endloop
+  $(echo $set_full_char | sed "s/Function/SelectFewer/")
   $set_half_left_fewer
   $set_half_right_fewer
   $set_half_to_full_right_fewer
