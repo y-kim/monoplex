@@ -1,3 +1,7 @@
+![Monoplex KR](images/monoplex-kr.png)[^1]
+
+[^1]: 글꼴 이름을 표현하는 그림의 아이디어는 Microsoft [Cascadia Code](https://github.com/microsoft/cascadia-code)에서 가져왔습니다.
+
 # Monoplex KR (모노플렉스 KR)
 
 Monoplex KR은 IBM Plex Mono에 IBM Plex Sans KR의 글자를 더해서 만든 프로그래밍 글꼴입니다. 두 글꼴에 모두 글자가 있는 경우 IBM Plex Mono를 사용합니다.
