@@ -19,7 +19,7 @@ Monoplex KR은 아래의 네 가족이 친족을 이룹니다.
 
 # 갤러리
 
-TBD
+![Example 1](images/example1.png)
 
 # 설치
 
