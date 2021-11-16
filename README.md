@@ -38,7 +38,7 @@ Monoplex KR은 아래의 네 가족이 친족을 이룹니다.
 
 # 요청
 
-![Request](images/cursor.png)
+![Request](images/cursor.gif)
 
 Microsoft Visual Studio Code에서 수직 방향으로 커서를 움직일 때 커서의 시각적 위치가 급격하게 바뀌는 경우가 있습니다. 이는 vscode에서 시각적 위치를 계산할 때 CJK의 주요 문자를 제외한 모든 기호의 너비를 Latin 문자와 동일하게 계산하기 때문입니다.
 
