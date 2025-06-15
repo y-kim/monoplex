@@ -1,0 +1,11 @@
+services:
+  font-tools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: font-tools-container
+    volumes:
+      - ./:/work # 호스트의 작업 디렉토리 마운트
+    working_dir: /work
+    tty: true
+    stdin_open: true
