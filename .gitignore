@@ -3,3 +3,4 @@ bak/*
 work/
 error.log
 build/
+.DS_Store
