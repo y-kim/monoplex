@@ -84,3 +84,28 @@ hapchija build --recipe recipes/monoplex-kr.json
 빌드가 끝나면 기대한 파일이 모두 생겼는지, 생성된 TTF 를 fontTools 로 읽을 수
 있는지 자동으로 확인합니다. 둘 중 하나라도 실패하면 0 이 아닌 종료 코드로
 끝납니다.
+
+# README 그림 만들기
+
+네 가족을 모두 빌드한 뒤 아래를 돌리면 `images/` 의 그림이 다시 만들어집니다.
+
+```bash
+sh scripts/images.sh
+```
+
+| 스크립트 | 만드는 것 |
+|---|---|
+| `scripts/header.py` | 맨 위의 이름 그림 |
+| `scripts/gallery.py` | 코드 스크린샷 (VS Code Dark+ 색) |
+| `scripts/terminal.py` | vim + vim-airline 화면 |
+| `scripts/render.py` | 위 셋이 같이 쓰는 그리기 부분 |
+| `scripts/screen.vim` | vim 화면을 칸 단위로 긁는 쪽 |
+
+글자 너비는 유니코드 폭 분류표가 아니라 글꼴의 `hmtx` 에서 직접 읽습니다.
+그림에 없는 글자가 있으면 `gallery.py` 와 `header.py` 는 멈추고 무엇이
+없는지 알려 줍니다.
+
+`terminal.py` 는 `~/.vimrc` 와 거기 설정된 airline 테마를 그대로 씁니다.
+Powerline 구분자를 흉내 내지 않고, 진짜 vim 을 터미널 버퍼에 띄워
+`term_scrape()` 로 칸마다 글자·색·속성을 받아 와 다시 그립니다. vim 에
+`+terminal` 이 있어야 하고, pty 를 위해 `script(1)` 을 씁니다.
