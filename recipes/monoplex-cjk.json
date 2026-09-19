@@ -43,6 +43,7 @@
     }
   },
   "sourceDir": "source",
+  "fetchDir": "vendor",
   "styles": [
     {
       "name": "Thin",
