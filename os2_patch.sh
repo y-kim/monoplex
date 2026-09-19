@@ -4,7 +4,7 @@ BASE_DIR=$(cd $(dirname $0); pwd)
 PREFIX="$1"
 
 xAvgCharWidth_SETVAL=528
-FIRGE_PATTERN=${PREFIX}'MonoplexKR[^3]*.ttf'
+FIRGE_PATTERN=${PREFIX}'MonoplexKR[!W]*.ttf'
 
 xAvgCharWidth35_SETVAL=1000
 FIRGE35_PATTERN=${PREFIX}'MonoplexKRWide*.ttf'
