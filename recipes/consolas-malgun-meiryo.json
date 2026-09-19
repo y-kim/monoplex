@@ -1,0 +1,131 @@
+{
+  "$comment": [
+    "Consolas + 맑은 고딕 + Meiryo 조합. 일반화가 실제로 되는지 확인하는 예제다.",
+    "세 글꼴 모두 Microsoft 독점 글꼴이라 합성 결과를 배포할 수 없다.",
+    "소스는 저장소에 넣지 않는다. source-local/ 에 두고 gitignore 한다.",
+    "sources 는 우선순위 순서다. 라틴은 Consolas, 한글은 맑은 고딕,",
+    "맑은 고딕에 없는 일본어 글자는 Meiryo 가 채운다."
+  ],
+  "name": "MixMono (Consolas + Malgun + Meiryo)",
+  "output": {
+    "familyName": "MixMono",
+    "version": "0.1.0",
+    "copyright": "Derived from proprietary Microsoft fonts. Not redistributable.",
+    "vendorId": "NONE",
+    "ibmFamily": 2057,
+    "variantSuffix": {}
+  },
+  "target": {
+    "em": {
+      "ascent": 880,
+      "descent": 120
+    },
+    "vertical": {
+      "ascent": 950,
+      "descent": 250,
+      "typoLineGap": 0
+    },
+    "halfWidth": 500,
+    "italicAngle": -9,
+    "widthClass": 5,
+    "panose": {
+      "familyType": 2,
+      "serifStyle": 11,
+      "proportion": 9,
+      "contrast": 5,
+      "strokeVariation": 2,
+      "armStyle": 3,
+      "letterForm": 0,
+      "midline": 2,
+      "xHeight": 3
+    }
+  },
+  "sourceDir": "source-local",
+  "styles": [
+    {
+      "name": "Regular",
+      "file": "Regular",
+      "latinSrc": "Regular",
+      "cjkSrc": "Regular",
+      "weight": 400,
+      "panoseWeight": 5,
+      "italic": false
+    },
+    {
+      "name": "Bold",
+      "file": "Bold",
+      "latinSrc": "Bold",
+      "cjkSrc": "Bold",
+      "weight": 700,
+      "panoseWeight": 8,
+      "italic": false
+    },
+    {
+      "name": "Regular",
+      "file": "Italic",
+      "latinSrc": "Italic",
+      "cjkSrc": "Regular",
+      "weight": 400,
+      "panoseWeight": 5,
+      "italic": true
+    },
+    {
+      "name": "Bold",
+      "file": "BoldItalic",
+      "latinSrc": "BoldItalic",
+      "cjkSrc": "Bold",
+      "weight": 700,
+      "panoseWeight": 8,
+      "italic": true
+    }
+  ],
+  "debugStyleIndex": 0,
+  "sources": [
+    {
+      "id": "latin",
+      "role": "base",
+      "path": "Consolas-{latinSrc}.ttf",
+      "fit": {
+        "mode": "halfScale",
+        "scale": [
+          91,
+          97
+        ]
+      },
+      "$note": "Consolas 는 2048upem/1126폭. set_em 으로 1000 이 되고 폭은 550 이 된다. 91% 로 줄여 500 에 맞춘다."
+    },
+    {
+      "id": "kr",
+      "role": "cjk",
+      "path": "MalgunGothic-{cjkSrc}.ttf",
+      "italicize": true,
+      "fit": {
+        "mode": "cjkUniform"
+      },
+      "$note": "맑은 고딕은 전각이 2048 로 균일하다. set_em 뒤 1000 = 목표 전각이라 그대로 맞는다."
+    },
+    {
+      "id": "jp",
+      "role": "cjk",
+      "path": "Meiryo-{cjkSrc}.ttf",
+      "italicize": true,
+      "fit": {
+        "mode": "cjkUniform"
+      },
+      "$note": "맑은 고딕이 덮지 못한 일본어 글자를 채운다. 우선순위가 낮아 겹치는 것은 버려진다."
+    }
+  ],
+  "finalize": {
+    "removeCodepoints": [],
+    "hinting": [],
+    "$note": "Consolas 는 원래 힌팅이 훌륭해서 ttfautohint 를 돌리지 않는다.",
+    "os2": {
+      "isFixedPitch": 1,
+      "underlinePosition": -70,
+      "forceVerticalMetrics": true
+    }
+  },
+  "build": {
+    "outputDir": "build"
+  }
+}

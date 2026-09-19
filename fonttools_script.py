@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
-"""Monoplex KR 마무리 처리.
+"""합성한 부품에 힌팅을 넣고 합친 뒤 테이블을 바로잡는다.
 
-fontforge_script.py 가 만든 부품을 받아서
+    python3 fonttools_script.py --recipe recipes/monoplex-kr.json [--nerd] [--debug]
 
-1. 라틴 부분에 ttfautohint 로 힌팅을 넣고
-2. 한글 부품과 (있으면) Nerd Fonts 부품을 합치고
-3. OS/2 와 post 테이블의 값을 바로잡는다
+fontforge_script.py 가 만든 것을 받는다.
 
-예전의 os2_patch.sh 는 ttx 로 XML 을 덤프해 sed 로 고치고 다시 컴파일했다.
-여기서는 fontTools 로 테이블을 직접 건드린다. ttx 왕복이 사라져서 빠르고,
-정규식이 어긋나 조용히 실패할 일도 없다.
+    <Family>-<Style>.ttf   기준 소스(role=base)로 만든 뼈대
+    parts/<id>-<Style>.ttf 두께마다 만드는 부품 (CJK 등)
+    parts/<id>.ttf         두께와 무관한 부품 (심볼)
 
-    python3 fonttools_script.py [--nerd] [--debug]
+힌팅은 뼈대에만 넣는다. CJK 글리프에 ttfautohint 를 돌리면 획이 뭉개진다.
 """
 
 from __future__ import annotations
@@ -29,41 +27,51 @@ from fontTools.ttLib import TTFont
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-def load_config(path=None):
-    with open(path or os.path.join(BASE_DIR, "build.json"), encoding="utf-8") as fp:
-        return json.load(fp)
-
-
-def short_name(cfg, suffix):
-    family = cfg["meta"]["familyName"]
+def family_short(recipe, suffix):
+    family = recipe["output"]["familyName"]
     if suffix:
         family = "%s %s" % (family, suffix)
     return family.replace(" ", "")
 
 
-def run_ttfautohint(cfg, src, dst):
-    args = ["ttfautohint"] + list(cfg["hinting"]["args"]) + ["-I", src, dst]
-    subprocess.run(args, check=True)
+def run_ttfautohint(args_list, src, dst):
+    subprocess.run(["ttfautohint"] + list(args_list) + ["-I", src, dst], check=True)
+
+
+# 부품에 남아 있어도 합성 결과에는 의미가 없고, fontTools 병합을 깨뜨리기도 하는 테이블.
+# 세로쓰기 메트릭 (vhea/vmtx/VORG) 과 소스 글꼴의 힌팅 (cvt/fpgm/prep) 이다.
+# 힌팅은 우리가 변형을 가한 뒤라 어차피 맞지 않는다.
+STRIP_FROM_PARTS = ("vhea", "vmtx", "VORG", "cvt ", "fpgm", "prep")
+
+
+def strip_tables(path, tags=STRIP_FROM_PARTS):
+    font = TTFont(path, recalcBBoxes=False, recalcTimestamp=False)
+    removed = [t for t in tags if t in font]
+    if removed:
+        for tag in removed:
+            del font[tag]
+        font.save(path)
+    font.close()
+    return removed
 
 
 def merge_parts(base, parts, out):
     """base 를 우선으로 부품을 합친다.
 
     fontTools 의 merge 는 같은 코드포인트가 겹치면 앞선 폰트를 남긴다.
-    라틴(base) > Nerd > 한글 순서라, 세 곳 모두에 있는 글리프는 라틴이 이긴다.
+    레시피의 sources 순서가 그대로 우선순위가 된다.
     """
-    merger = Merger()
-    merged = merger.merge([base] + parts)
+    merged = Merger().merge([base] + parts)
     merged.save(out)
     merged.close()
 
 
 def fs_selection(filename):
-    """예전 os2_patch.sh 가 파일 이름을 보고 고르던 값을 그대로 옮긴 것.
+    """이름을 보고 fsSelection 을 고른다.
 
-    bit 8 (WWS) 은 항상 켜고, 이름에 따라 REGULAR / BOLD / ITALIC 을 더한다.
-    조건을 보는 순서까지 같아야 한다. 예를 들어 SemiBold 는 이름에 'Bold' 가
-    들어 있어서 BOLD 비트가 붙는다.
+    bit 8 (WWS) 은 항상 켜고 REGULAR / BOLD / ITALIC 을 더한다. 보는 순서까지
+    예전 os2_patch.sh 와 같게 두었다. SemiBold 는 이름에 'Bold' 가 들어 있어서
+    BOLD 비트가 붙는다.
     """
     wws = 1 << 8
     if "Regular" in filename:
@@ -80,39 +88,46 @@ def fs_selection(filename):
 def drop_codepoints(font, codepoints):
     """cmap 에서 코드포인트를 뺀다.
 
-    FontForge 에서 윤곽을 비워도 cmap 항목은 남는다. 남아 있으면 OS 가
-    그 글리프를 쓸 수 있다고 보고 이모지 글꼴로 넘어가지 않는다.
+    윤곽만 비우면 cmap 항목이 남아서, OS 가 그 글리프를 쓸 수 있다고 보고
+    대체 글꼴(이모지 등)로 넘어가지 않는다.
     """
     for table in font["cmap"].tables:
         for code in codepoints:
             table.cmap.pop(code, None)
 
 
-def fix_tables(cfg, path, style):
-    patch = cfg["os2Patch"]
+def fix_tables(recipe, path):
+    fin = recipe["finalize"]
+    os2_cfg = fin.get("os2", {})
+    target = recipe["target"]
     font = TTFont(path, recalcBBoxes=False, recalcTimestamp=False)
 
-    drop_codepoints(font, [int(c, 16) for c in cfg["finalAdjust"]["removeGlyphs"]])
+    drop_codepoints(font, [int(c, 16) for c in fin.get("removeCodepoints", [])])
 
     os2 = font["OS/2"]
-    os2.xAvgCharWidth = patch["xAvgCharWidth"]
+    if "xAvgCharWidth" in os2_cfg:
+        os2.xAvgCharWidth = os2_cfg["xAvgCharWidth"]
     os2.fsSelection = fs_selection(os.path.basename(path))
 
-    if patch.get("verticalMetrics"):
-        m = cfg["metrics"]
-        os2.usWinAscent = m["os2Ascent"]
-        os2.usWinDescent = m["os2Descent"]
-        os2.sTypoAscender = m["emAscent"]
-        os2.sTypoDescender = -m["emDescent"]
-        os2.sTypoLineGap = m["typoLineGap"]
+    # 세로 메트릭은 FontForge 에서 넣어도 mergeFonts 와 generate 가 윤곽을 보고
+    # 다시 계산해 버린다. 그래서 여기서 확정한다.
+    if os2_cfg.get("forceVerticalMetrics"):
+        v, em = target["vertical"], target["em"]
+        os2.usWinAscent = v["ascent"]
+        os2.usWinDescent = v["descent"]
+        os2.sTypoAscender = em["ascent"]
+        os2.sTypoDescender = -em["descent"]
+        os2.sTypoLineGap = v.get("typoLineGap", 0)
         hhea = font["hhea"]
-        hhea.ascent = m["os2Ascent"]
-        hhea.descent = -m["os2Descent"]
+        hhea.ascent = v["ascent"]
+        hhea.descent = -v["descent"]
         hhea.lineGap = 0
 
     post = font["post"]
-    post.isFixedPitch = patch["isFixedPitch"]
-    post.underlinePosition = patch["underlinePosition"]
+    if "isFixedPitch" in os2_cfg:
+        post.isFixedPitch = os2_cfg["isFixedPitch"]
+    if "underlinePosition" in os2_cfg:
+        post.underlinePosition = os2_cfg["underlinePosition"]
 
     # VSCode 터미널 하단에서 디센더가 잘리는 문제 대비. 없으면 아무 일도 없다.
     if "BASE" in font:
@@ -123,56 +138,71 @@ def fix_tables(cfg, path, style):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Monoplex KR 마무리 처리")
+    parser = argparse.ArgumentParser(description="부품을 합치고 테이블을 바로잡는다")
+    parser.add_argument("--recipe", required=True)
     parser.add_argument("--nerd", action="store_true")
     parser.add_argument("--hidden-space", action="store_true")
     parser.add_argument("--debug", action="store_true")
-    parser.add_argument("--config", default=None)
-    parser.add_argument("--dir", default=BASE_DIR, help="부품이 있는 디렉터리")
+    parser.add_argument("--dir", default=BASE_DIR)
     args = parser.parse_args()
 
-    cfg = load_config(args.config)
+    with open(args.recipe, encoding="utf-8") as fp:
+        recipe = json.load(fp)
+
+    variants = {"nerd": args.nerd, "hiddenSpace": args.hidden_space}
+    suffixes = recipe["output"].get("variantSuffix", {})
+    suffix = suffixes.get("hiddenSpace", "") if args.hidden_space else (
+        suffixes.get("nerd", "") if args.nerd else ""
+    )
+    prefix = family_short(recipe, suffix)
+
     work = args.dir
     parts_dir = os.path.join(work, "parts")
-
-    suffix = ""
-    if args.hidden_space:
-        suffix = cfg["variantSuffix"]["hiddenSpace"]
-    elif args.nerd:
-        suffix = cfg["variantSuffix"]["nerd"]
-    prefix = short_name(cfg, suffix)
-
-    styles = cfg["styles"]
+    styles = recipe["styles"]
     if args.debug:
-        styles = [styles[cfg["debugStyleIndex"]]]
+        styles = [styles[recipe.get("debugStyleIndex", 0)]]
 
-    nerd_part = os.path.join(parts_dir, "nerd.ttf")
-    if args.nerd and not os.path.exists(nerd_part):
-        print("ERROR: %s 가 없습니다" % nerd_part, file=sys.stderr)
-        return 1
+    sources = [s for s in recipe["sources"] if not s.get("when") or variants.get(s["when"])]
+    extra = [s for s in sources if s.get("role") != "base"]
+    hinting = recipe["finalize"].get("hinting", [])
 
     for style in styles:
         name = "%s-%s.ttf" % (prefix, style["file"])
-        latin = os.path.join(work, name)
-        kr_part = os.path.join(parts_dir, "kr-%s.ttf" % style["file"])
-        if not os.path.exists(latin):
-            print("ERROR: %s 가 없습니다" % latin, file=sys.stderr)
-            return 1
-        if not os.path.exists(kr_part):
-            print("ERROR: %s 가 없습니다" % kr_part, file=sys.stderr)
+        base = os.path.join(work, name)
+        if not os.path.exists(base):
+            print("ERROR: %s 가 없습니다" % base, file=sys.stderr)
             return 1
 
-        print("ttfautohint: " + name)
-        hinted = os.path.join(work, "hinted-" + name)
-        run_ttfautohint(cfg, latin, hinted)
+        parts = []
+        for source in extra:
+            if source.get("role") == "symbols":
+                part = os.path.join(parts_dir, "%s.ttf" % source["id"])
+            else:
+                part = os.path.join(parts_dir, "%s-%s.ttf" % (source["id"], style["file"]))
+            if not os.path.exists(part):
+                print("ERROR: %s 가 없습니다" % part, file=sys.stderr)
+                return 1
+            parts.append(part)
+
+        if hinting:
+            print("ttfautohint: " + name)
+            hinted = os.path.join(work, "hinted-" + name)
+            run_ttfautohint(hinting, base, hinted)
+        else:
+            hinted = base
+
+        for part in parts:
+            removed = strip_tables(part)
+            if removed:
+                print("strip %s: %s" % (os.path.basename(part), ", ".join(removed)))
 
         print("merge: " + name)
-        parts = ([nerd_part] if args.nerd else []) + [kr_part]
-        merge_parts(hinted, parts, latin)
-        os.remove(hinted)
+        merge_parts(hinted, parts, base)
+        if hinted != base:
+            os.remove(hinted)
 
         print("fix tables: " + name)
-        fix_tables(cfg, latin, style)
+        fix_tables(recipe, base)
 
     shutil.rmtree(parts_dir, ignore_errors=True)
     print("fonttools_script: done")

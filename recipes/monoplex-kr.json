@@ -1,0 +1,585 @@
+{
+  "$comment": [
+    "합성 글꼴 레시피. build.py --recipe 로 넘긴다.",
+    "코드포인트는 16진 문자열 ('2500'), 범위는 [시작, 끝] 로 끝을 포함한다.",
+    "sources 는 우선순위 순서다. 앞선 소스가 같은 코드포인트를 이긴다.",
+    "path 와 mergeSfd.from 의 {...} 는 styles 항목의 필드 이름을 쓴다."
+  ],
+  "name": "Monoplex KR",
+  "output": {
+    "familyName": "Monoplex KR",
+    "version": "0.0.2",
+    "copyright": "Copyright (c) 2021, Kim Yangsu",
+    "vendorId": "PfEd",
+    "ibmFamily": 2057,
+    "variantSuffix": {
+      "nerd": "Nerd",
+      "hiddenSpace": "SS"
+    }
+  },
+  "target": {
+    "em": {
+      "ascent": 880,
+      "descent": 120
+    },
+    "vertical": {
+      "ascent": 950,
+      "descent": 225,
+      "typoLineGap": 80
+    },
+    "halfWidth": 528,
+    "italicAngle": -9,
+    "widthClass": 5,
+    "panose": {
+      "familyType": 2,
+      "serifStyle": 11,
+      "proportion": 9,
+      "contrast": 5,
+      "strokeVariation": 2,
+      "armStyle": 3,
+      "letterForm": 0,
+      "midline": 2,
+      "xHeight": 3
+    }
+  },
+  "sourceDir": "source",
+  "styles": [
+    {
+      "name": "Thin",
+      "file": "Thin",
+      "monoSrc": "Thin",
+      "krSrc": "Thin",
+      "weight": 100,
+      "panoseWeight": 3,
+      "italic": false
+    },
+    {
+      "name": "ExtraLight",
+      "file": "ExtraLight",
+      "monoSrc": "ExtraLight",
+      "krSrc": "ExtraLight",
+      "weight": 200,
+      "panoseWeight": 3,
+      "italic": false
+    },
+    {
+      "name": "Light",
+      "file": "Light",
+      "monoSrc": "Light",
+      "krSrc": "Light",
+      "weight": 300,
+      "panoseWeight": 4,
+      "italic": false
+    },
+    {
+      "name": "Regular",
+      "file": "Regular",
+      "monoSrc": "Regular",
+      "krSrc": "Regular",
+      "weight": 400,
+      "panoseWeight": 5,
+      "italic": false
+    },
+    {
+      "name": "Text",
+      "file": "Text",
+      "monoSrc": "Text",
+      "krSrc": "Text",
+      "weight": 450,
+      "panoseWeight": 5,
+      "italic": false
+    },
+    {
+      "name": "Medium",
+      "file": "Medium",
+      "monoSrc": "Medium",
+      "krSrc": "Medium",
+      "weight": 500,
+      "panoseWeight": 6,
+      "italic": false
+    },
+    {
+      "name": "SemiBold",
+      "file": "SemiBold",
+      "monoSrc": "SemiBold",
+      "krSrc": "SemiBold",
+      "weight": 600,
+      "panoseWeight": 7,
+      "italic": false
+    },
+    {
+      "name": "Bold",
+      "file": "Bold",
+      "monoSrc": "Bold",
+      "krSrc": "Bold",
+      "weight": 700,
+      "panoseWeight": 8,
+      "italic": false
+    },
+    {
+      "name": "Thin",
+      "file": "ThinItalic",
+      "monoSrc": "ThinItalic",
+      "krSrc": "Thin",
+      "weight": 100,
+      "panoseWeight": 3,
+      "italic": true
+    },
+    {
+      "name": "ExtraLight",
+      "file": "ExtraLightItalic",
+      "monoSrc": "ExtraLightItalic",
+      "krSrc": "ExtraLight",
+      "weight": 200,
+      "panoseWeight": 3,
+      "italic": true
+    },
+    {
+      "name": "Light",
+      "file": "LightItalic",
+      "monoSrc": "LightItalic",
+      "krSrc": "Light",
+      "weight": 300,
+      "panoseWeight": 4,
+      "italic": true
+    },
+    {
+      "name": "Regular",
+      "file": "Italic",
+      "monoSrc": "Italic",
+      "krSrc": "Regular",
+      "weight": 400,
+      "panoseWeight": 5,
+      "italic": true
+    },
+    {
+      "name": "Text",
+      "file": "TextItalic",
+      "monoSrc": "TextItalic",
+      "krSrc": "Text",
+      "weight": 450,
+      "panoseWeight": 5,
+      "italic": true
+    },
+    {
+      "name": "Medium",
+      "file": "MediumItalic",
+      "monoSrc": "MediumItalic",
+      "krSrc": "Medium",
+      "weight": 500,
+      "panoseWeight": 6,
+      "italic": true
+    },
+    {
+      "name": "SemiBold",
+      "file": "SemiBoldItalic",
+      "monoSrc": "SemiBoldItalic",
+      "krSrc": "SemiBold",
+      "weight": 600,
+      "panoseWeight": 7,
+      "italic": true
+    },
+    {
+      "name": "Bold",
+      "file": "BoldItalic",
+      "monoSrc": "BoldItalic",
+      "krSrc": "Bold",
+      "weight": 700,
+      "panoseWeight": 8,
+      "italic": true
+    }
+  ],
+  "debugStyleIndex": 3,
+  "sources": [
+    {
+      "id": "latin",
+      "role": "base",
+      "path": "IBM-Plex-Mono/IBMPlexMono-{monoSrc}.ttf",
+      "ops": [
+        {
+          "op": "rotate",
+          "cp": "0060",
+          "deg": -25
+        },
+        {
+          "op": "scale",
+          "cp": "0060",
+          "by": [
+            100,
+            118
+          ]
+        },
+        {
+          "op": "rotate",
+          "cp": "0060",
+          "deg": 33
+        },
+        {
+          "op": "scale",
+          "cps": [
+            "0027",
+            "0060"
+          ],
+          "by": [
+            109,
+            106
+          ],
+          "setWidth": "source-half"
+        },
+        {
+          "op": "scale",
+          "cps": [
+            "003a",
+            "003b",
+            "002c",
+            "002e"
+          ],
+          "by": 108,
+          "setWidth": "source-half"
+        },
+        {
+          "op": "clear",
+          "range": [
+            "2500",
+            "259f"
+          ],
+          "$note": "ttfautohint 대책. 반각 괘선은 CJK 쪽에서 넣는다"
+        },
+        {
+          "op": "round"
+        }
+      ],
+      "fit": {
+        "mode": "halfScale",
+        "scale": [
+          88,
+          94
+        ],
+        "sourceWidth": 600,
+        "opsBeforeWidth": [
+          {
+            "op": "scaleOrigin",
+            "range": [
+              "0061",
+              "007a"
+            ],
+            "by": [
+              100,
+              103
+            ],
+            "$note": "소문자를 조금 더 높게"
+          }
+        ]
+      },
+      "opsAfter": [
+        {
+          "op": "round"
+        }
+      ],
+      "preOps": [
+        {
+          "op": "mergeSfd",
+          "from": "AdjustedGlyphs/r-{name}.sfd",
+          "clearFirst": [
+            "0072",
+            "0155",
+            "0157",
+            "0159"
+          ],
+          "skipWhen": "italic",
+          "$note": "IBM Plex 의 r 을 손질한 것으로 교체"
+        }
+      ]
+    },
+    {
+      "id": "kr",
+      "role": "cjk",
+      "path": "IBM-Plex-Sans-KR/unhinted/IBMPlexSansKR-{krSrc}.ttf",
+      "italicize": true,
+      "fit": {
+        "mode": "cjkClassify",
+        "sourceFullWidth": 892,
+        "forceFull": [
+          "2160"
+        ],
+        "fullExclude": [
+          "2019",
+          "201a",
+          "201d",
+          "201e"
+        ],
+        "halfExclude": {
+          "ranges": [
+            [
+              "2500",
+              "257f"
+            ]
+          ],
+          "single": [
+            "ff61",
+            "ff63",
+            "ff64",
+            "ff9e",
+            "ff9f",
+            "ff62"
+          ]
+        },
+        "halfExcludeMore": [
+          "2018",
+          "201c"
+        ]
+      },
+      "opsAfter": [
+        {
+          "op": "scale",
+          "cp": "ff0e",
+          "by": 145,
+          "setWidth": "full"
+        },
+        {
+          "op": "scale",
+          "cp": "ff0c",
+          "by": 140,
+          "setWidth": "full"
+        },
+        {
+          "op": "scale",
+          "cp": "2018",
+          "by": 125,
+          "setWidth": "full"
+        },
+        {
+          "op": "scale",
+          "cp": "2019",
+          "by": 125,
+          "setWidth": "full"
+        },
+        {
+          "op": "scale",
+          "cp": "201c",
+          "by": 125,
+          "setWidth": "full"
+        },
+        {
+          "op": "scale",
+          "cp": "201d",
+          "by": 125,
+          "setWidth": "full"
+        },
+        {
+          "op": "clear",
+          "range": [
+            "2500",
+            "259f"
+          ]
+        },
+        {
+          "op": "mergeSfd",
+          "from": "AdjustedGlyphs/Box_Drawing_half.sfd"
+        },
+        {
+          "op": "translate",
+          "range": [
+            "2500",
+            "259f"
+          ],
+          "dy": 100
+        },
+        {
+          "op": "scaleOrigin",
+          "range": [
+            "2500",
+            "259f"
+          ],
+          "by": [
+            88,
+            94
+          ],
+          "setWidth": "half"
+        },
+        {
+          "op": "clear",
+          "range": [
+            "0300",
+            "0328"
+          ],
+          "$note": "결합 분음 기호는 라틴 쪽을 쓴다"
+        },
+        {
+          "op": "removeLookups",
+          "tags": [
+            "halt",
+            "vhal",
+            "palt",
+            "vpal",
+            "kern"
+          ]
+        }
+      ],
+      "hiddenSpace": {
+        "cp": "3000",
+        "from": "AdjustedGlyphs/Ideographic_Space.sfd"
+      }
+    },
+    {
+      "id": "nerd",
+      "role": "symbols",
+      "when": "nerd",
+      "path": "BlexMonoNerdFont-Regular.ttf",
+      "keepRanges": [
+        [
+          "23fb",
+          "23fe"
+        ],
+        [
+          "2b58",
+          "2b58"
+        ],
+        [
+          "2665",
+          "2665"
+        ],
+        [
+          "26a1",
+          "26a1"
+        ],
+        [
+          "f400",
+          "f533"
+        ],
+        [
+          "276c",
+          "2771"
+        ],
+        [
+          "2800",
+          "28ff"
+        ],
+        [
+          "2630",
+          "2630"
+        ],
+        [
+          "e0a0",
+          "e0a3"
+        ],
+        [
+          "e0b0",
+          "e0d7"
+        ],
+        [
+          "e200",
+          "e2a9"
+        ],
+        [
+          "e300",
+          "e3e3"
+        ],
+        [
+          "e5fa",
+          "e6bb"
+        ],
+        [
+          "e700",
+          "e958"
+        ],
+        [
+          "ea60",
+          "ec84"
+        ],
+        [
+          "ed00",
+          "efcf"
+        ],
+        [
+          "f000",
+          "f385"
+        ],
+        [
+          "f0001",
+          "f1af0"
+        ]
+      ],
+      "keepRangeNames": [
+        "IEC Power Symbols",
+        "IEC Power Symbols",
+        "Octicons",
+        "Octicons",
+        "Octicons",
+        "Powerline Extra",
+        "Braille Patterns",
+        "Trigram for heaven",
+        "Powerline",
+        "Powerline",
+        "Font Awesome Extension",
+        "Weather Icons",
+        "Seti-UI + Custom",
+        "Devicons",
+        "Codicons",
+        "Font Awesome (v3.4+)",
+        "Font Awesome / Logos",
+        "Material Design Icons"
+      ],
+      "fit": {
+        "mode": "halfScale",
+        "scale": [
+          88,
+          94
+        ],
+        "sourceWidth": 600
+      },
+      "opsAfter": [
+        {
+          "op": "fitLineBox",
+          "range": [
+            "e0b0",
+            "e0d7"
+          ],
+          "srcAscent": 1025,
+          "srcDescent": 275,
+          "undoScale": 94,
+          "$note": "Powerline 구분자를 행 박스 전체에 맞춘다"
+        }
+      ]
+    }
+  ],
+  "finalize": {
+    "removeCodepoints": [
+      "274c"
+    ],
+    "hinting": [
+      "-l",
+      "6",
+      "-r",
+      "45",
+      "-a",
+      "nnn",
+      "-D",
+      "latn",
+      "-W",
+      "-X",
+      "15-"
+    ],
+    "os2": {
+      "xAvgCharWidth": 528,
+      "isFixedPitch": 1,
+      "underlinePosition": -70,
+      "forceVerticalMetrics": true
+    }
+  },
+  "build": {
+    "outputDir": "build",
+    "families": [
+      {
+        "dir": "MonoplexKR",
+        "prefix": "MonoplexKR",
+        "nerd": false
+      },
+      {
+        "dir": "MonoplexKRNerd",
+        "prefix": "MonoplexKRNerd",
+        "nerd": true
+      }
+    ]
+  }
+}

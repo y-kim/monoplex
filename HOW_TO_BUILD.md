@@ -74,20 +74,64 @@ sudo pacman -S fontforge python python-fonttools
 
 | 파일 | 역할 |
 |---|---|
-| [build.json](build.json) | 모든 설정값 (메트릭, 소스 경로, 두께 표, 글리프 목록, Nerd Fonts 범위) |
+| [build.py](build.py) | 빌드 도구. 레시피를 읽어 아래 둘을 순서대로 부르고 결과를 검증 |
+| [recipes/](recipes/) | 레시피. 무엇을 어떻게 합칠지 |
 | [fontforge_script.py](fontforge_script.py) | 글리프 합성. `fontforge -script` 로 실행 |
 | [fonttools_script.py](fonttools_script.py) | 힌팅, 부품 병합, 테이블 수정 |
-| [make.sh](make.sh) | 위 둘을 순서대로 호출하고 결과를 검증 |
-
-값을 바꾸고 싶으면 `build.json` 만 고치면 됩니다. 변형을 적용하는 **순서**는
-`fontforge_script.py` 에 있습니다.
-
-두 스크립트는 따로 실행할 수도 있습니다.
+| [make.sh](make.sh) | Docker 이미지가 부르는 진입점. `build.py` 를 감쌀 뿐 |
 
 ```bash
-fontforge -script fontforge_script.py --nerd --debug
-python3 fonttools_script.py --nerd --debug
+./build.py --list                                  # 레시피 목록
+./build.py                                         # 기본 레시피 전체 빌드
+./build.py --debug                                 # 한 두께만
+./build.py --recipe recipes/foo.json --variant nerd
 ```
+
+## 레시피 쓰기
+
+레시피 하나가 글꼴 하나를 정의합니다. 핵심은 `sources` 입니다.
+
+```json
+{
+  "target":  { "em": {...}, "halfWidth": 528, "vertical": {...} },
+  "styles":  [ { "name": "Regular", "file": "Regular", "weight": 400, ... } ],
+  "sources": [
+    { "id": "latin", "role": "base",    "path": "...", "fit": {...} },
+    { "id": "kr",    "role": "cjk",     "path": "...", "fit": {...} },
+    { "id": "nerd",  "role": "symbols", "path": "...", "when": "nerd" }
+  ]
+}
+```
+
+- `sources` 는 **우선순위 순서**입니다. 앞선 소스가 같은 코드포인트를 이깁니다.
+  라틴 + 한글 + 일본어처럼 셋 이상도 됩니다.
+- `role: base` 인 소스가 최종 글꼴의 뼈대가 됩니다. 힌팅도 여기에만 들어갑니다.
+- `when` 이 붙은 소스는 그 변종을 만들 때만 포함됩니다.
+- `path` 의 `{...}` 에는 `styles` 항목의 필드 이름을 씁니다.
+- 소스의 `upem` 이 달라도 `target.em` 으로 자동 정규화됩니다.
+
+### fit 전략
+
+소스를 목표 폭에 맞추는 방법입니다.
+
+| 모드 | 언제 |
+|---|---|
+| `halfScale` | 라틴 고정폭·심볼. 일정 비율로 줄이고 반각 폭에 맞춥니다 |
+| `cjkUniform` | CJK 소스의 전각 폭이 한 가지로 통일된 경우 (맑은 고딕 등) |
+| `cjkClassify` | 글리프마다 폭이 제각각인 경우 (IBM Plex Sans KR 등). 한 번 훑어 분류합니다 |
+
+### 글리프 조작 (ops)
+
+`preOps` (참조 해제 전) → `ops` → `fit` → `opsAfter` 순서로 돕니다.
+
+| op | 하는 일 |
+|---|---|
+| `scale` / `rotate` | bbox 중심 기준 변환 |
+| `scaleOrigin` | 원점 기준 변환 |
+| `translate` / `setWidth` / `clear` | 이동 / 폭 지정 / 비우기 |
+| `mergeSfd` | 손질한 글리프를 담은 `.sfd` 를 합칩니다 |
+| `removeLookups` | 커닝 등 GPOS lookup 제거 |
+| `fitLineBox` | Powerline 구분자를 행 박스 전체에 맞춥니다 |
 
 ## 빌드 후 검증
 
