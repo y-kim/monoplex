@@ -6,13 +6,29 @@
 
 ## 받기
 
-서브모듈까지 같이 받아야 합니다.
+서브모듈까지 같이 받고, 소스 글꼴을 내려받습니다.
 
 ```bash
 git clone --recursive https://github.com/y-kim/monoplex
-# 이미 받았다면
-git submodule update --init
+cd monoplex
+PYTHONPATH=tools/src python3 -m hapchija fetch --recipe recipes/monoplex-kr.json
 ```
+
+이미 클론했다면 `git submodule update --init` 을 먼저 실행하세요.
+
+### 디렉터리
+
+| | 내용 | git |
+|---|---|---|
+| `source/` | 직접 손질한 글리프 (`AdjustedGlyphs/`) | 추적 |
+| `vendor/` | 받아온 소스 글꼴 | 무시 |
+| `work/` | 빌드 중간 산출물. 끝나면 지워집니다 | 무시 |
+| `build/` | 생성된 TTF | 무시 |
+
+소스 글꼴은 용량이 커서 저장소에 넣지 않습니다. 레시피의 `fetch` 가 받을 곳과
+체크섬을 적어 두고, 받은 압축 파일은 `~/.cache/hapchija` 에 두고 재사용합니다.
+빌드는 시작 전에 소스가 다 있는지 확인하고, 없으면 무엇이 없는지와 받는
+방법을 알려 줍니다.
 
 ## Docker 로 빌드 (권장)
 
