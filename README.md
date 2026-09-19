@@ -30,7 +30,7 @@ Monoplex KR은 아래의 두 가족이 친족을 이룹니다.
 가장 간단한 방법은 Docker를 쓰는 것입니다. 저장소 루트에서:
 
 ```bash
-docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder
+docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder python3 build.py
 ```
 
 생성된 ttf는 `build/` 아래에 가족별로 나옵니다.
