@@ -8,12 +8,12 @@
   "name": "Monoplex CJK",
   "output": {
     "familyName": "Monoplex CJK",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "copyright": "Copyright (c) 2021, Kim Yangsu",
     "vendorId": "PfEd",
     "ibmFamily": 2057,
     "variantSuffix": {
-      "nerd": "Nerd",
+      "nerd": "Nerd Font",
       "hiddenSpace": "SS"
     }
   },
@@ -192,6 +192,89 @@
   "debugStyleIndex": 3,
   "fetch": [
     {
+      "name": "IBM Plex Mono 2.005",
+      "url": "https://github.com/IBM/plex/releases/download/@ibm/plex-mono@2.5.0/ibm-plex-mono.zip",
+      "sha256": "6d23f01257663d8cc49a0d64c22ced630b79e0e2a0ac08a0da86e9a38bbc481c",
+      "expect": [
+        "IBM-Plex-Mono/IBMPlexMono-Regular.ttf"
+      ],
+      "extract": [
+        {
+          "glob": "*/fonts/complete/ttf/IBMPlexMono-*.ttf",
+          "to": "IBM-Plex-Mono"
+        },
+        {
+          "glob": "ibm-plex-mono/LICENSE.txt",
+          "to": "IBM-Plex-Mono"
+        }
+      ]
+    },
+    {
+      "name": "IBM Plex Sans KR 1.002 (v6.4.2 저장소 트리, 릴리스 자산 없음)",
+      "to": "IBM-Plex-Sans-KR/unhinted",
+      "expect": [
+        "IBM-Plex-Sans-KR/unhinted/IBMPlexSansKR-Regular.ttf"
+      ],
+      "files": [
+        {
+          "url": "https://raw.githubusercontent.com/IBM/plex/v6.4.2/IBM-Plex-Sans-KR/fonts/complete/ttf/unhinted/IBMPlexSansKR-Thin.ttf",
+          "sha256": "c970a50c2673f4214b3399c0af461363971557056a63b0f1a2002399db7cc2e2"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/IBM/plex/v6.4.2/IBM-Plex-Sans-KR/fonts/complete/ttf/unhinted/IBMPlexSansKR-ExtraLight.ttf",
+          "sha256": "454711fb10476676f3e2f09e0ad4481a13f294f0fa1b6403ad37bf14a06cf389"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/IBM/plex/v6.4.2/IBM-Plex-Sans-KR/fonts/complete/ttf/unhinted/IBMPlexSansKR-Light.ttf",
+          "sha256": "dbd700ab773a04137150c656bd8a1961dd6fd9cd1850422a73b1ee643a94a668"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/IBM/plex/v6.4.2/IBM-Plex-Sans-KR/fonts/complete/ttf/unhinted/IBMPlexSansKR-Regular.ttf",
+          "sha256": "a6e1222798707ebb74f315963ed6fd95f71d223633adc3190e0c28a85d0e99a1"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/IBM/plex/v6.4.2/IBM-Plex-Sans-KR/fonts/complete/ttf/unhinted/IBMPlexSansKR-Text.ttf",
+          "sha256": "e982d152badd22933154b2801ed0786abb13d701bd1ec7395b42715f07233d6c"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/IBM/plex/v6.4.2/IBM-Plex-Sans-KR/fonts/complete/ttf/unhinted/IBMPlexSansKR-Medium.ttf",
+          "sha256": "5b7046d69f1b508884d996ff2f5a0a7a18cf3ca3dd5751141c5ae6c65984f68a"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/IBM/plex/v6.4.2/IBM-Plex-Sans-KR/fonts/complete/ttf/unhinted/IBMPlexSansKR-SemiBold.ttf",
+          "sha256": "a4b484fe236e8ebe850d6ccdaee36fb23ada454bcb08d149e9916afdb91a1919"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/IBM/plex/v6.4.2/IBM-Plex-Sans-KR/fonts/complete/ttf/unhinted/IBMPlexSansKR-Bold.ttf",
+          "sha256": "e7cfd6571bf8c8c49e21d331d39a558df6cc64bb6621efeee2ade1429df68a84"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/IBM/plex/v6.4.2/IBM-Plex-Sans-KR/fonts/complete/ttf/unhinted/license.txt",
+          "sha256": "91c25c350d3cac39da2736d74f7ba37ef648f5237a4e330a240615bc8d8c4360",
+          "as": "license.txt"
+        }
+      ]
+    },
+    {
+      "name": "Blex Mono Nerd Font (Nerd Fonts 3.5.1)",
+      "url": "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/IBMPlexMono.zip",
+      "sha256": "0d79b601877b33804cb633f466dea9527b5cd1df812f74d95e2d7417a0b1adf4",
+      "expect": [
+        "BlexMonoNerdFont-Regular.ttf"
+      ],
+      "extract": [
+        {
+          "glob": "BlexMonoNerdFont-Regular.ttf",
+          "to": ""
+        },
+        {
+          "glob": "LICENSE.txt",
+          "to": "",
+          "as": "LICENSE_NerdFonts.txt"
+        }
+      ]
+    },
+    {
       "name": "IBM Plex Sans JP 1.004",
       "url": "https://github.com/IBM/plex/releases/download/@ibm/plex-sans-jp@3.0.0/ibm-plex-sans-jp.zip",
       "sha256": "4c14c41552934b0bc92fc216a76b36bdc78f745dfbeed1115f9b8bc405ee314f",
@@ -330,6 +413,72 @@
       "opsAfter": [
         {
           "op": "round"
+        },
+        {
+          "op": "setWidth",
+          "cps": [
+            "2001",
+            "2003",
+            "3000"
+          ],
+          "to": {
+            "emDiv": 1
+          },
+          "$note": "EM QUAD / EM SPACE / 전각 공백 = 전각 한 칸"
+        },
+        {
+          "op": "setWidth",
+          "cps": [
+            "0020",
+            "00a0",
+            "2000",
+            "2002",
+            "2007",
+            "2008"
+          ],
+          "to": {
+            "emDiv": 2
+          },
+          "$note": "SPACE / NBSP / EN QUAD / EN SPACE / FIGURE / PUNCTUATION = 반각"
+        },
+        {
+          "op": "setWidth",
+          "cp": "2004",
+          "to": {
+            "emDiv": 3
+          },
+          "$note": "THREE-PER-EM"
+        },
+        {
+          "op": "setWidth",
+          "cps": [
+            "2005",
+            "205f"
+          ],
+          "to": {
+            "emDiv": 4
+          },
+          "$note": "FOUR-PER-EM / MEDIUM MATHEMATICAL SPACE (4/18 em 을 1/4 로)"
+        },
+        {
+          "op": "setWidth",
+          "cps": [
+            "2006",
+            "2009",
+            "202f"
+          ],
+          "to": {
+            "emDiv": 6
+          },
+          "$note": "SIX-PER-EM / THIN SPACE (1/5 em 을 1/6 로) / NARROW NBSP"
+        },
+        {
+          "op": "setWidth",
+          "cp": "200a",
+          "to": {
+            "emDiv": 8
+          },
+          "$note": "HAIR SPACE (1/10 em 을 1/8 로)"
         }
       ],
       "preOps": [
@@ -481,7 +630,7 @@
       "id": "jp",
       "role": "cjk",
       "path": "IBM-Plex-Sans-JP/IBMPlexSansJP-{krSrc}.ttf",
-      "italicize": true,
+      "italicize": false,
       "fit": {
         "mode": "cjkUniform"
       },
@@ -506,13 +655,21 @@
           "$note": "한자의 자면 중심이 한글보다 75유닛 위에 있다 (한글 304.5 / 한자 380). 최대 자면 기준으로 맞춘다."
         }
       ],
-      "$note": "가나 담당. 한자도 여기가 먼저 채운다"
+      "$note": "가나 담당. 한자도 여기가 먼저 채운다",
+      "$italicNote": "이탤릭 두께에서도 기울이지 않는다. 이탤릭은 라틴(Plex Mono 의 실제 이탤릭)과 한글(합성)만 기울인다. CJK 는 전통적으로 이탤릭이 없고, italicize 는 글리프마다 윤곽을 다시 계산해 무겁다.",
+      "dropRanges": [
+        [
+          "e000",
+          "f8ff"
+        ]
+      ],
+      "$dropNote": "벤더 내부용 PUA 글리프를 제외한다. Nerd Fonts 영역과 충돌한다."
     },
     {
       "id": "tc",
       "role": "cjk",
       "path": "IBM-Plex-Sans-TC/IBMPlexSansTC-{krSrc}.ttf",
-      "italicize": true,
+      "italicize": false,
       "fit": {
         "mode": "cjkUniform"
       },
@@ -537,13 +694,21 @@
           "$note": "한자의 자면 중심이 한글보다 75유닛 위에 있다 (한글 304.5 / 한자 380). 최대 자면 기준으로 맞춘다."
         }
       ],
-      "$note": "JP 에 없는 한자를 보충"
+      "$note": "JP 에 없는 한자를 보충",
+      "$italicNote": "이탤릭 두께에서도 기울이지 않는다. 이탤릭은 라틴(Plex Mono 의 실제 이탤릭)과 한글(합성)만 기울인다. CJK 는 전통적으로 이탤릭이 없고, italicize 는 글리프마다 윤곽을 다시 계산해 무겁다.",
+      "dropRanges": [
+        [
+          "e000",
+          "f8ff"
+        ]
+      ],
+      "$dropNote": "벤더 내부용 PUA 글리프를 제외한다. Nerd Fonts 영역과 충돌한다."
     },
     {
       "id": "sc",
       "role": "cjk",
       "path": "IBM-Plex-Sans-SC/IBMPlexSansSC-{krSrc}.ttf",
-      "italicize": true,
+      "italicize": false,
       "fit": {
         "mode": "cjkUniform"
       },
@@ -568,7 +733,15 @@
           "$note": "한자의 자면 중심이 한글보다 75유닛 위에 있다 (한글 304.5 / 한자 380). 최대 자면 기준으로 맞춘다."
         }
       ],
-      "$note": "간체자와 확장 A 를 메움"
+      "$note": "간체자와 확장 A 를 메움",
+      "$italicNote": "이탤릭 두께에서도 기울이지 않는다. 이탤릭은 라틴(Plex Mono 의 실제 이탤릭)과 한글(합성)만 기울인다. CJK 는 전통적으로 이탤릭이 없고, italicize 는 글리프마다 윤곽을 다시 계산해 무겁다.",
+      "dropRanges": [
+        [
+          "e000",
+          "f8ff"
+        ]
+      ],
+      "$dropNote": "벤더 내부용 PUA 글리프를 제외한다. Nerd Fonts 영역과 충돌한다."
     },
     {
       "id": "nerd",

@@ -29,7 +29,7 @@ docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder \
 
 ```
 build/MonoplexKR/     MonoplexKR-{style}.ttf
-build/MonoplexKRNerd/ MonoplexKRNerd-{style}.ttf
+build/MonoplexKRNerdFont/ MonoplexKRNerdFont-{style}.ttf
 ```
 
 16개 스타일 × 2개 가족 = 32개 파일이 나오며, 완료까지 수십 분 걸립니다.
