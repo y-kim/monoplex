@@ -27,15 +27,17 @@ Monoplex KR은 아래의 두 가족이 친족을 이룹니다.
 
 # 직접 빌드하기
 
-가장 간단한 방법은 Docker를 쓰는 것입니다. 저장소 루트에서:
+빌드 도구는 [hapchija](https://github.com/y-kim/hapchija) 저장소에 있고 `tools/`
+서브모듈로 들어옵니다.
 
 ```bash
-docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder python3 build.py
+git clone --recursive https://github.com/y-kim/monoplex
+cd monoplex
+docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder \
+  bash -c "cd /work && PYTHONPATH=tools/src python3 -m hapchija build --recipe recipes/monoplex-kr.json"
 ```
 
-생성된 ttf는 `build/` 아래에 가족별로 나옵니다.
-
-Docker 없이 직접 빌드하려면 FontForge, ttfautohint, Python 3 + fontTools가 필요합니다. 자세한 내용은 [HOW_TO_BUILD.md](HOW_TO_BUILD.md)를 참고하세요.
+자세한 내용은 [HOW_TO_BUILD.md](HOW_TO_BUILD.md) 를 참고하세요.
 
 # 사용한 소스 글꼴
 
