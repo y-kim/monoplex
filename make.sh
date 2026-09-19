@@ -34,14 +34,12 @@ postProcess() {
 }
 
 mvBuild() {
-  mkdir -p "${BUILD_DIR}/MonoplexKR" "${BUILD_DIR}/MonoplexKRWide"
-  mv -f "${BASE_DIR}/"MonoplexKRWide*.ttf "${BUILD_DIR}/MonoplexKRWide/"
+  mkdir -p "${BUILD_DIR}/MonoplexKR"
   mv -f "${BASE_DIR}/"MonoplexKR*.ttf "${BUILD_DIR}/MonoplexKR/"
 }
 
 mvBuildNerd() {
-  mkdir -p "${BUILD_DIR}/MonoplexKRNerd" "${BUILD_DIR}/MonoplexKRWideNerd"
-  mv -f "${BASE_DIR}/"MonoplexKRWideNerd*.ttf "${BUILD_DIR}/MonoplexKRWideNerd/"
+  mkdir -p "${BUILD_DIR}/MonoplexKRNerd"
   mv -f "${BASE_DIR}/"MonoplexKRNerd*.ttf "${BUILD_DIR}/MonoplexKRNerd/"
   rm -f "${BASE_DIR}/"MonoplexKR*.ttf
 }
@@ -83,9 +81,7 @@ styles=(
 # family_dir|file_prefix
 families=(
   "MonoplexKR|MonoplexKR"
-  "MonoplexKRWide|MonoplexKRWide"
   "MonoplexKRNerd|MonoplexKRNerd"
-  "MonoplexKRWideNerd|MonoplexKRWideNerd"
 )
 
 missing=0

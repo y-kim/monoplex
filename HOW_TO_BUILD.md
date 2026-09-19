@@ -23,13 +23,11 @@ docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder
 생성된 TTF는 호스트의 `./build/` 아래에 가족별 디렉터리로 나옵니다.
 
 ```
-build/MonoplexKR/         MonoplexKR-{style}.ttf
-build/MonoplexKRWide/     MonoplexKRWide-{style}.ttf
-build/MonoplexKRNerd/     MonoplexKRNerd-{style}.ttf
-build/MonoplexKRWideNerd/ MonoplexKRWideNerd-{style}.ttf
+build/MonoplexKR/     MonoplexKR-{style}.ttf
+build/MonoplexKRNerd/ MonoplexKRNerd-{style}.ttf
 ```
 
-16개 스타일 × 4개 가족 = 64개 파일이 생성되며, 완료까지 수십 분이 걸립니다.
+16개 스타일 × 2개 가족 = 32개 파일이 생성되며, 완료까지 수십 분이 걸립니다.
 
 ### 디버그 빌드 (빠른 확인용)
 
@@ -79,7 +77,7 @@ sudo pacman -S fontforge python python-fonttools
 
 `make.sh`는 빌드가 끝나면 다음을 자동으로 확인합니다.
 
-1. 기대한 64개 파일이 모두 생성되었는지
+1. 기대한 32개 파일이 모두 생성되었는지
 2. 생성된 TTF를 fontTools로 읽을 수 있는지 (`check_generated_fonts.py`)
 
 둘 중 하나라도 실패하면 0이 아닌 종료 코드로 끝납니다.
