@@ -3,9 +3,10 @@
     python3 scripts/header.py kr  "build/Monoplex KR"  MonoplexKR  images/monoplex-kr.png
     python3 scripts/header.py cjk "build/Monoplex CJK" MonoplexCJK images/monoplex-cjk.png
 
-글자마다 굵기를 한 단계씩 올린다. 줄의 첫 글자가 가장 가는 Thin 이고
-마지막 글자가 Bold 이며, 그 사이를 여덟 굵기가 고르게 나눠 가진다. 한 줄을
-왼쪽에서 오른쪽으로 읽으면 가족 전체를 한 번 훑게 된다.
+굵기는 글자의 가로 위치만으로 정한다. 왼쪽 끝이 가장 가는 Thin 이고
+오른쪽 끝이 Bold 이며, 그 사이를 여덟 굵기가 고르게 나눠 가진다. 같은
+세로축에 놓인 글자는 줄이 달라도 같은 굵기라서, 글줄이 어긋나 있어도
+굵기의 결은 세로로 곧게 선다.
 
 베이스라인을 손으로 맞추지 않는다. 넉넉한 화폭에 그린 다음 잉크가 닿은
 사각형으로 잘라내고 여백을 두르므로, 굵기나 글자를 바꿔도 구도가 유지된다.
@@ -45,23 +46,25 @@ SCENES = {
 }
 
 
-def ramp(text, italic):
-    """글자마다 굵기를 한 단계씩 올린 (글자, 스타일) 목록.
+def ramp(text, italic, x0, span, mono):
+    """가로 위치로 굵기를 정한 (글자, 색, 스타일) 목록.
 
-    빈칸은 굵기를 쓰지 않으므로 세지 않는다. 글자 수가 여덟과 맞지 않아도
-    양 끝이 Thin 과 Bold 가 되도록 고르게 나눈다.
+    글자 칸의 한가운데가 몇 번째 반각 칸에 떨어지는지만 본다. 위치를
+    칸 단위로 끊으므로 같은 세로축에 놓인 글자는 어느 줄에 있든 같은
+    굵기가 되고, 굵기의 경계가 세로로 곧게 선다.
     """
-    marks = [i for i, c in enumerate(text) if not c.isspace()]
-    runs, step = [], len(marks) - 1
-    for i, ch in enumerate(text):
-        k = marks.index(i) if i in marks else None
-        w = WEIGHTS[-1] if k is None else \
-            WEIGHTS[round(k * (len(WEIGHTS) - 1) / step) if step else 0]
-        if w == "Regular":
+    runs, x, last = [], x0, len(WEIGHTS) - 1
+    columns = max(1, int(span / mono.cell) - 1)
+    for ch in text:
+        w = mono.width(ch)
+        column = int((x + w / 2) / mono.cell)
+        weight = WEIGHTS[max(0, min(last, round(column / columns * last)))]
+        if weight == "Regular":
             style = "Italic" if italic else "Regular"
         else:
-            style = w + "Italic" if italic else w
+            style = weight + "Italic" if italic else weight
         runs.append((ch, INK, style))
+        x += w
     return runs
 
 
@@ -82,8 +85,9 @@ def main(argv):
                         PAPER)
     d = ImageDraw.Draw(scratch)
     for i, ((align, italic, text), w) in enumerate(zip(lines, widths)):
-        x = pad if align == "left" else pad + span - w
-        draw_runs(d, x, pad + PITCH * (i + 1), ramp(text, italic), mono)
+        x0 = 0 if align == "left" else span - w
+        draw_runs(d, pad + x0, pad + PITCH * (i + 1),
+                  ramp(text, italic, x0, span, mono), mono)
 
     left, top, right, bottom = scratch.convert("L").point(
         lambda v: 255 - v).getbbox()
