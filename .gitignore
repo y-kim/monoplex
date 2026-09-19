@@ -4,3 +4,5 @@ build/
 parts/
 vendor/
 source-local/
+__pycache__/
+*.pyc
