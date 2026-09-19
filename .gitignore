@@ -1,6 +1,4 @@
-bak/*
-!bak/.gitkeep
 work/
 error.log
 build/
-monoplex_kr_generator_tmpdir.*/
+parts/

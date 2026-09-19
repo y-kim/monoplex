@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
+# Monoplex KR 빌드.
+#
+#   ./make.sh           전체 (Nerd 판 + 통상판, 16 두께)
+#   ./make.sh -d        디버그 (통상판 Regular 한 두께만)
+#   DEBUG=1 ./make.sh   같음. Docker 에서 쓰라고 환경변수도 받는다.
+#
+# 설정은 build.json 에 있다. 글리프 합성은 fontforge_script.py,
+# 힌팅과 마무리는 fonttools_script.py 가 한다.
+
 set -euo pipefail
 
 BASE_DIR=$(cd "$(dirname "$0")"; pwd)
 BUILD_DIR="${BASE_DIR}/build"
 
-# DEBUG=1 環境変数 (Docker 用) と -d オプションの両方を受け付ける
 DEBUG_FLG='false'
 if [ "${DEBUG:-0}" = '1' ]; then
   DEBUG_FLG='true'
@@ -16,82 +24,60 @@ while getopts d OPT; do
   esac
 done
 
-# os2_patch.sh が退避先として使うので必ず用意しておく
-mkdir -p "${BASE_DIR}/bak"
+DEBUG_OPT=''
+if [ "$DEBUG_FLG" = 'true' ]; then
+  DEBUG_OPT='--debug'
+fi
 
-# fontTools が使えるときだけ走る後処理 (BASE テーブル削除など)
-postProcess() {
-  if command -v python3 > /dev/null 2>&1 && python3 -c 'import fontTools' > /dev/null 2>&1; then
-    shopt -s nullglob
-    local files=("${BASE_DIR}"/MonoplexKR*.ttf)
-    shopt -u nullglob
-    if (( ${#files[@]} > 0 )); then
-      python3 "${BASE_DIR}/post_process.py" "${files[@]}"
-    fi
-  else
-    echo 'SKIP: fontTools が無いため post_process をスキップします' >&2
-  fi
+buildVariant() {
+  local opts="$1" label="$2"
+  echo "### Build: ${label} ###"
+  # shellcheck disable=SC2086
+  fontforge -script "${BASE_DIR}/fontforge_script.py" ${opts} ${DEBUG_OPT} --out "${BASE_DIR}"
+  # shellcheck disable=SC2086
+  python3 "${BASE_DIR}/fonttools_script.py" ${opts} ${DEBUG_OPT} --dir "${BASE_DIR}"
 }
 
-mvBuild() {
-  mkdir -p "${BUILD_DIR}/MonoplexKR"
-  mv -f "${BASE_DIR}/"MonoplexKR*.ttf "${BUILD_DIR}/MonoplexKR/"
-}
-
-mvBuildNerd() {
-  mkdir -p "${BUILD_DIR}/MonoplexKRNerd"
-  mv -f "${BASE_DIR}/"MonoplexKRNerd*.ttf "${BUILD_DIR}/MonoplexKRNerd/"
-  rm -f "${BASE_DIR}/"MonoplexKR*.ttf
+moveTo() {
+  local dir="$1" prefix="$2"
+  mkdir -p "${BUILD_DIR}/${dir}"
+  mv -f "${BASE_DIR}/${prefix}"-*.ttf "${BUILD_DIR}/${dir}/"
 }
 
 if [ "$DEBUG_FLG" = 'true' ]; then
-  echo '### Debug Mode (Regular only, no Nerd Fonts) ###'
-  "${BASE_DIR}/monoplex_kr_generator.sh" -d
-  "${BASE_DIR}/os2_patch.sh"
-  postProcess
-  mvBuild
+  buildVariant '' 'debug (standard, Regular only)'
+  moveTo MonoplexKR MonoplexKR
   echo '### Build OK (debug) ###'
   exit 0
 fi
 
-echo '### Build: Nerd Fonts edition ###'
-"${BASE_DIR}/monoplex_kr_generator.sh" -n
-"${BASE_DIR}/os2_patch.sh"
-postProcess
-mvBuildNerd
+# 무거운 Nerd 판을 먼저 돌린다
+buildVariant '--nerd' 'Nerd Fonts edition'
+moveTo MonoplexKRNerd MonoplexKRNerd
 
-echo '### Build: standard edition ###'
-"${BASE_DIR}/monoplex_kr_generator.sh"
-"${BASE_DIR}/os2_patch.sh"
-postProcess
-mvBuild
+buildVariant '' 'standard edition'
+moveTo MonoplexKR MonoplexKR
 
 ########################################
-# 生成結果の検証
+# 생성 결과 검증
 ########################################
 
 echo '### Checking generated fonts ###'
 
-styles=(
-  Thin ExtraLight Light Regular Text Medium SemiBold Bold
-  ThinItalic ExtraLightItalic LightItalic Italic
-  TextItalic MediumItalic SemiBoldItalic BoldItalic
-)
-
-# family_dir|file_prefix
-families=(
-  "MonoplexKR|MonoplexKR"
-  "MonoplexKRNerd|MonoplexKRNerd"
-)
+mapfile -t styles < <(python3 -c "
+import json
+cfg = json.load(open('${BASE_DIR}/build.json'))
+for s in cfg['styles']:
+    print(s['file'])
+")
 
 missing=0
-expected_files=()
-for item in "${families[@]}"; do
-  family_dir="${item%%|*}"
-  prefix="${item#*|}"
+expected=()
+for item in "MonoplexKR|MonoplexKR" "MonoplexKRNerd|MonoplexKRNerd"; do
+  dir="${item%%|*}"; prefix="${item#*|}"
   for style in "${styles[@]}"; do
-    path="${BUILD_DIR}/${family_dir}/${prefix}-${style}.ttf"
-    expected_files+=("$path")
+    path="${BUILD_DIR}/${dir}/${prefix}-${style}.ttf"
+    expected+=("$path")
     if [ ! -f "$path" ]; then
       echo "MISSING: ${path}" >&2
       missing=1
@@ -99,21 +85,13 @@ for item in "${families[@]}"; do
   done
 done
 
-shopt -s nullglob
-actual_files=("${BUILD_DIR}"/*/*.ttf)
-shopt -u nullglob
-
-echo "expected=${#expected_files[@]}  actual=${#actual_files[@]}"
+echo "expected=${#expected[@]}"
 if (( missing != 0 )); then
-  echo 'ERROR: 生成されなかったフォントがあります' >&2
+  echo 'ERROR: 생성되지 않은 글꼴이 있습니다' >&2
   exit 1
 fi
 
-if command -v python3 > /dev/null 2>&1 && python3 -c 'import fontTools' > /dev/null 2>&1; then
-  echo '### Checking font readability ###'
-  python3 "${BASE_DIR}/check_generated_fonts.py" "${expected_files[@]}"
-else
-  echo 'SKIP: fontTools が無いため読み込み確認をスキップします' >&2
-fi
+echo '### Checking font readability ###'
+python3 "${BASE_DIR}/check_generated_fonts.py" "${expected[@]}"
 
 echo '### Build OK ###'

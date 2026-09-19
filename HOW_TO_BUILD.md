@@ -66,12 +66,28 @@ sudo pacman -S fontforge python python-fonttools
 
 | 도구 | 용도 |
 |---|---|
-| `fontforge` | 글리프 합성·변형 (`-script` 모드) |
+| `fontforge` | 글리프 합성·변형. Python 바인딩을 씁니다 |
 | `ttfautohint` | 힌팅 |
-| `pyftmerge` (fontTools) | 힌팅된 글꼴과 한글/Nerd 글리프 병합 |
-| `ttx` (fontTools) | OS/2·post 테이블 패치 (`os2_patch.sh`) |
+| `fontTools` | 부품 병합과 OS/2·post 테이블 수정 |
 
-과거에는 Python 2 + fontTools 3.44 조합을 썼지만, 현재는 Python 3 + 최신 fontTools에서 동작합니다.
+## 구성
+
+| 파일 | 역할 |
+|---|---|
+| [build.json](build.json) | 모든 설정값 (메트릭, 소스 경로, 두께 표, 글리프 목록, Nerd Fonts 범위) |
+| [fontforge_script.py](fontforge_script.py) | 글리프 합성. `fontforge -script` 로 실행 |
+| [fonttools_script.py](fonttools_script.py) | 힌팅, 부품 병합, 테이블 수정 |
+| [make.sh](make.sh) | 위 둘을 순서대로 호출하고 결과를 검증 |
+
+값을 바꾸고 싶으면 `build.json` 만 고치면 됩니다. 변형을 적용하는 **순서**는
+`fontforge_script.py` 에 있습니다.
+
+두 스크립트는 따로 실행할 수도 있습니다.
+
+```bash
+fontforge -script fontforge_script.py --nerd --debug
+python3 fonttools_script.py --nerd --debug
+```
 
 ## 빌드 후 검증
 

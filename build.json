@@ -1,0 +1,178 @@
+{
+  "$comment": [
+    "Monoplex KR 빌드 설정.",
+    "코드포인트는 16진 문자열로 적는다 ('2500' = U+2500). 범위는 [시작, 끝] 으로 끝을 포함한다.",
+    "여기에는 값만 둔다. 변형을 적용하는 순서는 fontforge_script.py 에 있다."
+  ],
+
+  "meta": {
+    "version": "0.0.2",
+    "familyName": "Monoplex KR",
+    "copyright": "Copyright (c) 2021, Kim Yangsu",
+    "vendorId": "PfEd",
+    "ibmFamily": 2057
+  },
+
+  "variantSuffix": {
+    "nerd": "Nerd",
+    "hiddenSpace": "SS"
+  },
+
+  "metrics": {
+    "emAscent": 880,
+    "emDescent": 120,
+    "os2Ascent": 950,
+    "os2Descent": 225,
+    "typoLineGap": 80,
+    "halfWidth": 528,
+    "italicAngle": -9,
+    "os2WidthClass": 5,
+    "panose": {
+      "familyType": 2,
+      "serifStyle": 11,
+      "proportion": 9,
+      "contrast": 5,
+      "strokeVariation": 2,
+      "armStyle": 3,
+      "letterForm": 0,
+      "midline": 2,
+      "xHeight": 3
+    }
+  },
+
+  "sources": {
+    "dir": "source",
+    "plexMono": {
+      "path": "IBM-Plex-Mono/IBMPlexMono-{src}.ttf",
+      "width": 600,
+      "shrinkX": 88,
+      "shrinkY": 94
+    },
+    "plexSansKR": {
+      "path": "IBM-Plex-Sans-KR/unhinted/IBMPlexSansKR-{src}.ttf",
+      "width": 892
+    },
+    "nerdFont": "BlexMonoNerdFont-Regular.ttf",
+    "adjustedGlyphs": {
+      "r": "AdjustedGlyphs/r-{style}.sfd",
+      "ideographicSpace": "AdjustedGlyphs/Ideographic_Space.sfd",
+      "boxDrawingHalf": "AdjustedGlyphs/Box_Drawing_half.sfd"
+    }
+  },
+
+  "styles": [
+    { "name": "Thin",       "file": "Thin",             "monoSrc": "Thin",             "krSrc": "Thin",       "weight": 100, "panoseWeight": 3, "italic": false },
+    { "name": "ExtraLight", "file": "ExtraLight",       "monoSrc": "ExtraLight",       "krSrc": "ExtraLight", "weight": 200, "panoseWeight": 3, "italic": false },
+    { "name": "Light",      "file": "Light",            "monoSrc": "Light",            "krSrc": "Light",      "weight": 300, "panoseWeight": 4, "italic": false },
+    { "name": "Regular",    "file": "Regular",          "monoSrc": "Regular",          "krSrc": "Regular",    "weight": 400, "panoseWeight": 5, "italic": false },
+    { "name": "Text",       "file": "Text",             "monoSrc": "Text",             "krSrc": "Text",       "weight": 450, "panoseWeight": 5, "italic": false },
+    { "name": "Medium",     "file": "Medium",           "monoSrc": "Medium",           "krSrc": "Medium",     "weight": 500, "panoseWeight": 6, "italic": false },
+    { "name": "SemiBold",   "file": "SemiBold",         "monoSrc": "SemiBold",         "krSrc": "SemiBold",   "weight": 600, "panoseWeight": 7, "italic": false },
+    { "name": "Bold",       "file": "Bold",             "monoSrc": "Bold",             "krSrc": "Bold",       "weight": 700, "panoseWeight": 8, "italic": false },
+
+    { "name": "Thin",       "file": "ThinItalic",       "monoSrc": "ThinItalic",       "krSrc": "Thin",       "weight": 100, "panoseWeight": 3, "italic": true },
+    { "name": "ExtraLight", "file": "ExtraLightItalic", "monoSrc": "ExtraLightItalic", "krSrc": "ExtraLight", "weight": 200, "panoseWeight": 3, "italic": true },
+    { "name": "Light",      "file": "LightItalic",      "monoSrc": "LightItalic",      "krSrc": "Light",      "weight": 300, "panoseWeight": 4, "italic": true },
+    { "name": "Regular",    "file": "Italic",           "monoSrc": "Italic",           "krSrc": "Regular",    "weight": 400, "panoseWeight": 5, "italic": true },
+    { "name": "Text",       "file": "TextItalic",       "monoSrc": "TextItalic",       "krSrc": "Text",       "weight": 450, "panoseWeight": 5, "italic": true },
+    { "name": "Medium",     "file": "MediumItalic",     "monoSrc": "MediumItalic",     "krSrc": "Medium",     "weight": 500, "panoseWeight": 6, "italic": true },
+    { "name": "SemiBold",   "file": "SemiBoldItalic",   "monoSrc": "SemiBoldItalic",   "krSrc": "SemiBold",   "weight": 600, "panoseWeight": 7, "italic": true },
+    { "name": "Bold",       "file": "BoldItalic",       "monoSrc": "BoldItalic",       "krSrc": "Bold",       "weight": 700, "panoseWeight": 8, "italic": true }
+  ],
+
+  "debugStyleIndex": 3,
+
+  "plexMonoAdjust": {
+    "$comment": "Material 단계: 소스 IBM Plex Mono 에 가하는 조정",
+    "replaceRFrom": ["0072", "0155", "0157", "0159"],
+    "backtickRotate1": -25,
+    "backtickScale": [100, 118],
+    "backtickRotate2": 33,
+    "quoteScale": [109, 106],
+    "quoteGlyphs": ["0027", "0060"],
+    "punctuationScale": 108,
+    "punctuationGlyphs": ["003a", "003b", "002c", "002e"],
+    "removeBoxDrawing": ["2500", "259f"],
+    "lowercaseRange": ["0061", "007a"],
+    "lowercaseScaleY": 103
+  },
+
+  "plexSansKRAdjust": {
+    "$comment": "IBM Plex Sans KR 을 반각/전각 고정폭으로 맞출 때 쓰는 목록",
+    "forceFullWidth": ["2160"],
+    "fullWidthCenteringExclude": ["2019", "201a", "201d", "201e"],
+    "halfWidthCenteringExclude": {
+      "ranges": [["2500", "257f"]],
+      "single": ["ff61", "ff63", "ff64", "ff9e", "ff9f", "ff62"]
+    },
+    "halfToFullRightExclude": ["2018", "201c"],
+    "enlarge": [
+      { "cp": "ff0e", "scale": 145, "width": "full" },
+      { "cp": "ff0c", "scale": 140, "width": "full" },
+      { "cp": "2018", "scale": 125, "width": "full" },
+      { "cp": "2019", "scale": 125, "width": "full" },
+      { "cp": "201c", "scale": 125, "width": "full" },
+      { "cp": "201d", "scale": 125, "width": "full" }
+    ],
+    "boxDrawingRange": ["2500", "259f"],
+    "boxDrawingMoveY": 100,
+    "removeCombiningRange": ["0300", "0328"],
+    "removeLookupTags": ["halt", "vhal", "palt", "vpal", "kern"]
+  },
+
+  "finalAdjust": {
+    "$comment": "합성이 끝난 뒤 최종 글꼴에 가하는 조정",
+    "removeGlyphs": ["274c"]
+  },
+
+  "nerdFont": {
+    "$comment": "Nerd Fonts v3.5.1 이 IBM Plex Mono 대비 추가하는 코드포인트만 고른다. Pomicons (E000-E00A) 는 상업적 이용 제한으로 제외한다.",
+    "ranges": [
+      { "name": "IEC Power Symbols",      "range": ["23fb", "23fe"] },
+      { "name": "IEC Power Symbols",      "range": ["2b58", "2b58"] },
+      { "name": "Octicons",               "range": ["2665", "2665"] },
+      { "name": "Octicons",               "range": ["26a1", "26a1"] },
+      { "name": "Octicons",               "range": ["f400", "f533"] },
+      { "name": "Powerline Extra",        "range": ["276c", "2771"] },
+      { "name": "Braille Patterns",       "range": ["2800", "28ff"] },
+      { "name": "Trigram for heaven",     "range": ["2630", "2630"] },
+      { "name": "Powerline",              "range": ["e0a0", "e0a3"] },
+      { "name": "Powerline",              "range": ["e0b0", "e0d7"] },
+      { "name": "Font Awesome Extension", "range": ["e200", "e2a9"] },
+      { "name": "Weather Icons",          "range": ["e300", "e3e3"] },
+      { "name": "Seti-UI + Custom",       "range": ["e5fa", "e6bb"] },
+      { "name": "Devicons",               "range": ["e700", "e958"] },
+      { "name": "Codicons",               "range": ["ea60", "ec84"] },
+      { "name": "Font Awesome (v3.4+)",   "range": ["ed00", "efcf"] },
+      { "name": "Font Awesome / Logos",   "range": ["f000", "f385"] },
+      { "name": "Material Design Icons",  "range": ["f0001", "f1af0"] }
+    ],
+    "powerline": {
+      "$comment": "구분자는 행 박스 전체를 덮어야 한다. v3.5.1 글리프는 ascent 1025 / descent 275 기준이라, 전체 축소 후 Monoplex KR 의 행 박스로 맞춰준다.",
+      "range": ["e0b0", "e0d7"],
+      "srcAscent": 1025,
+      "srcDescent": 275
+    }
+  },
+
+  "hinting": {
+    "$comment": "ttfautohint 인자",
+    "args": ["-l", "6", "-r", "45", "-a", "nnn", "-D", "latn", "-W", "-X", "15-"]
+  },
+
+  "os2Patch": {
+    "$comment": "fonttools_script.py 가 마지막에 덮어쓰는 값. 세로 메트릭은 FontForge 가 윤곽을 보고 다시 계산해 버리므로 여기서 확정한다.",
+    "xAvgCharWidth": 528,
+    "isFixedPitch": 1,
+    "underlinePosition": -70,
+    "verticalMetrics": true
+  },
+
+  "build": {
+    "outputDir": "build",
+    "families": [
+      { "dir": "MonoplexKR",     "prefix": "MonoplexKR",     "nerd": false },
+      { "dir": "MonoplexKRNerd", "prefix": "MonoplexKRNerd", "nerd": true }
+    ]
+  }
+}
