@@ -69,6 +69,17 @@ monoplex_kr_wide_full_width=$((${monoplex_kr_wide_half_width} * 5 / 3))
 
 italic_angle=-9
 
+# Nerd Fonts の Powerline 区切り記号は「行ボックス全体を覆う」前提で作られている。
+# Blex Mono Nerd Font v3.5.1 の該当グリフは ascent 1025 / descent 275 に合わせてあるので、
+# Monoplex KR Wide (1025/275) は無加工で一致する。
+# 通常版は全体縮小 (plexmono_shrink_y) 後に行ボックスへ合わせ直す必要がある。
+powerline_src_ascent=1025
+powerline_src_descent=275
+powerline_src_em=$((${powerline_src_ascent} + ${powerline_src_descent}))
+monoplex_kr_line_em=$((${monoplex_kr_ascent} + ${monoplex_kr_descent}))
+powerline_scale_y=$(awk "BEGIN { printf \"%.4f\", ${monoplex_kr_line_em} * 10000 / (${powerline_src_em} * ${plexmono_shrink_y}) }")
+powerline_move_y=$(awk "BEGIN { printf \"%.4f\", ${powerline_src_descent} * ${plexmono_shrink_y} * ${powerline_scale_y} / 10000 - ${monoplex_kr_descent} }")
+
 end_plexmono=65535
 end_plexkr=1115564
 
@@ -378,7 +389,7 @@ set_half_to_full_right_fewer="
 # Generate script for Nerd Fonts Symbols
 ########################################
 
-nerdfonts_src="Blex Mono Nerd Font Complete.ttf"
+nerdfonts_src="BlexMonoNerdFont-Regular.ttf"
 modified_nerdfonts_generator="modified_nerdfonts_generator.pe"
 input_nerdfonts=`find $fonts_directories -follow -iname "$nerdfonts_src" | head -n 1`
 modified_nerdfonts='modified-nerdfonts.ttf'
@@ -386,16 +397,8 @@ modified_nerdfonts35='modified-nerdfonts35.ttf'
 
 # Nerd Fonts から適用するグリフ
 select_nerd_symbols="
-  # Powerline
-  SelectMore(0ue0a0, 0ue0a2)
-  SelectMore(0ue0b0, 0ue0b3)
-
-  # Powerline Extra
-  SelectMore(0ue0a3)
-  SelectMore(0ue0b4, 0ue0c8)
-  SelectMore(0ue0ca)
-  SelectMore(0ue0cc, 0ue0d2)
-  SelectMore(0ue0d4)
+  # Nerd Fonts v3.5.1 で追加されるコードポイントのみを選択する
+  # (BlexMonoNerdFont と素の IBM Plex Mono の cmap 差分から算出)
 
   # IEC Power Symbols
   SelectMore(0u23fb, 0u23fe)
@@ -403,36 +406,47 @@ select_nerd_symbols="
 
   # Octicons
   SelectMore(0u2665)
-  SelectMore(0u26A1)
-  SelectMore(0uf27c)
-  SelectMore(0uf400, 0uf4a8)
+  SelectMore(0u26a1)
+  SelectMore(0uf400, 0uf533)
+
+  # Powerline Extra (angle bracket ornaments)
+  SelectMore(0u276c, 0u2771)
+
+  # Braille Patterns
+  SelectMore(0u2800, 0u28ff)
+
+  # Trigram for heaven
+  SelectMore(0u2630)
+
+  # Powerline / Powerline Extra
+  SelectMore(0ue0a0, 0ue0a3)
+  SelectMore(0ue0b0, 0ue0d7)
 
   # Font Awesome Extension
   SelectMore(0ue200, 0ue2a9)
 
-  # Weather
+  # Weather Icons
   SelectMore(0ue300, 0ue3e3)
 
   # Seti-UI + Custom
-  SelectMore(0ue5fa, 0ue62e)
+  SelectMore(0ue5fa, 0ue6bb)
 
   # Devicons
-  SelectMore(0ue700, 0ue7c5)
+  SelectMore(0ue700, 0ue958)
 
-  # Font Awesome
-  SelectMore(0uf000, 0uf2e0)
+  # Codicons
+  SelectMore(0uea60, 0uec84)
 
-  # Font Logos (Formerly Font Linux)
-  SelectMore(0uf300, 0uf31c)
+  # Font Awesome (extended set, Nerd Fonts v3.4 以降)
+  SelectMore(0ued00, 0uefcf)
+
+  # Font Awesome / Font Logos
+  SelectMore(0uf000, 0uf385)
 
   # Material Design Icons
-  SelectMore(0uf500, 0ufd46)
+  SelectMore(0uf0001, 0uf1af0)
 
-  # オリジナル Hack の未使用領域を一括選択 (拾い漏れ防止)
-  SelectMore(0ue0d5, 0ufefd)
-
-  # Pomicons -> 商用不可のため除外
-  SelectFewer(0ue000, 0ue00d)
+  # Pomicons (0ue000 - 0ue00a) は商用不可のため選択しない
 "
 
 cat > ${tmpdir}/${modified_nerdfonts_generator} << _EOT_
@@ -460,9 +474,9 @@ $select_nerd_symbols
 SelectInvert()
 Clear()
 
-# Powerline 記号の位置調整
-Select(0ue0b0); SelectMore(0ue0b4); SelectMore(0ue0b8); SelectMore(0ue0bc)
-Move(-20, 0)
+# Powerline 区切り記号は v3.5.1 では ascent 1025 / descent 275 の行ボックスを
+# 覆うよう作られており、Monoplex KR Wide と一致するため加工しない。
+# (v2 では字面がセル幅に足りず Move による補正が必要だった)
 
 # Save modified NerdFonts35
 Print("Save " + output_nerdfonts35)
@@ -480,16 +494,17 @@ SetOS2Value("TypoLineGap",           ${typo_line_gap})
 SetOS2Value("HHeadAscent",           ${monoplex_kr_wide_ascent})
 SetOS2Value("HHeadDescent",         -${monoplex_kr_wide_descent})
 SetOS2Value("HHeadLineGap",            0)
-SetPanose([2, 11, 5, 3, 2, 2, 3, 2, 2, 7])
+SetPanose([2, 11, 5, 3, 5, 2, 3, 0, 2, 3])
 Generate("${tmpdir}/" + output_nerdfonts35, '')
-
-# Powerline 記号の位置調整
-Select(0ue0b0); SelectMore(0ue0b4); SelectMore(0ue0b8); SelectMore(0ue0bc)
-Move(-3, 0)
 
 SelectWorthOutputting()
 Scale(${plexmono_shrink_x}, ${plexmono_shrink_y}, 0, 0)
 SetWidth(${monoplex_kr_half_width}, 0)
+
+# Powerline 区切り記号を Monoplex KR の行ボックス (ascent/descent) へ合わせ直す
+Select(0ue0b0, 0ue0d7)
+Scale(100, ${powerline_scale_y}, 0, 0)
+Move(0, ${powerline_move_y})
 
 # Save modified NerdFonts
 Print("Save " + output_nerdfonts)
@@ -507,7 +522,7 @@ SetOS2Value("TypoLineGap",           ${typo_line_gap})
 SetOS2Value("HHeadAscent",           ${monoplex_kr_ascent})
 SetOS2Value("HHeadDescent",         -${monoplex_kr_descent})
 SetOS2Value("HHeadLineGap",            0)
-SetPanose([2, 11, 5, 9, 2, 2, 3, 2, 2, 7])
+SetPanose([2, 11, 5, 9, 5, 2, 3, 0, 2, 3])
 Generate("${tmpdir}/" + output_nerdfonts, '')
 
 Quit()
@@ -1382,7 +1397,7 @@ while (i < SizeOf(input_list))
   SetOS2Value("HHeadAscent",           ${monoplex_kr_ascent})
   SetOS2Value("HHeadDescent",         -${monoplex_kr_descent})
   SetOS2Value("HHeadLineGap",            0)
-  SetPanose([2, 11, panoseweight_list[i], 9, 2, 2, 3, 2, 2, 7])
+  SetPanose([2, 11, panoseweight_list[i], 9, 5, 2, 3, 0, 2, 3])
 
   MergeFonts("${tmpdir}/" + output_list[i])
   Generate("${tmpdir}/" + output_list[i] + ".ttf", "")
@@ -1801,7 +1816,7 @@ while (i < SizeOf(input_list))
   SetOS2Value("HHeadAscent",           ${monoplex_kr_wide_ascent})
   SetOS2Value("HHeadDescent",         -${monoplex_kr_wide_descent})
   SetOS2Value("HHeadLineGap",            0)
-  SetPanose([2, 11, panoseweight_list[i], 3, 2, 2, 3, 2, 2, 7])
+  SetPanose([2, 11, panoseweight_list[i], 3, 5, 2, 3, 0, 2, 3])
 
   MergeFonts("${tmpdir}/" + output_list[i])
   Generate("${tmpdir}/" + output_list[i] + ".ttf", "")
@@ -2015,11 +2030,15 @@ while (i < SizeOf(fontstyle_list))
   SetOS2Value("HHeadAscent",           ${monoplex_kr_ascent})
   SetOS2Value("HHeadDescent",         -${monoplex_kr_descent})
   SetOS2Value("HHeadLineGap",            0)
-  SetPanose([2, 11, panoseweight_list[i], 9, 2, 2, 3, 2, 2, 7])
+  SetPanose([2, 11, panoseweight_list[i], 9, 5, 2, 3, 0, 2, 3])
 
   # Merge IBMPlexMono font
   Print("Merge " + plexmono_list[i]:t)
   MergeFonts(plexmono_list[i])
+
+  # U+274C (CROSS MARK) を削除 (OSに含まれる絵文字フォントにフォールバックさせるため)
+  Select(0u274c)
+  Clear()
 
   # Save Monoplex KR
   if (fontfamilysuffix != "")
@@ -2239,11 +2258,15 @@ while (i < SizeOf(fontstyle_list))
   SetOS2Value("HHeadAscent",           ${monoplex_kr_wide_ascent})
   SetOS2Value("HHeadDescent",         -${monoplex_kr_wide_descent})
   SetOS2Value("HHeadLineGap",            0)
-  SetPanose([2, 11, panoseweight_list[i], 3, 2, 2, 3, 2, 2, 7])
+  SetPanose([2, 11, panoseweight_list[i], 3, 5, 2, 3, 0, 2, 3])
 
   # Merge IBMPlexMono font
   Print("Merge " + plexmono_list[i]:t)
   MergeFonts(plexmono_list[i])
+
+  # U+274C (CROSS MARK) を削除 (OSに含まれる絵文字フォントにフォールバックさせるため)
+  Select(0u274c)
+  Clear()
 
   # Save Monoplex KR
   if (fontfamilysuffix != "")
