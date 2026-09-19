@@ -41,13 +41,18 @@ docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder \
 
 # 사용한 소스 글꼴
 
-| 글꼴 | 버전 |
-|---|---|
-| IBM Plex Mono | 2.005 |
-| IBM Plex Sans KR | 1.002 |
-| Blex Mono Nerd Font | Nerd Fonts 3.5.1 |
+| 글꼴 | 내부 버전 | 업스트림 릴리스 |
+|---|---|---|
+| IBM Plex Mono | 2.005 | [IBM/plex](https://github.com/IBM/plex/releases/tag/%40ibm%2Fplex-mono%402.5.0) `@ibm/plex-mono@2.5.0` |
+| IBM Plex Sans KR | 1.002 | [IBM/plex](https://github.com/IBM/plex/releases/tag/v6.4.2) `v6.4.2` (마지막 통합 릴리스) |
+| Blex Mono Nerd Font | Nerd Fonts 3.5.1 | [ryanoasis/nerd-fonts](https://github.com/ryanoasis/nerd-fonts/releases/tag/v3.5.1) `v3.5.1` |
 
-Nerd Fonts 글리프 중 Pomicons(U+E000–U+E00A)는 라이선스상 상업적 이용이 제한되어 포함하지 않았습니다.
+IBM Plex Sans KR 은 2024-11 에 1.003 이 나왔지만 **올리지 않았습니다.**
+반각 한글 자모(U+FFA1–FFDC)를 비롯한 57 자가 빠지고 16 자만 늘어나는데,
+늘어난 16 자는 이미 IBM Plex Mono 쪽에 있어서 쓰이지 않습니다.
+
+Nerd Fonts 글리프 중 Pomicons(U+E000–U+E00A)는 라이선스상 상업적 이용이
+제한되어 포함하지 않았습니다.
 
 # 요청
 

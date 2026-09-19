@@ -3,3 +3,6 @@ error.log
 build/
 parts/
 source-local/
+source/IBM-Plex-Sans-JP/
+source/IBM-Plex-Sans-TC/
+source/IBM-Plex-Sans-SC/

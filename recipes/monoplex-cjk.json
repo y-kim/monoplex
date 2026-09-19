@@ -1,14 +1,14 @@
 {
   "$comment": [
-    "합성 글꼴 레시피. build.py --recipe 로 넘긴다.",
-    "코드포인트는 16진 문자열 ('2500'), 범위는 [시작, 끝] 로 끝을 포함한다.",
-    "sources 는 우선순위 순서다. 앞선 소스가 같은 코드포인트를 이긴다.",
-    "path 와 mergeSfd.from 의 {...} 는 styles 항목의 필드 이름을 쓴다."
+    "Monoplex CJK — Monoplex KR 에 한자와 가나를 더한 것.",
+    "소스 우선순위는 KR -> JP -> TC -> SC 다. 앞선 소스가 같은 코드포인트를 이긴다.",
+    "한글은 KR, 가나는 JP, 한자는 JP 가 먼저 채우고 TC 가 보충하고 SC 가 나머지를 메운다.",
+    "소스 글꼴이 150MB 가 넘어 저장소에 넣지 않는다. hapchija fetch 로 받는다."
   ],
-  "name": "Monoplex KR",
+  "name": "Monoplex CJK",
   "output": {
-    "familyName": "Monoplex KR",
-    "version": "1.0.0",
+    "familyName": "Monoplex CJK",
+    "version": "0.1.0",
     "copyright": "Copyright (c) 2021, Kim Yangsu",
     "vendorId": "PfEd",
     "ibmFamily": 2057,
@@ -190,6 +190,62 @@
     }
   ],
   "debugStyleIndex": 3,
+  "fetch": [
+    {
+      "name": "IBM Plex Sans JP 1.004",
+      "url": "https://github.com/IBM/plex/releases/download/@ibm/plex-sans-jp@3.0.0/ibm-plex-sans-jp.zip",
+      "sha256": "4c14c41552934b0bc92fc216a76b36bdc78f745dfbeed1115f9b8bc405ee314f",
+      "expect": [
+        "IBM-Plex-Sans-JP/IBMPlexSansJP-Regular.ttf"
+      ],
+      "extract": [
+        {
+          "glob": "*/ttf/unhinted/IBMPlexSansJP-*.ttf",
+          "to": "IBM-Plex-Sans-JP"
+        },
+        {
+          "glob": "*/LICENSE.txt",
+          "to": "IBM-Plex-Sans-JP"
+        }
+      ]
+    },
+    {
+      "name": "IBM Plex Sans TC 1.001",
+      "url": "https://github.com/IBM/plex/releases/download/@ibm/plex-sans-tc@1.1.1/ibm-plex-sans-tc.zip",
+      "sha256": "b79600d3c9155fa05c9024eb81cfe2fbdd8cd068503dfafd79405ea577aa9fec",
+      "expect": [
+        "IBM-Plex-Sans-TC/IBMPlexSansTC-Regular.ttf"
+      ],
+      "extract": [
+        {
+          "glob": "*/ttf/unhinted/IBMPlexSansTC-*.ttf",
+          "to": "IBM-Plex-Sans-TC"
+        },
+        {
+          "glob": "*/LICENSE.txt",
+          "to": "IBM-Plex-Sans-TC"
+        }
+      ]
+    },
+    {
+      "name": "IBM Plex Sans SC 1.000",
+      "url": "https://github.com/IBM/plex/releases/download/@ibm/plex-sans-sc@1.1.0/ibm-plex-sans-sc.zip",
+      "sha256": "0aabd737c8ef0206892b912c759101c10b86c6244be99f2e6b57c6905c716837",
+      "expect": [
+        "IBM-Plex-Sans-SC/IBMPlexSansSC-Regular.ttf"
+      ],
+      "extract": [
+        {
+          "glob": "*/ttf/unhinted/IBMPlexSansSC-*.ttf",
+          "to": "IBM-Plex-Sans-SC"
+        },
+        {
+          "glob": "*/LICENSE.txt",
+          "to": "IBM-Plex-Sans-SC"
+        }
+      ]
+    }
+  ],
   "sources": [
     {
       "id": "latin",
@@ -422,6 +478,99 @@
       }
     },
     {
+      "id": "jp",
+      "role": "cjk",
+      "path": "IBM-Plex-Sans-JP/IBMPlexSansJP-{krSrc}.ttf",
+      "italicize": true,
+      "fit": {
+        "mode": "cjkUniform"
+      },
+      "opsAfter": [
+        {
+          "op": "translate",
+          "ranges": [
+            [
+              "3400",
+              "4dbf"
+            ],
+            [
+              "4e00",
+              "9fff"
+            ],
+            [
+              "f900",
+              "faff"
+            ]
+          ],
+          "dy": -75,
+          "$note": "한자의 자면 중심이 한글보다 75유닛 위에 있다 (한글 304.5 / 한자 380). 최대 자면 기준으로 맞춘다."
+        }
+      ],
+      "$note": "가나 담당. 한자도 여기가 먼저 채운다"
+    },
+    {
+      "id": "tc",
+      "role": "cjk",
+      "path": "IBM-Plex-Sans-TC/IBMPlexSansTC-{krSrc}.ttf",
+      "italicize": true,
+      "fit": {
+        "mode": "cjkUniform"
+      },
+      "opsAfter": [
+        {
+          "op": "translate",
+          "ranges": [
+            [
+              "3400",
+              "4dbf"
+            ],
+            [
+              "4e00",
+              "9fff"
+            ],
+            [
+              "f900",
+              "faff"
+            ]
+          ],
+          "dy": -75,
+          "$note": "한자의 자면 중심이 한글보다 75유닛 위에 있다 (한글 304.5 / 한자 380). 최대 자면 기준으로 맞춘다."
+        }
+      ],
+      "$note": "JP 에 없는 한자를 보충"
+    },
+    {
+      "id": "sc",
+      "role": "cjk",
+      "path": "IBM-Plex-Sans-SC/IBMPlexSansSC-{krSrc}.ttf",
+      "italicize": true,
+      "fit": {
+        "mode": "cjkUniform"
+      },
+      "opsAfter": [
+        {
+          "op": "translate",
+          "ranges": [
+            [
+              "3400",
+              "4dbf"
+            ],
+            [
+              "4e00",
+              "9fff"
+            ],
+            [
+              "f900",
+              "faff"
+            ]
+          ],
+          "dy": -75,
+          "$note": "한자의 자면 중심이 한글보다 75유닛 위에 있다 (한글 304.5 / 한자 380). 최대 자면 기준으로 맞춘다."
+        }
+      ],
+      "$note": "간체자와 확장 A 를 메움"
+    },
+    {
       "id": "nerd",
       "role": "symbols",
       "when": "nerd",
@@ -565,21 +714,18 @@
       "isFixedPitch": 1,
       "underlinePosition": -70,
       "forceVerticalMetrics": true
+    },
+    "mapCanonical": {
+      "ranges": [
+        [
+          "f900",
+          "faff"
+        ]
+      ],
+      "$note": "호환한자를 정준 등가 글리프에 연결한다. KS X 1001 의 246자가 여기 있다."
     }
   },
   "build": {
-    "outputDir": "build",
-    "families": [
-      {
-        "dir": "MonoplexKR",
-        "prefix": "MonoplexKR",
-        "nerd": false
-      },
-      {
-        "dir": "MonoplexKRNerd",
-        "prefix": "MonoplexKRNerd",
-        "nerd": true
-      }
-    ]
+    "outputDir": "build"
   }
 }
