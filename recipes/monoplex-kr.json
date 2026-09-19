@@ -194,6 +194,13 @@
   "sources": [
     {
       "id": "latin",
+      "dropRanges": [
+        [
+          "2500",
+          "259f"
+        ]
+      ],
+      "$dropNote": "박스 드로잉은 kr 쪽에서 Box_Drawing_half.sfd 를 병합해 반각으로 넣는다. IBM Plex Mono 도 이 160 자를 갖고 있어서 우선순위상 latin 이 먼저 가져가는데, latin 의 ops 가 곧바로 clear 로 지우므로 아무도 안 넣는 결과가 된다. 배정 단계에서 빼서 kr 에게 넘긴다.",
       "role": "base",
       "path": "IBM-Plex-Mono/IBMPlexMono-{monoSrc}.ttf",
       "ops": [
