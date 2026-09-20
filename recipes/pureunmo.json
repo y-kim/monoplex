@@ -1,0 +1,452 @@
+{
+  "$comment": [
+    "푸른모 Pureunmo: Consolas + 맑은 고딕 + Meiryo 조합. 레시피 일반화가 실제로 되는지 확인하는 예제이기도 하다.",
+    "세 글꼴 모두 Microsoft 독점 글꼴이라 합성 결과를 배포할 수 없다.",
+    "소스는 저장소에 넣지 않는다. source-local/ 에 두고 gitignore 한다.",
+    "sources 는 우선순위 순서다. 라틴은 Consolas, 한글은 맑은 고딕,",
+    "맑은 고딕에 없는 일본어 글자는 Meiryo 가 채운다.",
+    "합성물은 개인 PC 에서만 쓴다. 원본 EULA 가 개조와 재배포를 금한다 (MeiryoKe 가 같은 입장을 명시한다)."
+  ],
+  "name": "푸른모 Pureunmo (Consolas + 맑은 고딕 + Meiryo)",
+  "output": {
+    "familyName": "Pureunmo",
+    "localizedFamilyName": {
+      "Korean": "푸른모"
+    },
+    "version": "0.1.0",
+    "copyright": "Derived from proprietary Microsoft fonts. Not redistributable.",
+    "vendorId": "NONE",
+    "ibmFamily": 2057,
+    "variantSuffix": {}
+  },
+  "target": {
+    "em": {
+      "ascent": 880,
+      "descent": 120
+    },
+    "vertical": {
+      "ascent": 950,
+      "descent": 250,
+      "typoLineGap": 0
+    },
+    "halfWidth": 500,
+    "italicAngle": -11,
+    "widthClass": 5,
+    "panose": {
+      "familyType": 2,
+      "serifStyle": 11,
+      "proportion": 9,
+      "contrast": 5,
+      "strokeVariation": 2,
+      "armStyle": 3,
+      "letterForm": 0,
+      "midline": 2,
+      "xHeight": 3
+    },
+    "$italicNote": "Consolas Italic 의 실제 각도. 한글 합성 이탤릭도 여기에 맞춘다."
+  },
+  "sourceDir": "source-local",
+  "styles": [
+    {
+      "name": "Regular",
+      "file": "Regular",
+      "latinSrc": "Regular",
+      "cjkSrc": "Regular",
+      "weight": 400,
+      "panoseWeight": 5,
+      "italic": false
+    },
+    {
+      "name": "Bold",
+      "file": "Bold",
+      "latinSrc": "Bold",
+      "cjkSrc": "Bold",
+      "weight": 700,
+      "panoseWeight": 8,
+      "italic": false
+    },
+    {
+      "name": "Regular",
+      "file": "Italic",
+      "latinSrc": "Italic",
+      "cjkSrc": "Regular",
+      "weight": 400,
+      "panoseWeight": 5,
+      "italic": true
+    },
+    {
+      "name": "Bold",
+      "file": "BoldItalic",
+      "latinSrc": "BoldItalic",
+      "cjkSrc": "Bold",
+      "weight": 700,
+      "panoseWeight": 8,
+      "italic": true
+    }
+  ],
+  "sources": [
+    {
+      "id": "latin",
+      "role": "base",
+      "path": "Consolas-{latinSrc}.ttf",
+      "fit": {
+        "mode": "halfScale",
+        "scale": [
+          91,
+          97
+        ]
+      },
+      "$note": "Consolas 는 2048upem/1126폭. set_em 으로 1000 이 되고 폭은 550 이 된다. 91% 로 줄여 500 에 맞춘다.",
+      "dropRanges": [
+        [
+          "2500",
+          "259f"
+        ]
+      ],
+      "$dropNote": "괘선은 kr 쪽에서 Box_Drawing_half.sfd 로 반각 넣는다. Consolas 는 Bold 에 40/128 자뿐이라 굵기마다 커버리지가 달라진다.",
+      "ops": [
+        {
+          "op": "clear",
+          "range": [
+            "2500",
+            "259f"
+          ],
+          "$note": "ttfautohint 대책. 반각 괘선은 CJK 쪽에서 넣는다"
+        }
+      ],
+      "opsAfter": [
+        {
+          "op": "round"
+        },
+        {
+          "op": "setWidth",
+          "cps": [
+            "2001",
+            "2003",
+            "3000"
+          ],
+          "to": {
+            "emDiv": 1
+          },
+          "$note": "EM QUAD / EM SPACE / 전각 공백 = 전각 한 칸"
+        },
+        {
+          "op": "setWidth",
+          "cps": [
+            "0020",
+            "00a0",
+            "2000",
+            "2002",
+            "2007",
+            "2008"
+          ],
+          "to": {
+            "emDiv": 2
+          },
+          "$note": "SPACE / NBSP / EN QUAD / EN SPACE / FIGURE / PUNCTUATION = 반각"
+        },
+        {
+          "op": "setWidth",
+          "cp": "2004",
+          "to": {
+            "emDiv": 3
+          },
+          "$note": "THREE-PER-EM"
+        },
+        {
+          "op": "setWidth",
+          "cps": [
+            "2005",
+            "205f"
+          ],
+          "to": {
+            "emDiv": 4
+          },
+          "$note": "FOUR-PER-EM / MEDIUM MATHEMATICAL SPACE (4/18 em 을 1/4 로)"
+        },
+        {
+          "op": "setWidth",
+          "cps": [
+            "2006",
+            "2009",
+            "202f"
+          ],
+          "to": {
+            "emDiv": 6
+          },
+          "$note": "SIX-PER-EM / THIN SPACE (1/5 em 을 1/6 로) / NARROW NBSP"
+        },
+        {
+          "op": "setWidth",
+          "cp": "200a",
+          "to": {
+            "emDiv": 8
+          },
+          "$note": "HAIR SPACE (1/10 em 을 1/8 로)"
+        }
+      ]
+    },
+    {
+      "id": "kr",
+      "role": "cjk",
+      "path": "MalgunGothic-{cjkSrc}.ttf",
+      "italicize": true,
+      "fit": {
+        "mode": "cjkUniform"
+      },
+      "$note": "맑은 고딕은 전각이 2048 로 균일하다. set_em 뒤 1000 = 목표 전각이라 그대로 맞는다.",
+      "opsAfter": [
+        {
+          "op": "translate",
+          "range": [
+            "0000",
+            "10ffff"
+          ],
+          "dy": -80,
+          "$note": "한글 자면 중심을 Consolas 대문자 중심 근처로 내린다. 맑은 고딕 그대로면 73 유닛 높다. Monoplex KR 은 27 유닛 아래, dev-x 합성본은 20 유닛 아래"
+        },
+        {
+          "op": "clear",
+          "range": [
+            "2500",
+            "259f"
+          ]
+        },
+        {
+          "op": "mergeSfd",
+          "from": "../source/AdjustedGlyphs/Box_Drawing_half.sfd",
+          "$note": "sourceDir 가 source-local 이라 저장소의 source/ 를 상대 경로로 가리킨다"
+        },
+        {
+          "op": "translate",
+          "range": [
+            "2500",
+            "259f"
+          ],
+          "dy": 50,
+          "$note": "SFD 의 가로선 중심 300 을 행 박스 -250..950 의 중심 350 에 맞춘다. 세로선은 -300..1000 이 되어 행 박스를 덮는다"
+        },
+        {
+          "op": "scaleOrigin",
+          "range": [
+            "2500",
+            "259f"
+          ],
+          "by": [
+            83.3,
+            100
+          ],
+          "setWidth": "half",
+          "$note": "SFD 는 폭 600 기준. 가로만 500 에 맞춰 줄인다"
+        }
+      ],
+      "italicExclude": [
+        [
+          "2e80",
+          "2fdf"
+        ],
+        [
+          "3005",
+          "3007"
+        ],
+        [
+          "3041",
+          "30ff"
+        ],
+        [
+          "31f0",
+          "31ff"
+        ],
+        [
+          "3400",
+          "4dbf"
+        ],
+        [
+          "4e00",
+          "9fff"
+        ],
+        [
+          "f900",
+          "faff"
+        ],
+        [
+          "ff66",
+          "ff9f"
+        ],
+        [
+          "20000",
+          "2ffff"
+        ]
+      ],
+      "$italicNote": "한글만 기울인다. 맑은 고딕이 가진 한자 7,476 자와 가나 169 자는 곧게 둔다.",
+      "dropRanges": [
+        [
+          "3005",
+          "3006"
+        ],
+        [
+          "303b",
+          "303b"
+        ],
+        [
+          "3041",
+          "309f"
+        ],
+        [
+          "30a0",
+          "30ff"
+        ],
+        [
+          "31f0",
+          "31ff"
+        ],
+        [
+          "ff66",
+          "ff9f"
+        ]
+      ],
+      "$dropNote": "일본어 글자는 Meiryo 에서 가져온다. 맑은 고딕에도 가나 169 자가 있지만 한국어 글꼴에 덧붙인 것이라 빼서 jp 에게 넘긴다. 한자는 한국식 자형인 맑은 고딕을 그대로 쓴다."
+    },
+    {
+      "id": "jp",
+      "role": "cjk",
+      "path": "Meiryo-{cjkSrc}.ttf",
+      "fit": {
+        "mode": "cjkUniform"
+      },
+      "$note": "가나 전부와 맑은 고딕이 덮지 못한 한자를 채운다. 가나는 kr 의 dropRanges 로 넘어온다.",
+      "opsAfter": [
+        {
+          "op": "translate",
+          "range": [
+            "0000",
+            "10ffff"
+          ],
+          "dy": -80,
+          "$note": "kr 와 같은 만큼 내린다"
+        },
+        {
+          "op": "scale",
+          "ranges": [
+            [
+              "2e80",
+              "2fdf"
+            ],
+            [
+              "3400",
+              "4dbf"
+            ],
+            [
+              "4e00",
+              "9fff"
+            ],
+            [
+              "f900",
+              "faff"
+            ]
+          ],
+          "by": [
+            94,
+            97
+          ],
+          "setWidth": "full",
+          "$note": "Meiryo 한자 자면(상위 5%: 폭 972, 높이 914)을 맑은 고딕 한자(911, 883)에 맞춘다. 결과 914×887"
+        },
+        {
+          "op": "translate",
+          "ranges": [
+            [
+              "2e80",
+              "2fdf"
+            ],
+            [
+              "3400",
+              "4dbf"
+            ],
+            [
+              "4e00",
+              "9fff"
+            ],
+            [
+              "f900",
+              "faff"
+            ]
+          ],
+          "dy": -14,
+          "$note": "자면 중심 312 → 298. 맑은 고딕 한자 296, 한글 300"
+        },
+        {
+          "op": "scale",
+          "ranges": [
+            [
+              "3005",
+              "3006"
+            ],
+            [
+              "303b",
+              "303b"
+            ],
+            [
+              "3041",
+              "30ff"
+            ],
+            [
+              "31f0",
+              "31ff"
+            ]
+          ],
+          "by": [
+            94,
+            97
+          ],
+          "setWidth": "full",
+          "$note": "가나도 한자와 같은 배율. Meiryo 가 정한 가나:한자 크기 관계를 유지한다. 히라가나 976×850 → 917×825"
+        },
+        {
+          "op": "scale",
+          "range": [
+            "ff66",
+            "ff9f"
+          ],
+          "by": [
+            94,
+            97
+          ],
+          "setWidth": "half",
+          "$note": "반각 가타카나도 같은 배율"
+        }
+      ],
+      "$italicNote": "한자와 가나는 이탤릭에서도 곧게 둔다. monoplex-cjk 의 jp 와 같이 italicize 를 걸지 않는다."
+    }
+  ],
+  "finalize": {
+    "removeCodepoints": [
+      "274c"
+    ],
+    "hinting": [
+      "-l",
+      "6",
+      "-r",
+      "45",
+      "-a",
+      "nnn",
+      "-D",
+      "latn",
+      "-W",
+      "-X",
+      "15-"
+    ],
+    "$note": "축소 변환을 거치면 Consolas 의 힌팅 명령은 어차피 버려진다. 그래서 Monoplex 와 같은 ttfautohint 설정으로 라틴을 다시 힌팅한다. CJK 부품은 무힌팅.",
+    "os2": {
+      "isFixedPitch": 1,
+      "underlinePosition": -70,
+      "forceVerticalMetrics": true,
+      "xAvgCharWidth": 500,
+      "fsType": 0
+    },
+    "$removeNote": "Meiryo 의 흑백 ❌ 가 있으면 이모지 폴백이 막힌다"
+  },
+  "build": {
+    "outputDir": "build"
+  }
+}
