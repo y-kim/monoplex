@@ -5,10 +5,8 @@
 # Monoplex (모노플렉스)
 
 IBM Plex Mono에 동아시아 글자를 더해서 만든 프로그래밍 글꼴입니다.
-넓은폭문자와 좁은폭문자의 너비 비율이 **2:1**인 고정폭이라, 한글이나 한자가
-섞여도 칸이 어긋나지 않습니다.
 
-두 계열이 있습니다.
+언어 별로 두 가지 계열이 있습니다.
 
 | | 담은 글자 | 쓰임 |
 |---|---|---|
@@ -21,19 +19,7 @@ IBM Plex Mono에 동아시아 글자를 더해서 만든 프로그래밍 글꼴�
 - `Monoplex CJK` / `Monoplex CJK Nerd Font`
 
 Nerd Font 판에는 Powerline 기호, Material Design Icons, Codicons, Devicons 등이
-들어 있습니다. 터미널 프롬프트나 파일 아이콘을 쓰신다면 이쪽입니다.
-
-## 어느 것을 고를까
-
-**Monoplex KR**은 한자가 없습니다. IBM Plex Sans KR 자체가 한글 전용이라
-`漢字`가 한 글자도 들어 있지 않습니다. 한국어 문서에 한자가 섞이면 시스템
-대체 글꼴로 넘어가면서 **고정폭 정렬이 깨집니다.**
-
-**Monoplex CJK**는 그 자리를 채웁니다. KS X 1001의 한자 4,888자를 빠짐없이
-덮고, 히라가나·가타카나·반각 가타카나까지 들어 있어 일본어도 그대로 나옵니다.
-대신 파일이 4배쯤 큽니다.
-
-한자를 쓸 일이 없다면 KR이 가볍고 충분합니다.
+들어 있습니다. Nerd Font를 지원하는 환경에서는 이 글꼴을 사용하세요.
 
 # Monoplex CJK
 
@@ -44,10 +30,10 @@ Nerd Font 판에는 Powerline 기호, Material Design Icons, Codicons, Devicons 
 
 ```
 IBM Plex Mono  →  Plex Sans KR  →  Plex Sans JP  →  Plex Sans TC  →  Plex Sans SC
-   라틴              한글            가나·한자         한자 보충        간체·확장A
+라틴              한글             가나·한자        한자 보충        간체·확장A
 ```
 
-한자를 얹으면서 두 가지를 손봤습니다.
+서로 다른 글꼴을 섞으며 아래의 보정이 추가되었습니다.
 
 - **세로 위치** — Plex Sans의 한자는 한글보다 자면 중심이 75유닛 위에 있습니다.
   최대 자면 기준으로 한글이 −166까지 내려오는데 한자는 −99에서 멈춥니다.
@@ -55,9 +41,6 @@ IBM Plex Mono  →  Plex Sans KR  →  Plex Sans JP  →  Plex Sans TC  →  Ple
 - **이탤릭** — 한자와 가나는 이탤릭 두께에서도 곧게 둡니다. CJK는 전통적으로
   이탤릭이 없어 기울이면 어색합니다. 기울이는 것은 라틴과 한글뿐입니다.
 
-호환한자(U+F900–FAFF)는 소스 글꼴에 없지만, 같은 한자의 다른 독음을 유니코드가
-따로 부호화한 것이라 자형이 통합한자 쪽과 같습니다. cmap을 연결해 두어서
-KS X 1001을 100% 덮습니다.
 
 # 갤러리
 
@@ -83,9 +66,6 @@ KS X 1001을 100% 덮습니다.
 
 ![vim-airline (Monoplex CJK Nerd Font)](images/vim-cjk.png)
 
-그림은 모두 `scripts/` 안의 스크립트가 만듭니다. 빌드한 글꼴로 직접 그리므로
-글꼴을 고치면 `sh scripts/images.sh` 로 갱신됩니다. vim 화면은 흉내가 아니라
-실제 vim 을 띄워 `term_scrape()` 로 받아 온 것입니다.
 
 # 설치
 
@@ -135,10 +115,7 @@ docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder \
 | IBM Plex Sans SC | 1.000 | [`@ibm/plex-sans-sc@1.1.0`](https://github.com/IBM/plex/releases/tag/%40ibm%2Fplex-sans-sc%401.1.0) | CJK: 간체·확장A |
 | Blex Mono Nerd Font | Nerd Fonts 3.5.1 | [`v3.5.1`](https://github.com/ryanoasis/nerd-fonts/releases/tag/v3.5.1) | Nerd Font 판 |
 
-IBM Plex Sans KR 은 2024-11 에 1.003 이 나왔지만 **올리지 않았습니다.**
-자면은 사실상 같은데(bbox 12,151/12,156자가 완전 일치) 반각 한글 자모
-(U+FFA1–FFDC)를 비롯한 57자가 빠지고 16자만 늘어납니다. 늘어난 16자는 이미
-IBM Plex Mono 쪽에 있어서 쓰이지 않으므로, 얻는 것 없이 잃기만 합니다.
+IBM Plex Sans KR 최신 버전인 1.003에서 반각 한글 자모가 빠져 이번 버전인 1.002를 사용합니다.
 
 Nerd Fonts 글리프 중 Pomicons(U+E000–U+E00A)는 라이선스상 상업적 이용이
 제한되어 포함하지 않았습니다.
