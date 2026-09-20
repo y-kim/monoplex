@@ -39,7 +39,20 @@ docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder \
   bash -c "cd /work && PYTHONPATH=tools/src python3 -m hapchija build --recipe recipes/monoplex-kr.json"
 ```
 
-빠르게 확인하려면 `--debug` 를 붙입니다. Regular 한 두께만 만듭니다.
+빠르게 확인하려면 `--quick` 을 붙입니다. `-w normal -s normal` 의 줄임말로,
+Regular 하나만 만듭니다. 두께(`-w`), 기울임(`-s`), 변종(`--variant`)은 서로
+독립인 선택자라 따로따로 고를 수 있고, 셋 다 쉼표로 여러 개를 적습니다.
+`normal` 은 세 곳 모두에서 기본을 뜻합니다: 400, 곧게 선 것, 변종 없는 빌드.
+
+```bash
+hapchija build --recipe recipes/monoplex-kr.json --quick                  # Regular, 변종 전부
+hapchija build --recipe recipes/monoplex-kr.json --quick --variant nerd   # Nerd Font 판만
+hapchija build --recipe recipes/monoplex-kr.json -w 700 -s italic         # BoldItalic
+hapchija build --recipe recipes/monoplex-kr.json -w text,semibold         # Text, SemiBold 와 그 이탤릭
+```
+
+레시피가 어떤 값을 받는지는 `hapchija options --recipe recipes/monoplex-kr.json`
+으로 봅니다.
 
 생성된 TTF 는 `build/` 아래에 가족별로 나옵니다.
 
