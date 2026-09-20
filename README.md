@@ -120,10 +120,25 @@ IBM Plex Sans KR 최신 버전인 1.003에서 반각 한글 자모가 빠져 이
 Nerd Fonts 글리프 중 Pomicons(U+E000–U+E00A)는 라이선스상 상업적 이용이
 제한되어 포함하지 않았습니다.
 
-# 요청
+# 알려진 이슈
 
-![Request](images/cursor.gif)
+## VS Code에서 커서를 위아래로 움직이면 열이 어긋남
 
-Microsoft Visual Studio Code에서 수직 방향으로 커서를 움직일 때 커서의 시각적 위치가 급격하게 바뀌는 경우가 있습니다. 이는 vscode에서 시각적 위치를 계산할 때 CJK의 주요 문자를 제외한 모든 기호의 너비를 Latin 문자와 동일하게 계산하기 때문입니다.
+![VS Code 커서](images/cursor.gif)
 
-문자의 시각적 너비에 대한 변경을 요청하는 기능 개선 요청([Vertical cursor movement considering character width.](https://github.com/microsoft/vscode/issues/136226))이 현재 backlog 후보에 올라와있습니다. 이 기능에 공감하신다면 위 티켓에서 엄지 손가락을 눌러주세요. Backlog에 올라가기 위해서는 엄지 20개가 필요합니다.
+VS Code는 글자 폭을 재지 않고, 고정된 유니코드 블록 표(`isFullWidthCharacter`)로
+어떤 글자가 2칸인지 정합니다. 그 표에는 한글·한자·가나 같은 CJK 본문 블록만
+있어서, 이 글꼴이 전각으로 그리는 로마 숫자·원문자·여러 기호(East Asian Width가
+Ambiguous인 글자)를 VS Code는 1칸으로 셉니다. 그래서 그런 글자가 있는 줄을
+지나 커서를 위아래로 움직이면 커서 열이 튀고, 열 선택·자동 줄바꿈·미니맵도
+같은 표를 쓰므로 함께 어긋납니다. 확장 API로는 고칠 수 없습니다.
+
+- 근본 해결은 VS Code 쪽 기능 개선 요청
+  [Vertical cursor movement considering character width](https://github.com/microsoft/vscode/issues/136226)
+  에 달려 있습니다.
+- 우회 방법으로 [vscode-fullwidth-patch](https://github.com/y-kim/vscode-fullwidth-patch)
+  를 쓸 수 있습니다. 쓰는 글꼴 파일에서 advance가 2칸인 글자 표를 뽑아
+  (`gen_fullwidth_ranges.py`), 설치된 VS Code의 그 함수 하나를 그 표로 바꿔
+  넣습니다(`patch_vscode_fullwidth.py`). 설치본을 고치는 것이라 VS Code가
+  업데이트되면 다시 적용해야 합니다. 저장소에 Monoplex CJK Nerd Font로 뽑은
+  예시가 있습니다.
