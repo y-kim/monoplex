@@ -110,9 +110,15 @@ docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder \
   bash -c "cd /work && PYTHONPATH=tools/src python3 -m hapchija build --recipe recipes/monoplex-kr.json"
 ```
 
-`recipes/monoplex-cjk.json` 으로 바꾸면 CJK 판이 나옵니다. 자세한 내용은
-[HOW_TO_BUILD.md](HOW_TO_BUILD.md), 버전을 올리는 기준은
-[VERSIONING.md](VERSIONING.md) 를 보세요.
+`recipes/monoplex-cjk.json` 으로 바꾸면 CJK 판이 나옵니다.
+
+| 문서 | 내용 |
+|---|---|
+| [HOW_TO_BUILD.md](HOW_TO_BUILD.md) | 빌드하는 법 |
+| [RECIPE.md](RECIPE.md) | 레시피가 무엇을 왜 그렇게 하는지 |
+| [VERSIONING.md](VERSIONING.md) | 버전을 매기는 기준 |
+| [CHANGELOG.md](CHANGELOG.md) | 변경 이력 |
+| [release-notes/](release-notes/) | 가족별 릴리즈 노트 |
 
 # 사용한 소스 글꼴
 
