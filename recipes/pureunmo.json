@@ -5,7 +5,7 @@
     "소스는 저장소에 넣지 않는다. source-local/ 에 두고 gitignore 한다.",
     "sources 는 우선순위 순서다. 라틴은 Consolas, 한글은 맑은 고딕,",
     "맑은 고딕에 없는 일본어 글자는 Meiryo 가 채운다.",
-    "합성물은 개인 PC 에서만 쓴다. 원본 EULA 가 개조와 재배포를 금한다 (MeiryoKe 가 같은 입장을 명시한다)."
+    "합성물은 개인 PC 에서만 쓴다. 원본 EULA 가 개조와 재배포를 금한다."
   ],
   "name": "푸른모 Pureunmo (Consolas + 맑은 고딕 + Meiryo)",
   "output": {
