@@ -7,3 +7,4 @@ source-local/
 __pycache__/
 *.pyc
 dist/
+.venv/
