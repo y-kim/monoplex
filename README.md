@@ -70,6 +70,12 @@ KS X 1001을 100% 덮습니다.
 
 ![Monoplex CJK 예제](images/example-cjk.png)
 
+**한 줄에 섞어 쓸 때** — 한국어 문장의 명사만 로마자·한자·가나로 바꾼
+것입니다. 반각과 전각이 한 줄에서 예닐곱 번 번갈아도 아래 줄과 열이 맞습니다.
+주석 줄에서는 라틴과 한글만 기울고 한자·가나는 곧게 섭니다.
+
+![섞어 쓰기](images/example-mix.png)
+
 **Nerd Font 판** — vim + [vim-airline](https://github.com/vim-airline/vim-airline)
 화면입니다. Powerline 구분자가 한 칸에 들어갑니다.
 

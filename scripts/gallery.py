@@ -99,6 +99,25 @@ SCENES = {
         cout(False, "鬱靈鑑聽讀變觀權歡藝議驗鐵豐", "획이 많은 글자"),
         endl(),
     ] + CODA,
+    # 한국어 문장의 안쪽 명사만 로마자·한자·가나로 바꿔 놓았다. 문자가
+    # 바뀌는 자리마다 칸이 반각에서 전각으로 오가는데, 그래도 줄의 오른쪽
+    # 끝과 다음 줄의 열이 어긋나지 않는지 보려는 것이다.
+    "mix": PRELUDE + [
+        [T("    "), C("// 이 font는 IBM Plex Mono에 漢字와 かな를 더한 monospace다")],
+        hello("Hello, World!"),
+        hello("東京의 server에서 ソウル의 client로"),
+        [],
+        [T("    "), C("// 한 line에 네 文字가 섞여도 column이 어긋나지 않는다")],
+        cout(True,  "韓國語와 日本語를 parser가 token으로 읽는다"),
+        endl(),
+        cout(True,  "漢字는 upright, ひらがな도 upright, 한글만 italic"),
+        endl(),
+        [],
+        [T("    "), C("// 型이 안 맞으면 compiler가 error를 낸다")],
+        [T("    "), K("return"), T(" "), N("123"), T(" + "), N("45"), T(" * "),
+         N("678"), T(" - "), N("90"), T(";")],
+        [T("}")],
+    ],
 }
 
 SIZE, LINE_HEIGHT, PAD = 32, 43, 32

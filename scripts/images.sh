@@ -11,5 +11,6 @@ python3 scripts/header.py   kr  "build/Monoplex KR"            MonoplexKR       
 python3 scripts/header.py   cjk "build/Monoplex CJK"           MonoplexCJK         images/monoplex-cjk.png
 python3 scripts/gallery.py  kr  "build/Monoplex KR"            MonoplexKR          images/example-kr.png
 python3 scripts/gallery.py  cjk "build/Monoplex CJK"           MonoplexCJK         images/example-cjk.png
+python3 scripts/gallery.py  mix "build/Monoplex CJK"           MonoplexCJK         images/example-mix.png
 python3 scripts/terminal.py kr  "build/Monoplex KR Nerd Font"  MonoplexKRNerdFont  images/vim-kr.png
 python3 scripts/terminal.py cjk "build/Monoplex CJK Nerd Font" MonoplexCJKNerdFont images/vim-cjk.png
