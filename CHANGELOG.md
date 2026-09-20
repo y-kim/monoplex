@@ -1,0 +1,121 @@
+# 변경 이력
+
+버전을 매기는 기준은 [VERSIONING.md](VERSIONING.md)에 있습니다.
+
+## 1.0.0 — 2026-09-20
+
+0.0.2 이후 5년 만의 릴리즈입니다. 글꼴이 불안정해서 버전을 안 올린 것이
+아니라 그냥 올리지 않고 둔 것이라, 1.0.0으로 갑니다.
+
+### 먼저 확인하세요
+
+**Nerd Fonts를 쓰신다면 아이콘이 깨질 수 있습니다.** Nerd Fonts가 v2에서
+v3.5.1로 올라가면서 Material Design Icons가 `U+F500–FD46`에서
+`U+F0001–F1AF0`으로 옮겨갔습니다. starship, eza, nvim-web-devicons 같은
+도구의 설정이 옛 코드포인트를 직접 가리키고 있다면 두부가 나옵니다. 도구를
+최신판으로 올리면 대개 해결됩니다.
+
+**Monoplex KR Wide를 쓰셨다면 대체가 없습니다.** 넓은폭:좁은폭이 5:3이던
+Wide 계열을 없앴습니다. 2:1인 `Monoplex KR`로 옮기셔야 합니다.
+
+**Nerd 판 이름이 바뀌었습니다.** `Monoplex KR Nerd` → `Monoplex KR Nerd
+Font`. 터미널이나 편집기 설정에 적어 두신 글꼴 이름을 고쳐야 합니다.
+
+### 가족 구성
+
+| 0.0.2 | 1.0.0 |
+|---|---|
+| Monoplex KR | Monoplex KR |
+| Monoplex KR Nerd | Monoplex KR **Nerd Font** |
+| Monoplex KR Wide | 없어짐 |
+| Monoplex KR Wide Nerd | 없어짐 |
+| | **Monoplex CJK** |
+| | **Monoplex CJK Nerd Font** |
+
+### Monoplex CJK — 새 가족
+
+Monoplex KR에 한자와 가나를 더한 것입니다. IBM Plex Sans KR에는 한자가 한
+글자도 없어서, 한국어 문서에 한자가 섞이면 시스템 대체 글꼴로 넘어가며
+고정폭 정렬이 깨졌습니다. 그 자리를 채웁니다.
+
+- KS X 1001의 한자 4,888자를 빠짐없이 덮습니다. 호환한자(U+F900–FAFF)는
+  소스에 없지만 정준 등가로 cmap을 연결했습니다
+- 히라가나·가타카나·반각 가타카나가 들어 있어 일본어도 그대로 나옵니다
+- 한자는 IBM Plex Sans의 지역 변종에서 가져오되 KR → JP → TC → SC 순서로
+  먼저 있는 것을 씁니다. 이체자 자형은 일본 쪽이 한국어와 더 맞습니다
+- 한자의 자면 중심이 한글보다 75유닛 위에 있어서 그만큼 내려 맞췄습니다
+- 이탤릭은 라틴과 한글만 기울입니다. 한자와 가나는 이탤릭 두께에서도 곧게
+  둡니다
+
+### 글꼴 안의 수정
+
+- **`head.macStyle`이 비어 있었습니다.** 16개 중 10개가 `fsSelection`과
+  어긋나 있었고, 값이 어긋나면 일부 앱이 진짜 이탤릭 위에 가짜 기울임을
+  덧씌웁니다
+- **SemiBold가 BOLD 비트를 달고 있었습니다.** 파일 이름에 `Bold`가 들어
+  있는지로 `fsSelection`을 정한 탓입니다. 글꼴 선택기에서 SemiBold가 그
+  가족의 볼드로 잡혀 Bold와 경쟁했습니다. 이제 스타일 표에서 유도합니다
+- **공백 폭**을 전각 1056의 정수 분할로 맞췄습니다. 전에는 전부 528이라
+  `U+2005 FOUR-PER-EM`이 이름과 달리 em의 1/2였습니다
+
+  | 유닛 | 문자 |
+  |---|---|
+  | 1056 | EM QUAD, EM SPACE, IDEOGRAPHIC SPACE |
+  | 528 | SPACE, NBSP, EN QUAD, EN SPACE, FIGURE, PUNCTUATION |
+  | 352 | THREE-PER-EM |
+  | 264 | FOUR-PER-EM, MEDIUM MATHEMATICAL |
+  | 176 | SIX-PER-EM, THIN, NARROW NBSP |
+  | 132 | HAIR |
+
+- **PANOSE**를 고쳤습니다 (contrast 2→5, letterForm 2→0, xHeight 7→3)
+- **`U+274C` CROSS MARK를 지웠습니다.** Plex Mono의 흑백 반각 글리프가 OS
+  이모지 글꼴로의 폴백을 막고 있었습니다
+- **Powerline 구분자**의 v2용 위치 보정을 제거했습니다. v3.5.1은 셀을
+  넘치게 설계돼 있어 그 보정이 오히려 틈을 만들었습니다
+- `post.isFixedPitch`를 강제합니다
+
+### 소스 글꼴
+
+| | 0.0.2 | 1.0.0 |
+|---|---|---|
+| IBM Plex Mono | 2.3 (2018) | **2.005** — cmap 930 → 1,049, 사라진 것 없음 |
+| IBM Plex Sans KR | 1.002 | 1.002 |
+| Nerd Fonts | 2.0.0 | **3.5.1** |
+| IBM Plex Sans JP | — | 1.004 |
+| IBM Plex Sans TC | — | 1.001 |
+| IBM Plex Sans SC | — | 1.000 |
+
+IBM Plex Sans KR은 1.003이 나와 있지만 올리지 않았습니다. 자면은 사실상
+같은데(bbox 12,151/12,156자가 완전 일치) 반각 한글 자모를 비롯한 57자가
+빠지고 16자만 늘어납니다. 늘어난 16자는 이미 IBM Plex Mono 쪽에 있어서
+쓰이지 않으므로, 얻는 것 없이 잃기만 합니다.
+
+Nerd Fonts 글리프 중 Pomicons(`U+E000–E00A`)는 상업적 이용이 제한되어
+포함하지 않았습니다.
+
+### 바뀌지 않은 것
+
+반각 528 / 전각 1056, ascent 950 / descent 225, typoLineGap 80,
+italicAngle −9. **줄바꿈 위치와 세로 정렬은 그대로입니다.**
+
+### 커버리지
+
+| | cmap | 16스타일 용량 |
+|---|---|---|
+| Monoplex KR | 13,001 | 42 MB |
+| Monoplex KR Nerd Font | 23,869 | 77 MB |
+| Monoplex CJK | 44,724 | 176 MB |
+| Monoplex CJK Nerd Font | 55,592 | 210 MB |
+
+0.0.2의 Monoplex KR과 견주면 **사라진 코드포인트는 `U+274C` 하나**이고
+106자가 늘었습니다. Thin 한 굵기만 12,944자인데, IBM Plex Sans KR 1.002가
+Thin에만 57자(반각 한글 자모 등)를 빼 두었기 때문입니다. 0.0.2도 같았습니다.
+
+Monoplex CJK는 한글 11,172 · 통합한자 20,992 · 확장A 6,592 · 가나 189 ·
+반각 가나 58자입니다.
+
+## 0.0.2 — 2021-11-01
+
+## 0.0.1 — 2021-10-27
+
+첫 공개.
