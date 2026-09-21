@@ -4,7 +4,7 @@
 
 # Monoplex (모노플렉스)
 
-IBM Plex Mono에 동아시아 글자를 더해서 만든 프로그래밍 글꼴입니다.
+IBM Plex Mono에 동아시아 글자를 합쳐서 만든 프로그래밍 글꼴입니다.
 
 언어 별로 두 가지 계열이 있습니다.
 
@@ -13,7 +13,7 @@ IBM Plex Mono에 동아시아 글자를 더해서 만든 프로그래밍 글꼴�
 | **Monoplex KR** | 라틴 + 한글 | 한글만 쓰는 경우 |
 | **Monoplex CJK** | 라틴 + 한글 + 한자 + 가나 | 한자나 일본어가 섞이는 경우 |
 
-각 계열에 Nerd Fonts를 더한 판이 따로 있어서, 모두 네 가족입니다.
+각 계열에 Nerd Fonts를 합친 판이 따로 있어서, 모두 네 가족입니다.
 
 - `Monoplex KR` / `Monoplex KR Nerd Font`
 - `Monoplex CJK` / `Monoplex CJK Nerd Font`
@@ -33,18 +33,13 @@ IBM Plex Mono  →  Plex Sans KR  →  Plex Sans JP  →  Plex Sans TC  →  Ple
 라틴              한글             가나·한자        한자 보충        간체·확장A
 ```
 
-서로 다른 글꼴을 섞으며 아래의 보정이 추가되었습니다.
-
-- **세로 위치** — Plex Sans의 한자는 한글보다 자면 중심이 75유닛 위에 있습니다.
-  최대 자면 기준으로 한글이 −166까지 내려오는데 한자는 −99에서 멈춥니다.
-  섞어 쓰면 한자만 들려 보여서, 한글 중심에 맞춰 내렸습니다.
-- **이탤릭** — 한자와 가나는 이탤릭 두께에서도 곧게 둡니다. CJK는 전통적으로
-  이탤릭이 없어 기울이면 어색합니다. 기울이는 것은 라틴과 한글뿐입니다.
-
+IBM Plex Sans KR은 한글 메트릭을 로마자에 맞춰 잡았고, 다른 동아시아 글꼴은
+전통적인 CJK 메트릭을 씁니다. 그대로 합치면 어긋나서 가나와 한자를 한글에
+맞췄습니다. 자세한 것은 [RECIPE.md](RECIPE.md)에 있습니다.
 
 # 갤러리
 
-**Monoplex KR** — 라틴과 한글의 너비가 2:1 로 맞습니다.
+**Monoplex KR** — 한글과 라틴을 정렬하여 볼 수 있습니다.
 
 ![Monoplex KR 예제](images/example-kr.png)
 
@@ -98,13 +93,10 @@ docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder \
 | [RECIPE.md](RECIPE.md) | 레시피가 무엇을 왜 그렇게 하는지 |
 | [VERSIONING.md](VERSIONING.md) | 버전을 매기는 기준 |
 | [CHANGELOG.md](CHANGELOG.md) | 변경 이력 |
-| [release-notes/](release-notes/) | 가족별 릴리즈 노트 |
 
 # 사용한 소스 글꼴
 
-버전은 글꼴 파일 안의 값(name ID 5)입니다. 배포 채널의 패키지 번호와는 다를 수
-있습니다. 예를 들어 `@ibm/plex-mono@2.5.0` 릴리스에 들어 있는 글꼴의 내부
-버전은 `2.005` 입니다.
+내부 버전은 글꼴 파일 안에 적힌 값으로, 배포 패키지의 번호와 다를 수 있습니다.
 
 | 글꼴 | 내부 버전 | 업스트림 릴리스 | 쓰는 곳 |
 |---|---|---|---|
@@ -126,19 +118,13 @@ Nerd Fonts 글리프 중 Pomicons(U+E000–U+E00A)는 라이선스상 상업적 
 
 ![VS Code 커서](images/cursor.gif)
 
-VS Code는 글자 폭을 재지 않고, 고정된 유니코드 블록 표(`isFullWidthCharacter`)로
-어떤 글자가 2칸인지 정합니다. 그 표에는 한글·한자·가나 같은 CJK 본문 블록만
-있어서, 이 글꼴이 전각으로 그리는 로마 숫자·원문자·여러 기호(East Asian Width가
-Ambiguous인 글자)를 VS Code는 1칸으로 셉니다. 그래서 그런 글자가 있는 줄을
-지나 커서를 위아래로 움직이면 커서 열이 튀고, 열 선택·자동 줄바꿈·미니맵도
-같은 표를 쓰므로 함께 어긋납니다. 확장 API로는 고칠 수 없습니다.
+VS Code는 글자 폭을 재지 않고 고정된 유니코드 블록 표로 2칸 글자를 정합니다.
+그 표에 없는 글자를 이 글꼴이 전각으로 그리면 커서 열이 튀고, 열 선택과 자동
+줄바꿈, 미니맵도 함께 어긋납니다. 확장 API로는 고칠 수 없습니다.
 
 - 근본 해결은 VS Code 쪽 기능 개선 요청
   [Vertical cursor movement considering character width](https://github.com/microsoft/vscode/issues/136226)
   에 달려 있습니다.
 - 우회 방법으로 [vscode-fullwidth-patch](https://github.com/y-kim/vscode-fullwidth-patch)
-  를 쓸 수 있습니다. 쓰는 글꼴 파일에서 advance가 2칸인 글자 표를 뽑아
-  (`gen_fullwidth_ranges.py`), 설치된 VS Code의 그 함수 하나를 그 표로 바꿔
-  넣습니다(`patch_vscode_fullwidth.py`). 설치본을 고치는 것이라 VS Code가
-  업데이트되면 다시 적용해야 합니다. 저장소에 Monoplex CJK Nerd Font로 뽑은
-  예시가 있습니다.
+  를 쓸 수 있습니다. 설치된 VS Code를 고치는 것이라 업데이트되면 다시 적용해야
+  합니다.

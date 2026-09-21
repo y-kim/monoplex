@@ -8,7 +8,6 @@
 
 - 레시피를 돌리는 법은 [HOW_TO_BUILD.md](HOW_TO_BUILD.md)
 - 버전을 매기는 기준은 [VERSIONING.md](VERSIONING.md)
-- 릴리즈 노트는 [release-notes/](release-notes/)
 - 릴리즈별 변경 이력은 [CHANGELOG.md](CHANGELOG.md)
 
 ## 메트릭
