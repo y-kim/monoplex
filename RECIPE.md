@@ -477,11 +477,17 @@ Nerd Fonts 쪽은 `variantOutput` 으로 Nerd Font 판에만 붙입니다. 그 �
 그렇게 적습니다. 상업적 이용이 제한되는 Pomicons(U+E000–E00A)는 `keepRanges`
 에서 빼 두었습니다.
 
-**아직 글꼴에 들어가지 않습니다.** 지금 `tools/` 에 들어 있는 hapchija 는
-`output.copyright` 만 씁니다. `license`, `licenseURL`, `trademark`,
-`variantOutput` 을 읽는 코드가 아직 없어서, 빌드한 글꼴의 name 13·14·7 번 칸이
-비어 있습니다. hapchija 쪽에 그 기능이 들어와 서브모듈을 올린 뒤에야 이 절의
-내용이 실제로 글꼴에 담깁니다. 릴리즈 전에 반드시 확인해야 합니다.
+빌드한 글꼴에서 확인할 수 있습니다.
+
+```
+Monoplex KR          name 0  Kim Yangsu / IBM Corp. / Yuko Otawara
+                     name 7  IBM Plex® is a trademark of IBM Corp, ...
+                     name 13 SIL Open Font License, Version 1.1 ...
+                     name 14 http://scripts.sil.org/OFL
+Monoplex KR Nerd Font  위에 더해
+                     name 0  Ryan L McIntyre 한 줄이 붙고
+                     name 13 아이콘 글리프에 관한 문장이 붙는다
+```
 
 ## 소스 글꼴 버전
 
