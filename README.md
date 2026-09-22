@@ -26,7 +26,8 @@ Nerd Font 판에는 Powerline 기호, Material Design Icons, Codicons, Devicons 
 ![Monoplex CJK](images/monoplex-cjk.png)
 
 한자와 가나는 IBM Plex Sans의 지역 변종에서 가져왔습니다. 같은 코드포인트를
-여러 글꼴이 갖고 있을 때는 아래 순서로 먼저 있는 것을 씁니다.
+여러 글꼴이 갖고 있을 때는 아래 순서로 먼저 있는 것을 씁니다. Monoplex KR도
+같은 순서를 쓰되 한자와 가나는 받지 않습니다.
 
 ```
 IBM Plex Mono  →  Plex Sans KR  →  Plex Sans JP  →  Plex Sans TC  →  Plex Sans SC
@@ -78,7 +79,7 @@ IBM Plex Sans KR은 한글 메트릭을 로마자에 맞춰 잡았고, 다른 �
 git clone --recursive https://github.com/y-kim/monoplex
 cd monoplex
 
-# 소스 글꼴 받기 (KR 은 24MB, CJK 는 175MB)
+# 소스 글꼴 받기 (175MB)
 PYTHONPATH=tools/src python3 -m hapchija fetch --recipe recipes/monoplex-kr.json
 
 docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder \
@@ -102,9 +103,9 @@ docker run --rm -v "$(pwd):/work" ghcr.io/yuru7/composite-font-builder \
 |---|---|---|---|
 | IBM Plex Mono | 2.005 | [`@ibm/plex-mono@2.5.0`](https://github.com/IBM/plex/releases/tag/%40ibm%2Fplex-mono%402.5.0) | 라틴 |
 | IBM Plex Sans KR | 1.002 | [`v6.4.2`](https://github.com/IBM/plex/releases/tag/v6.4.2) (마지막 통합 릴리스) | 한글 |
-| IBM Plex Sans JP | 1.004 | [`@ibm/plex-sans-jp@3.0.0`](https://github.com/IBM/plex/releases/tag/%40ibm%2Fplex-sans-jp%403.0.0) | CJK: 가나·한자 |
-| IBM Plex Sans TC | 1.001 | [`@ibm/plex-sans-tc@1.1.1`](https://github.com/IBM/plex/releases/tag/%40ibm%2Fplex-sans-tc%401.1.1) | CJK: 한자 보충 |
-| IBM Plex Sans SC | 1.000 | [`@ibm/plex-sans-sc@1.1.0`](https://github.com/IBM/plex/releases/tag/%40ibm%2Fplex-sans-sc%401.1.0) | CJK: 간체·확장A |
+| IBM Plex Sans JP | 1.004 | [`@ibm/plex-sans-jp@3.0.0`](https://github.com/IBM/plex/releases/tag/%40ibm%2Fplex-sans-jp%403.0.0) | 기호, CJK: 가나·한자 |
+| IBM Plex Sans TC | 1.001 | [`@ibm/plex-sans-tc@1.1.1`](https://github.com/IBM/plex/releases/tag/%40ibm%2Fplex-sans-tc%401.1.1) | 기호, CJK: 한자 보충 |
+| IBM Plex Sans SC | 1.000 | [`@ibm/plex-sans-sc@1.1.0`](https://github.com/IBM/plex/releases/tag/%40ibm%2Fplex-sans-sc%401.1.0) | 기호, CJK: 간체·확장A |
 | Blex Mono Nerd Font | Nerd Fonts 3.5.1 | [`v3.5.1`](https://github.com/ryanoasis/nerd-fonts/releases/tag/v3.5.1) | Nerd Font 판 |
 
 IBM Plex Sans KR 최신 버전인 1.003에서 반각 한글 자모가 빠져 이번 버전인 1.002를 사용합니다.
