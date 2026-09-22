@@ -448,6 +448,41 @@ IBM이 1.003에서 이 57자를 전 굵기에서 빼는 쪽으로 정리했는�
 이미 IBM Plex Mono 쪽에 있어서 쓰이지 않으므로, 얻는 것 없이 잃기만
 합니다.
 
+## 글꼴이 스스로 들고 다니는 라이선스
+
+`output` 의 `copyright`, `license`, `licenseURL`, `trademark` 는 글꼴 파일의
+name 테이블 0, 13, 14, 7 번 칸에 그대로 들어갑니다. ttf 하나만 따로 설치되면
+저장소의 [LICENSE.md](LICENSE.md) 가 따라가지 않으므로 글꼴 자신이 들고 있어야
+합니다. OFL 2 항이 각 사본에 저작권 표시와 라이선스를 담으라고 하고, 그 방법으로
+기계가 읽을 수 있는 메타데이터 칸을 인정합니다.
+
+IBM 쪽 문구는 소스 글꼴의 `LICENSE.txt` 첫 줄과 name 13 번을 그대로 옮긴
+것입니다. 지어낸 문장이 아닙니다.
+
+PlemolJP 를 적는 이유는 U+2500–259F 괘선과 블록입니다.
+`source/AdjustedGlyphs/Box_Drawing_half.sfd` 헤더에는 `FontName: IBMPlexSansJP`
+라고 적혀 있지만, 그 안의 윤곽은 IBM 것이 아닙니다.
+
+| U+2500 | 폭 | 획 두께 |
+|---|---|---|
+| IBM Plex Sans JP | 1000 | 40 |
+| Box_Drawing_half.sfd | 600 | 68 |
+
+헤더는 그 글꼴의 작업 사본에서 저장했기 때문에 남은 것이고, 글리프는 다시 그린
+것입니다. 그래서 PlemolJP 의 저작권자를 적습니다.
+
+Nerd Fonts 쪽은 `variantOutput` 으로 Nerd Font 판에만 붙입니다. 그 판에만
+아이콘 글리프가 들어가기 때문입니다. 아이콘 묶음들은 각자의 저작권자와
+라이선스를 가지며, Nerd Fonts 배포본이 그것을 한데 정리해 두지 않았으므로
+그렇게 적습니다. 상업적 이용이 제한되는 Pomicons(U+E000–E00A)는 `keepRanges`
+에서 빼 두었습니다.
+
+**아직 글꼴에 들어가지 않습니다.** 지금 `tools/` 에 들어 있는 hapchija 는
+`output.copyright` 만 씁니다. `license`, `licenseURL`, `trademark`,
+`variantOutput` 을 읽는 코드가 아직 없어서, 빌드한 글꼴의 name 13·14·7 번 칸이
+비어 있습니다. hapchija 쪽에 그 기능이 들어와 서브모듈을 올린 뒤에야 이 절의
+내용이 실제로 글꼴에 담깁니다. 릴리즈 전에 반드시 확인해야 합니다.
+
 ## 소스 글꼴 버전
 
 버전은 글꼴 파일 안의 값(name ID 5)입니다. 배포 채널의 패키지 번호와는

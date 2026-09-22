@@ -9,12 +9,23 @@
   "output": {
     "familyName": "Monoplex KR",
     "version": "1.1.0",
-    "copyright": "Copyright (c) 2021, Kim Yangsu",
+    "copyright": "Copyright (c) 2021, Kim Yangsu with Reserved Font Name \"Monoplex\"\nCopyright © 2017 IBM Corp. with Reserved Font Name \"Plex\"\nCopyright (c) 2021, Yuko Otawara with Reserved Font Name \"PlemolJP\"",
+    "license": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL",
+    "licenseURL": "http://scripts.sil.org/OFL",
+    "trademark": "IBM Plex® is a trademark of IBM Corp, registered in many jurisdictions worldwide.",
+    "$licenseNote": "글꼴 파일의 name 테이블 0 번, 13 번, 14 번 칸에 그대로 들어간다. ttf 하나만 따로 설치되면 저장소의 LICENSE.md 가 따라가지 않으므로 글꼴 자신이 들고 있어야 한다. OFL 2 항이 각 사본에 위의 저작권 표시와 라이선스를 담으라고 하고, 그 방법으로 machine-readable metadata field 를 인정한다. IBM 쪽 문구는 소스 글꼴의 LICENSE.txt 첫 줄과 name 13 번을 그대로 옮긴 것이다. PlemolJP 쪽은 U+2500-259F 괘선과 블록을 그린 사람이다. source/AdjustedGlyphs/Box_Drawing_half.sfd 헤더에는 IBM Plex Sans JP 라고 적혀 있지만 그 안의 윤곽은 IBM 것이 아니다. IBM 은 U+2500 을 폭 1000, 획 40 으로 그렸는데 이 파일은 폭 600, 획 68 이다. 그래서 PlemolJP 의 LICENSE.txt 가 밝힌 저작권자를 적는다.",
     "vendorId": "PfEd",
     "ibmFamily": 2057,
     "variantSuffix": {
       "nerd": "Nerd Font",
       "hiddenSpace": "SS"
+    },
+    "variantOutput": {
+      "nerd": {
+        "copyright": "Copyright (c) 2021, Kim Yangsu with Reserved Font Name \"Monoplex\"\nCopyright © 2017 IBM Corp. with Reserved Font Name \"Plex\"\nCopyright (c) 2021, Yuko Otawara with Reserved Font Name \"PlemolJP\"\nCopyright (c) 2014, Ryan L McIntyre (https://ryanlmcintyre.com)",
+        "license": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL\nThis variant also contains icon glyphs from Nerd Fonts (https://github.com/ryanoasis/nerd-fonts). Those glyph sets are the work of their own authors and keep their own licenses."
+      },
+      "$note": "Nerd Font 판에는 Nerd Fonts 의 아이콘 글리프가 들어 있다. 그 판에서만 Ryan L McIntyre 의 저작권 표시가 붙는다."
     }
   },
   "target": {

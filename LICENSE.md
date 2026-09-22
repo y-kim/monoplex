@@ -1,13 +1,38 @@
-Copyright (c) 2021, Kim Yangsu with Reserved Font Name "Monoplex" and "Monoplex KR"
+Copyright (c) 2021, Kim Yangsu with Reserved Font Name "Monoplex"
 
-- The Monoplex generate script (https://github.com/y-kim/monoplex) is licensed under the MIT License.
-    - It is derived from the PlemolJP generate script (https://github.com/yuru7/PlemolJP)
-      which is licensed under the MIT License.
-- And Monoplex Font Software is licensed under the SIL Open Font License v1.1.
-- Source font softwares are licensed under the
-    - SIL Open Font License, Version 1.1
-        - IBM-Plex-Sans-JP, IBM-Plex-Mono : https://github.com/IBM/plex/
-        - PlemolJP : https://github.com/yuru7/PlemolJP
+Monoplex Font Software is licensed under the SIL Open Font License, Version 1.1.
+The build recipe (https://github.com/y-kim/monoplex) and the build tool it drives,
+hapchija (https://github.com/y-kim/hapchija), are licensed under the MIT License.
+
+The fonts carry the copyrights below. Every one of them is licensed under the
+SIL Open Font License, Version 1.1.
+
+- Copyright © 2017 IBM Corp. with Reserved Font Name "Plex"
+  https://github.com/IBM/plex/
+  IBM Plex Mono, IBM Plex Sans KR, IBM Plex Sans JP, IBM Plex Sans TC and
+  IBM Plex Sans SC. Nearly every glyph comes from these.
+
+- Copyright (c) 2021, Yuko Otawara with Reserved Font Name "PlemolJP"
+  https://github.com/yuru7/PlemolJP
+  The half-width box drawing and block glyphs, U+2500-U+259F. These were drawn
+  for PlemolJP; they are not IBM Plex outlines. The .sfd file that holds them
+  (source/AdjustedGlyphs/Box_Drawing_half.sfd) still names IBM Plex Sans JP in
+  its header because it was saved out of a working copy of that font, but the
+  outlines in it are original work.
+
+- Copyright (c) 2014, Ryan L McIntyre (https://ryanlmcintyre.com)
+  https://github.com/ryanoasis/nerd-fonts
+  Nerd Font variants only. Those variants take icon glyphs, and nothing else,
+  from Blex Mono Nerd Font. The icon sets are the work of their own authors and
+  keep their own licenses; the upstream release does not restate them.
+  Pomicons (U+E000-E00A) are not included.
+
+IBM Plex® is a trademark of IBM Corp, registered in many jurisdictions
+worldwide. This notice is carried in the fonts' name table, as OFL FAQ 3.7 asks.
+
+Special thanks to PlemolJP (https://github.com/yuru7/PlemolJP). Monoplex began
+as a fork of its generate script, and this repository's history still starts
+there. hapchija has since been rewritten and carries no PlemolJP code.
 
 ## SIL Open Font License
 
