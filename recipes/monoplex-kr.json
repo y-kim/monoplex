@@ -8,7 +8,7 @@
   "name": "Monoplex KR",
   "output": {
     "familyName": "Monoplex KR",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "copyright": "Copyright (c) 2021, Kim Yangsu with Reserved Font Name \"Monoplex\"\nCopyright © 2017 IBM Corp. with Reserved Font Name \"Plex\"\nCopyright (c) 2021, Yuko Otawara with Reserved Font Name \"PlemolJP\"",
     "license": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL",
     "licenseURL": "http://scripts.sil.org/OFL",
@@ -4099,6 +4099,22 @@
         },
         {
           "op": "compose",
+          "cp": "25fc",
+          "width": "half",
+          "embolden": {
+            "frameOf": "25a1",
+            "scale": 0.2
+          },
+          "parts": [
+            {
+              "cp": "25a0",
+              "scale": 80
+            }
+          ],
+          "$note": "Claude CLI 가 그리는 기호. Plex 계열 어디에도 없어 Monoplex 부품으로 조립한다. ◼ BLACK MEDIUM SQUARE (할 일 목록의 진행 중) 는 짝인 ◻ 와 같은 크기의 ■ — ■ 를 80% 로 줄이고 ◻ 와 같은 만큼 굵혀 바깥 크기를 맞춘다."
+        },
+        {
+          "op": "compose",
           "cp": "26dd",
           "width": "half",
           "parts": [
@@ -4206,6 +4222,49 @@
             }
           ],
           "$note": "Claude CLI 가 그리는 기호. Plex 계열 어디에도 없어 Monoplex 부품으로 조립한다. Codex CLI 도 쓴다 — ☑ BALLOT BOX WITH CHECK (Codex 마크다운 할 일 목록의 끝낸 것) 는 □ 안에 체크 — □ 테두리 두께의 1.8 배."
+        },
+        {
+          "op": "compose",
+          "cp": "2612",
+          "width": "half",
+          "parts": [
+            {
+              "cp": "25a1"
+            },
+            {
+              "line": [
+                [
+                  150,
+                  173
+                ],
+                [
+                  378,
+                  401
+                ]
+              ],
+              "width": {
+                "frameOf": "25a1",
+                "scale": 1.8
+              }
+            },
+            {
+              "line": [
+                [
+                  150,
+                  401
+                ],
+                [
+                  378,
+                  173
+                ]
+              ],
+              "width": {
+                "frameOf": "25a1",
+                "scale": 1.8
+              }
+            }
+          ],
+          "$note": "Claude CLI 가 그리는 기호. Plex 계열 어디에도 없어 Monoplex 부품으로 조립한다. ☒ BALLOT BOX WITH X (여러 개 고르는 질문 · 설정의 켜진 칸, ☐ 의 짝) 는 □ 안에 × — 획은 ☑ 의 체크와 같은 □ 테두리 두께의 1.8 배이고, 끝이 테두리에 닿지 않게 안쪽에 둔다."
         },
         {
           "op": "compose",
