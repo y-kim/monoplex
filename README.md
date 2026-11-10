@@ -113,6 +113,31 @@ IBM Plex Sans KR 최신 버전인 1.003에서 반각 한글 자모가 빠져 이
 Nerd Fonts 글리프 중 Pomicons(U+E000–U+E00A)는 라이선스상 상업적 이용이
 제한되어 포함하지 않았습니다.
 
+# 공백 글자의 너비
+
+Monoplex는 고정폭 글꼴이지만, 유니코드의 공백 문자 가운데 일부는 이름에 맞춰
+한 칸보다 좁게 그렸습니다.
+
+![공백 글자의 너비](images/spaces.png)
+
+- **2칸** — IDEOGRAPHIC SPACE, EM SPACE, EM QUAD
+- **1칸** — SPACE, NO-BREAK SPACE, EN QUAD, EN SPACE, FIGURE SPACE, PUNCTUATION SPACE
+- **2/3칸** — THREE-PER-EM SPACE
+- **1/2칸** — FOUR-PER-EM SPACE, MEDIUM MATHEMATICAL SPACE
+- **1/3칸** — SIX-PER-EM SPACE, THIN SPACE, NARROW NO-BREAK SPACE
+- **1/4칸** — HAIR SPACE
+
+2/3칸 이하의 일곱 자는 조판에서 글자 사이를 조금 띄우려고 쓰는 문자입니다.
+IBM Plex Mono는 이것들도 모두 한 칸으로 그려서, 이를테면 FOUR-PER-EM SPACE가
+이름과 달리 em의 절반이었습니다. Monoplex는 이름의 뜻을 살렸습니다.
+
+- 터미널은 글꼴의 폭을 보지 않고 문자마다 정해진 칸 수로 그리므로, 이 공백들도
+  한 칸을 차지합니다.
+- 편집기처럼 글꼴의 폭을 그대로 쓰는 곳에서는 이 공백이 들어간 줄의 열이
+  어긋납니다. 소스 코드에는 일반 공백(SPACE)을 쓰세요.
+- 같은 공백을 이어 쓰면 칸에 맞습니다. HAIR SPACE 넷, THIN SPACE 셋,
+  FOUR-PER-EM SPACE 둘이 각각 한 칸이고, THREE-PER-EM SPACE 셋이 두 칸입니다.
+
 # 알려진 이슈
 
 ## VS Code에서 커서를 위아래로 움직이면 열이 어긋남
