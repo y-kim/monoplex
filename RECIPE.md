@@ -577,6 +577,6 @@ Monoplex KR Nerd Font  위에 더해
 | Material Design Icons | — | 6,896 | — | 6,896 |
 | Codicons | — | 540 | — | 540 |
 | Devicons | — | 601 | — | 601 |
-| 16스타일 용량 | 45 MB | 81 MB | 184 MB | 220 MB |
+| 16스타일 용량 | 45 MB | 81 MB | 251 MB | 254 MB |
 
 한글 음절 11,172자는 U+AC00–D7A3 전부입니다.
